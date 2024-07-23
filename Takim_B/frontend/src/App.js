@@ -17,12 +17,14 @@ function App() {
           <div className="col-span-3 space-y-4">
             <BarcodeInput />
             <Keypad />
+            <TotalAmount />
+
             <ActionButtons />
+
           </div>
           {/* Ürün Listesi - Orta */}
           <div className="col-span-6 space-y-4">
             <ProductList />
-            <TotalAmount />
           </div>
           {/* Kategori Listesi - Sağ Taraf */}
           <div className="col-span-3">
