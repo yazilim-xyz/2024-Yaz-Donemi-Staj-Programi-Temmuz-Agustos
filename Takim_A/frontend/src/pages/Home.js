@@ -50,7 +50,7 @@ const Home = () => {
 
         <div 
           className="items-center flex justify-around bg-secondary bg-opacity-60 p-6 rounded-lg shadow-lg mx-auto mt-20 max-w-lg hover:bg-bordo hover:scale-105 transition-transform duration-300 cursor-pointer"
-          onClick={handleLogoutClick} // Click olayını ekleyin
+          onClick={handleLogoutClick} 
         >
           <h2 className="text-xl font-semibold mb-4 text-white">Çıkış Yap</h2>
           <div className="text-8xl text-blue-600">

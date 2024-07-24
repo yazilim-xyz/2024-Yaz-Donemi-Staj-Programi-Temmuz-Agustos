@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // useNavigate hook'unu kullanın
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
