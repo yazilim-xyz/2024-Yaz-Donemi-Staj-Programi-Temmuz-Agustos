@@ -11,7 +11,7 @@ module.exports = {
         tertiary: '#007EA7',     // Üçüncül Renk
         quaternary: '#00A8E8',   // Dördüncül Renk
         quinary: '#FFFFFF',      // Beşincil Renk
-      },
+        bordo: '#8A1C1C',      },
     },
   },
   plugins: [],
