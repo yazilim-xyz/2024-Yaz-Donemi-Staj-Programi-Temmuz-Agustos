@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
+import xyzLogo from '../assets/images/png/xyz-logo.png';
+
 
 const LoginPage = ({toggleDarkMode, darkMode}) => {
   const [email, setEmail] = useState('');
@@ -27,9 +29,9 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
         />
       </button>
       <img
-        src="assets/images/png/xyz-logo.png"  
+        src={xyzLogo}  
         alt="Login Logo"
-        className="  object-contain"
+        className="object-contain"
       />
       <form onSubmit={handleLogin} className="p-8 rounded w-full max-w-md ">
         <div className="mb-4 w-full">

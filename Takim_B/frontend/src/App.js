@@ -43,6 +43,7 @@ function MainPage() {
       >
         <img
           src={darkMode ? darkModeIcon : lightModeIcon}
+          alt="Toggle Dark Mode"
           className="object-cover h-full w-full"
         />
       </button>
@@ -51,14 +52,14 @@ function MainPage() {
   };
 
   return (
-    <div className={`absolute w-full h-screen container mx-auto mb-10 ${darkMode ? 'dark-gradient ' : ' light-gradient'}`}>
-      <nav className='fixed flex right-10 space-x-8'>
-      <div className='flex item-center mt-4 user_profile'> 
+    <div className={`w-full h-screen ${darkMode ? 'dark-gradient ' : ' light-gradient'}`}>
+      <nav className='fixed top-1 right-4 flex items-center space-x-4'>
+      <div className='flex item-center user_profile'> 
         <img
         src={user}
         className="w-12 h-12 rounded-full object-cover"
       />
-      <div>
+      <div className='ml-2'>
         <p className="font-semibold">{username}DENEME İSİM</p>
         <p className="text-log_in cursor-pointer" onClick={handleLogout}>Değiştir</p>
       </div></div>
@@ -71,7 +72,7 @@ function MainPage() {
         onClick={handleLogout}
       />
      </div>
-      <div className="mt-24 grid grid-cols-12 gap-4">
+      <div className="pt-24 px-4  grid grid-cols-12 gap-4">
         {/* Barkodla Sepet İşlemleri - Sol Taraf */}
         <div className="col-span-3 space-y-4">
           <BarcodeInput />
