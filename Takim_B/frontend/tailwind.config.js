@@ -18,9 +18,11 @@ module.exports = {
         dark_Background_ctgry: '#002D4ECC', // Özel renk tanımı
         light_Background_ctgr: '#4A4A6A',
         light_Background: 'background: #474766',
-        log_in: '#8B8484',
+        log_out: '#8B8484',
         text_lgn:'#4A4A6A',
         lgn_kyt: '#294DCA',
+        
+      
       },
     },
   },

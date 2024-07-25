@@ -40,6 +40,7 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-Mail adresinizi girin"
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>
@@ -49,6 +50,7 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Şifrenizi girin"
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>

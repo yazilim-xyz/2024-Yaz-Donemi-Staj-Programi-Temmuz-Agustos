@@ -14,10 +14,10 @@ const CategoryList = ({ darkMode }) => {
     <div className={`p-4 w-full rounded-lg  shadow ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
       {/* Default Category List for Larger Screens */}
       <div className={`hidden lg:block`}>
-        <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-dark_Text_ctgry' : 'text-light_Text_ctgry'}`}>Kategoriler</h2>
+        <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>Kategoriler</h2>
         <ul>
           {categories.map((category, index) => (
-            <li key={index} className={`border-b py-2 ${darkMode ? 'text-dark_Text_ctgry' : 'text-light_Text_ctgry'}`}>
+            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>
               {category}
             </li>
           ))}
@@ -27,7 +27,7 @@ const CategoryList = ({ darkMode }) => {
       {/* Menu Layout for Smaller Screens */}
       <Menu as="div" className="lg:hidden relative">
         <Menu.Button
-          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-dark_Background_ctgry text-dark_Text_ctgry' : 'bg-light_Background_ctgry text-light_Text_ctgry'}`}
+          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-dark_Background_ctgry text-lightBackground' : 'bg-light_Background_ctgry text-darkText'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <MenuIcon className="w-6 h-6" />
@@ -39,7 +39,7 @@ const CategoryList = ({ darkMode }) => {
                 {({ active }) => (
                   <a
                     href="#"
-                    className={`block border-b py-2 ${active ? 'bg-primary text-white' : ''} ${darkMode ? 'text-dark_Text_ctgry' : 'text-light_Text_ctgry'}`}
+                    className={`block border-b py-2 ${active ? 'bg-primary text-white' : ''} ${darkMode ? ' text-lightBackground' : 'text-darkText'}`}
                   >
                     {category}
                   </a>

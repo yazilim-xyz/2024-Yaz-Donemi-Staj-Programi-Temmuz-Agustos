@@ -13,8 +13,9 @@ import lightModeIcon from './assets/images/png/light.png';
 import darkModeIcon from './assets/images/png/dark.png';
 import user from './assets/images/png/person.png';
 import username from './pages/LoginPage'
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
+import logout from './assets/images/svg/logout.svg';
 
 function MainPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -26,7 +27,7 @@ function MainPage() {
     // Oturumdan çıkış işlemleri
     // Örneğin, token'ı kaldırmak
     localStorage.removeItem('authToken'); // Örneğin, token'ı yerel depolamadan kaldırmak
-    
+
     // Yönlendirme işlemi
     navigate('/login'); // Login sayfasına yönlendirme
   };
@@ -35,44 +36,45 @@ function MainPage() {
 
   const ToggleButton = () => {
     return (
-     <div>
-      <toggleDarkMode />
-      <button
-        onClick={toggleDarkMode}
-        className=" w-20 m-b-2 h-20 rounded-full bg-transparant flex items-center justify-center overflow-hidden z-50"
-      >
-        <img
-          src={darkMode ? darkModeIcon : lightModeIcon}
-          alt="Toggle Dark Mode"
-          className="object-cover h-full w-full"
-        />
-      </button>
-     </div>
+      <div>
+        <toggleDarkMode />
+        <button
+          onClick={toggleDarkMode}
+          className=" w-20 m-b-2 h-20 rounded-full bg-transparant flex items-center justify-center overflow-hidden z-50"
+        >
+          <img
+            src={darkMode ? darkModeIcon : lightModeIcon}
+            alt="Toggle Dark Mode"
+            className="object-cover h-full w-full"
+          />
+        </button>
+      </div>
     );
   };
 
   return (
     <div className={`w-full h-screen ${darkMode ? 'dark-gradient ' : ' light-gradient'}`}>
       <nav className='fixed top-1 right-4 flex items-center space-x-4'>
-      <div className='flex item-center user_profile'> 
-        <img
-        src={user}
-        className="w-12 h-12 rounded-full object-cover"
-      />
-      <div className='ml-2'>
-        <p className="font-semibold">{username}DENEME İSİM</p>
-        <p className="text-log_in cursor-pointer" onClick={handleLogout}>Değiştir</p>
-      </div></div>
-      <ToggleButton></ToggleButton>
+        <div className='flex item-center user_profile'>
+          <img
+            src={user}
+            className="w-12 h-12 rounded-full object-cover"
+          />
+          <div className='ml-2'>
+            <p className="font-semibold">{username}DENEME İSİM</p>
+            {/* <p className="text-log_out cursor-pointer" onClick={handleLogout}>Değiştir</p> */}
+            <div>
+              <img
+                src={logout}
+                alt='çıkış yap'
+                className='w-7 h-7 rounded-full object-cover'
+                onClick={handleLogout}
+              />
+            </div>
+          </div></div>
+        <ToggleButton></ToggleButton>
       </nav>
-     <div>
-     <img
-        src="images/svg/logout.svg"
-        className="w-10 h-10 rounded-full object-cover"
-        onClick={handleLogout}
-      />
-     </div>
-      <div className="pt-24 px-4  grid grid-cols-12 gap-4">
+      <div className="pt-20 px-4  grid grid-cols-12 gap-4">
         {/* Barkodla Sepet İşlemleri - Sol Taraf */}
         <div className="col-span-3 space-y-4">
           <BarcodeInput />
@@ -100,23 +102,23 @@ function App() {
     setDarkMode(darkMode => !darkMode);
   };
   return (
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<LoginPage 
-          toggleDarkMode={toggleDarkMode} 
-          darkMode={darkMode} 
-          darkModeIcon={darkModeIcon}
-          lightModeIcon={lightModeIcon}
-          />}/>
-          <Route path="/register" element={<RegisterPage
-                    toggleDarkMode={toggleDarkMode} 
-                    darkMode={darkMode} 
-                    darkModeIcon={darkModeIcon}
-                    lightModeIcon={lightModeIcon}
-            />
-          }/>
-          <Route path="/main" element={<MainPage />} />
-        </Routes>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<LoginPage
+        toggleDarkMode={toggleDarkMode}
+        darkMode={darkMode}
+        darkModeIcon={darkModeIcon}
+        lightModeIcon={lightModeIcon}
+      />} />
+      <Route path="/register" element={<RegisterPage
+        toggleDarkMode={toggleDarkMode}
+        darkMode={darkMode}
+        darkModeIcon={darkModeIcon}
+        lightModeIcon={lightModeIcon}
+      />
+      } />
+      <Route path="/main" element={<MainPage />} />
+    </Routes>
   );
 }
 
