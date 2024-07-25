@@ -14,6 +14,7 @@ import darkModeIcon from './assets/images/dark.png';
 import user from './assets/images/person.png';
 import username from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom'; // React Router kullanıyorsanız
+import RegisterPage from './pages/RegisterPage';
 
 function MainPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -29,6 +30,7 @@ function MainPage() {
     // Yönlendirme işlemi
     navigate('/login'); // Login sayfasına yönlendirme
   };
+
   const navigate = useNavigate();
 
   const ToggleButton = () => {
@@ -51,7 +53,8 @@ function MainPage() {
   return (
     <div className={`absolute w-full h-screen container mx-auto mb-10 ${darkMode ? 'dark-gradient ' : ' light-gradient'}`}>
       <nav className='fixed flex right-10 space-x-8'>
-      <div className='flex item-center mt-4 user_profile'> <img
+      <div className='flex item-center mt-4 user_profile'> 
+        <img
         src={user}
         className="w-12 h-12 rounded-full object-cover"
       />
@@ -61,7 +64,13 @@ function MainPage() {
       </div></div>
       <ToggleButton></ToggleButton>
       </nav>
-     
+     <div>
+     <img
+        src="images/svg/logout.svg"
+        className="w-10 h-10 rounded-full object-cover"
+        onClick={handleLogout}
+      />
+     </div>
       <div className="mt-24 grid grid-cols-12 gap-4">
         {/* Barkodla Sepet İşlemleri - Sol Taraf */}
         <div className="col-span-3 space-y-4">
@@ -98,6 +107,13 @@ function App() {
           darkModeIcon={darkModeIcon}
           lightModeIcon={lightModeIcon}
           />}/>
+          <Route path="/register" element={<RegisterPage
+                    toggleDarkMode={toggleDarkMode} 
+                    darkMode={darkMode} 
+                    darkModeIcon={darkModeIcon}
+                    lightModeIcon={lightModeIcon}
+            />
+          }/>
           <Route path="/main" element={<MainPage />} />
         </Routes>
   );

@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ToggleButton from '../App'; 
 import lightModeIcon from '../assets/images/light.png';
 import darkModeIcon from '../assets/images/dark.png';
 
 const LoginPage = ({toggleDarkMode, darkMode}) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Giriş yapma işlemi burada gerçekleştirilecek
-    // Başarılı giriş durumunda ana sayfaya yönlendirme
     navigate('/main');
   };
 
@@ -30,17 +27,17 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
         />
       </button>
       <img
-        src="images/xyz-logo.png"  
+        src="images/png/xyz-logo.png"  
         alt="Login Logo"
-        className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-cover"
+        className="  object-contain"
       />
       <form onSubmit={handleLogin} className="p-8 rounded w-full max-w-md ">
         <div className="mb-4 w-full">
           <label className={`block  text-sm md:text-base mb-2 ${darkMode ? 'text-secondary ' : 'text-text_lgn'}`}>E-Mail</label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>
@@ -60,6 +57,7 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
       <button
           type="submit"
           className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-secondary text-sm md:text-base"
+          onClick={handleLogin}
         >
           Giriş Yap
         </button>
