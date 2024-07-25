@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import lightModeIcon from '../assets/images/light.png';
-import darkModeIcon from '../assets/images/dark.png';
+import lightModeIcon from '../assets/images/png/light.png';
+import darkModeIcon from '../assets/images/png/dark.png';
 
 const LoginPage = ({toggleDarkMode, darkMode}) => {
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ const LoginPage = ({toggleDarkMode, darkMode}) => {
         />
       </button>
       <img
-        src="images/png/xyz-logo.png"  
+        src="assets/images/png/xyz-logo.png"  
         alt="Login Logo"
         className="  object-contain"
       />

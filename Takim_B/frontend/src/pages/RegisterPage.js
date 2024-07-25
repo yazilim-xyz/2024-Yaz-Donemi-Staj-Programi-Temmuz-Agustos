@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import lightModeIcon from '../assets/images/light.png';
-import darkModeIcon from '../assets/images/dark.png';
+import lightModeIcon from '../assets/images/png/light.png';
+import darkModeIcon from '../assets/images/png/dark.png';
 
 const RegisterPage = ({ toggleDarkMode, darkMode }) => {
   const [username, setUsername] = useState('');

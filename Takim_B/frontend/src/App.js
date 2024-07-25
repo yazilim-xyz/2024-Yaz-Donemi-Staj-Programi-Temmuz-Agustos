@@ -9,11 +9,11 @@ import Keypad from './components/KeyPad';
 import CategoryList from './components/CategoryList';
 import ActionButtons from './components/ActionButton';
 import LoginPage from './pages/LoginPage';
-import lightModeIcon from './assets/images/light.png';
-import darkModeIcon from './assets/images/dark.png';
-import user from './assets/images/person.png';
+import lightModeIcon from './assets/images/png/light.png';
+import darkModeIcon from './assets/images/png/dark.png';
+import user from './assets/images/png/person.png';
 import username from './pages/LoginPage'
-import { useNavigate } from 'react-router-dom'; // React Router kullanıyorsanız
+import { useNavigate } from 'react-router-dom'; 
 import RegisterPage from './pages/RegisterPage';
 
 function MainPage() {
