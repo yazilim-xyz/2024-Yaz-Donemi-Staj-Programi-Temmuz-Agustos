@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .dark-gradient {
+      background: linear-gradient(90deg, #1E1E2E 18.9%, #4A4A6A 79.9%);
+      color: black;
+    }
+    .light-gradient {
+        background: linear-gradient(90deg, #ACACBA 18.9%, #FFFFFF 79.9%);
+        color: black;
+      }
+  }

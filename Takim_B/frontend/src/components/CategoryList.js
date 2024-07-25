@@ -5,13 +5,13 @@ const categories = [
   'Glutensiz Ürünler', 'Kahvaltılık Ürünler', 'Sağlık, Bakım', 'Temizlik'
 ];
 
-const CategoryList = () => {
+const CategoryList = (darkMode) => {
   return (
-    <div className="bg-white p-4 rounded shadow">
-      <h2 className="text-xl font-bold mb-4">Kategoriler</h2>
+    <div className={`p-4 w-auto rounded-egik mr-5 shadow ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
+      <h2 className="text-xl text-white font-bold mb-4 uppercase">Kategoriler</h2>
       <ul>
         {categories.map((category, index) => (
-          <li key={index} className="border-b py-2">
+          <li key={index} className="border-b py-2 text-white">
             {category}
           </li>
         ))}
