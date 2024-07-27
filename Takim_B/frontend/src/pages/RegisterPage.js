@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
+import xyzLogo from '../assets/images/png/xyz-logo.png';
 
 const RegisterPage = ({ toggleDarkMode, darkMode }) => {
   const [username, setUsername] = useState('');
@@ -12,8 +13,6 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Kayıt yapma işlemi burada gerçekleştirilecek
-    // Başarılı kayıt durumunda giriş sayfasına yönlendirme
     navigate('/login');
   };
 
@@ -30,7 +29,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
         />
       </button>
       <img
-        src="images/png/xyz-logo.png"
+        src={xyzLogo}
         alt="Register Logo"
         className="object-contain mb-8"
       />
@@ -40,6 +39,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           <input
             type="text"
             value={username}
+            placeholder="Kullanıcı adınızı girin"
             onChange={(e) => setUsername(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
@@ -49,6 +49,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           <input
             type="email"
             value={email}
+            placeholder="E-Mail adresinizi girin"
             onChange={(e) => setEmail(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
@@ -58,6 +59,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           <input
             type="password"
             value={password}
+            placeholder="Şifrenizi girin"
             onChange={(e) => setPassword(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
@@ -67,6 +69,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           <input
             type="password"
             value={confirmPassword}
+            placeholder="Şifrenizi tekrar girin"
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
