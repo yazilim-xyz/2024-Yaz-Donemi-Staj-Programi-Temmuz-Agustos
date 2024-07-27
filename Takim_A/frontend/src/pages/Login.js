@@ -1,63 +1,85 @@
-import React from "react";
-import { useState  } from "react";
-import { useNavigate } from "react-router-dom";
-
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'; // Doğru yol
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Kullanıcı adı ve şifre ile yapılacak işlemler burada
-    console.log('Kullanıcı Adı:', username);
-    console.log('Şifre:', password);
-    // Giriş yapma işlemleri, API çağrıları vs.
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    // Başarılı giriş işleminden sonra Home bileşenine yönlendirin
-    navigate('/Home');
+  const handleLogin = async () => {
+    try {
+      // Firebase ile kimlik doğrulama işlemi
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Giriş başarılı:", userCredential.user);
+
+      // Başarıyla giriş yapıldığında yönlendirme
+      navigate('/home');
+    } catch (error) {
+      console.error("Giriş hatası:", error);
+      alert("Giriş başarısız. Lütfen bilgilerinizi kontrol edin ve tekrar deneyin.");
+    }
   };
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url(https://i.pinimg.com/originals/ef/37/81/ef37815019ae52354c7c5772f4e886d6.png)' }}>
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="bg-primary bg-opacity-60 p-12 rounded-lg shadow-lg w-full max-w-lg">
-          <h2 className="text-3xl font-bold mb-6 text-center text-white">Giriş Yap</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label htmlFor="username" className="block text-white text-lg font-semibold mb-2">Kullanıcı Adı</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Kullanıcı Adınızı Girin"
-                className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:border-secondary"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+      <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: 'url(https://i.pinimg.com/originals/ef/37/81/ef37815019ae52354c7c5772f4e886d6.png)' }}>
+        <div className="flex items-center justify-center h-full">
+          <div className="w-4/5 h-4/5 bg-secondary bg-opacity-50 text-white shadow-lg rounded-lg flex">
+            <div className="w-1/2 p-8 flex flex-col items-center bg-opacity-80 justify-between bg-primary text-white relative">
+              <div className="flex flex-col items-center justify-center flex-grow">
+                <h1 className="text-5xl font-bold mb-4">WorkChat</h1>
+                <p className="text-lg mb-8 text-center">İş yerinizde kolay ve hızlı iletişim kurun.</p>
+              </div>
+              <div className="flex justify-between w-full absolute bottom-8 px-8">
+                <a href="/about" className="text-white text-lg hover:underline">Hakkımızda</a>
+                <a href="/contact" className="text-white text-lg hover:underline">İletişim</a>
+              </div>
             </div>
-            <div className="mb-6">
-              <label htmlFor="password" className="block text-white text-lg font-semibold mb-2">Şifre</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Şifrenizi Girin"
-                className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:border-secondary"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+
+            <div className="w-1/2 p-8 flex items-center justify-center">
+              <div className="w-full max-w-md">
+                <h2 className="text-2xl font-bold mb-6 text-center">Giriş Yap</h2>
+                <div className="mb-4">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
+                    E-posta
+                  </label>
+                  <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="E-posta adresinizi girin"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
+                    Şifre
+                  </label>
+                  <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Şifrenizi girin"
+                  />
+                </div>
+                <div className="flex items-center justify-center">
+                  <button
+                      onClick={handleLogin}
+                      className="bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-white hover:text-primary hover:bg-opacity-70 transition-transform duration-300 transform hover:scale-105"
+                  >
+                    Giriş Yap
+                  </button>
+                </div>
+              </div>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-quaternary text-white py-3 px-6 rounded-lg hover:bg-tertiary focus:outline-none focus:bg-quinary"
-            >
-              Giriş Yap
-            </button>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
