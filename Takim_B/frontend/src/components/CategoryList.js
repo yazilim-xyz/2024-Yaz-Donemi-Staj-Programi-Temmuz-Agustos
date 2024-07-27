@@ -11,9 +11,9 @@ const CategoryList = ({ darkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className={`p-4 w-full rounded-lg  shadow ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
+    <div>
       {/* Default Category List for Larger Screens */}
-      <div className={`hidden lg:block`}>
+      <div className={`p-4 w-full rounded-lg  shadow hidden lg:block ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
         <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>Kategoriler</h2>
         <ul>
           {categories.map((category, index) => (

@@ -9,8 +9,8 @@ import Keypad from './components/KeyPad';
 import CategoryList from './components/CategoryList';
 import ActionButtons from './components/ActionButton';
 import LoginPage from './pages/LoginPage';
-import lightModeIcon from './assets/images/png/light.png';
-import darkModeIcon from './assets/images/png/dark.png';
+import lightModeIcon from './assets/images/svg/light_mod.svg';
+import darkModeIcon from './assets/images/svg/dark_mod.svg';
 import user from './assets/images/png/person.png';
 import username from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom';
