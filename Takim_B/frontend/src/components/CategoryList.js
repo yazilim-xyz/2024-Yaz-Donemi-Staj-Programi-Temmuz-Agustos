@@ -17,7 +17,7 @@ const CategoryList = ({ darkMode }) => {
         <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>Kategoriler</h2>
         <ul>
           {categories.map((category, index) => (
-            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>
+            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-darkText' }`}>
               {category}
             </li>
           ))}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductByBarcode } from '../features/products/productSlice';
+import KeyPad from './KeyPad'; 
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
@@ -10,6 +11,13 @@ const BarcodeInput = () => {
     e.preventDefault();
     dispatch(addProductByBarcode(barcode));
     setBarcode('');
+  };
+  const handleKeyClick = (key) => {
+    if (key === 'C') {
+      setBarcode('');
+    } else {
+      setBarcode((prevBarcode) => prevBarcode + key);
+    }
   };
 
   return (
@@ -29,6 +37,7 @@ const BarcodeInput = () => {
           Add Product
         </button>
       </form>
+      <KeyPad onKeyClick={handleKeyClick} />
     </div>
   );
 };

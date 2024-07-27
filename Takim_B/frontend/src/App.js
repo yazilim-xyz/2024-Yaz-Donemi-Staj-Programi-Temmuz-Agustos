@@ -9,8 +9,8 @@ import Keypad from './components/KeyPad';
 import CategoryList from './components/CategoryList';
 import ActionButtons from './components/ActionButton';
 import LoginPage from './pages/LoginPage';
-import lightModeIcon from './assets/images/svg/light_mod.svg';
-import darkModeIcon from './assets/images/svg/dark_mod.svg';
+import lightModeIcon from './assets/images/png/light.png';
+import darkModeIcon from './assets/images/png/dark.png';
 import user from './assets/images/png/person.png';
 import username from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ function MainPage() {
     return (
       <button
         onClick={toggleDarkMode}
-        className="w-14 h-14 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50"
+        className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50"
       >
         <img
           src={darkMode ? darkModeIcon : lightModeIcon}
@@ -69,10 +69,11 @@ function MainPage() {
       </nav>
       <div className="pt-20 px-4 grid grid-cols-12 gap-4">
         <div className="col-span-3 space-y-4">
+          <div className=''>
           <TotalAmount />
-          <BarcodeInput />
-          <Keypad />
           <ActionButtons />
+          <BarcodeInput />
+          </div>
         </div>
         <div className="col-span-6 space-y-4">
           <ProductList />
