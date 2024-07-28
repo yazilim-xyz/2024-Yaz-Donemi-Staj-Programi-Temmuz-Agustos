@@ -12,8 +12,11 @@ const productSlice = createSlice({
     addItem: (state, action) => {
       state.items.push(action.payload);
     },
+    // removeItem: (state, action) => {
+    //   state.items = state.items.filter(item => item.id !== action.payload.id);
+    // },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload.id);
+      state.items = state.items.filter(item => item.id !== action.payload);
     },
     reset: (state) => {
       state.items = [];

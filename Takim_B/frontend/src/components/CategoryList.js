@@ -13,11 +13,11 @@ const CategoryList = ({ darkMode }) => {
   return (
     <div>
       {/* Default Category List for Larger Screens */}
-      <div className={`p-4 w-full rounded-lg  shadow hidden lg:block ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
-        <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-darkText'  }`}>Kategoriler</h2>
+      <div className={`p-4 w-full rounded-3xl  shadow hidden lg:block ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_div'}`}>
+        <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-lightBackground'  }`}>Kategoriler</h2>
         <ul>
           {categories.map((category, index) => (
-            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-darkText' }`}>
+            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-lightBackground' }`}>
               {category}
             </li>
           ))}

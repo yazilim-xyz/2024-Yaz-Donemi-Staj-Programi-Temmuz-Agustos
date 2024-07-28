@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductByBarcode } from '../features/products/productSlice';
 import KeyPad from './KeyPad'; 
+import { FaBarcode } from 'react-icons/fa'; 
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
@@ -21,23 +22,25 @@ const BarcodeInput = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow">
-      <form onSubmit={handleSubmit}>
+    <div className="p-4 shadow">
+      <form onSubmit={handleSubmit} className='flex items-center space-x-2 flex-grow'>
         <input
           type="text"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Enter barcode"
-          className="border p-2 rounded w-full"
+          placeholder="Barcode"
+          className="border p-2 rounded-r-3xl rounded-l-3xl py-4 m-3 flex-grow"
         />
         <button
           type="submit"
-          className="mt-2 bg-blue-500 text-white p-2 rounded w-full"
+          className="mt-2 font-bold p-2 rounded-lg"
         >
-          Add Product
+          {/* Add Product */}
+          <FaBarcode className="ml-2 text-3xl" /> 
+          Barcode
         </button>
       </form>
-      <KeyPad onKeyClick={handleKeyClick} />
+      <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>
     </div>
   );
 };

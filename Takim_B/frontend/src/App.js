@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import store from './app/store';
 import ProductList from './components/ProductList';
 import TotalAmount from './components/TotalAmount';
 import BarcodeInput from './components/BarcodeInput';
-import Keypad from './components/KeyPad';
 import CategoryList from './components/CategoryList';
 import ActionButtons from './components/ActionButton';
 import LoginPage from './pages/LoginPage';
@@ -16,6 +13,7 @@ import username from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
 import logout from './assets/images/svg/logout.svg';
+import CardPage from './components/CardPage';
 
 function MainPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -68,15 +66,21 @@ function MainPage() {
         </div>
       </nav>
       <div className="pt-20 px-4 grid grid-cols-12 gap-4">
-        <div className="col-span-3 space-y-4">
-          <div className=''>
-          <TotalAmount />
-          <ActionButtons />
-          <BarcodeInput />
+        <div className="col-span-3 space-y-4 ">
+          <div className={`rounded-t-3xl ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_div'}`}>
+            <div className="bg-white p-4 rounded-3xl shadow-lg">
+              <CardPage />
+              <div className="flex items-center space-x-4 mt-4">
+                <ActionButtons />
+                <TotalAmount />
+              </div>
+            </div>
+            <BarcodeInput />
           </div>
         </div>
         <div className="col-span-6 space-y-4">
           <ProductList />
+
         </div>
         <div className="col-span-3">
           <CategoryList darkMode={darkMode} />
