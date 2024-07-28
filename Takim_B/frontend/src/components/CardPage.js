@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectProducts, removeItem } from '../features/products/productSlice';
 import remove from '../assets/images/png/remove.png'
-import { FaUndo } from 'react-icons/fa'; // FontAwesome ikonu örnek olarak kullanıldı
+import { FaUndo } from 'react-icons/fa'; 
 const CardPage = () => {
 
     const products = useSelector(selectProducts);
@@ -14,7 +14,7 @@ const CardPage = () => {
 
     return (
         <div className="">
-            <h2 className="text-xl font-bold mb-4">Card</h2>
+            <h2 className="text-xl font-bold mb-4">Sepet</h2>
             <div className="max-h-56 overflow-y-auto">
                 <ul>
                     {products.map((product) => (

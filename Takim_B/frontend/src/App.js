@@ -79,7 +79,7 @@ function MainPage() {
           </div>
         </div>
         <div className="col-span-6 space-y-4">
-          <ProductList />
+          <ProductList darkMode={darkMode}/>
 
         </div>
         <div className="col-span-3">

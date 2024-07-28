@@ -28,7 +28,7 @@ const BarcodeInput = () => {
           type="text"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Barcode"
+          placeholder="Barkod"
           className="border p-2 rounded-r-3xl rounded-l-3xl py-4 m-3 flex-grow"
         />
         <button
@@ -37,7 +37,7 @@ const BarcodeInput = () => {
         >
           {/* Add Product */}
           <FaBarcode className="ml-2 text-3xl" /> 
-          Barcode
+          Barkod
         </button>
       </form>
       <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>
