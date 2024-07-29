@@ -49,7 +49,7 @@ function MainPage() {
         <div className='flex items-center'>
           <img
             src={user}
-            className="w-12 h-12 rounded-full object-cover border-2 border-black"
+            className={`w-12 h-12 rounded-full object-cover border-2 border-black ${darkMode ? 'filter invert' : ''}`}
           />
           <div className={`ml-2 ${darkMode ? 'text-white' : ''}`}>
             <p className="font-semibold">DENEME İSİM</p>
@@ -68,9 +68,9 @@ function MainPage() {
       <div className="pt-20 px-4 grid grid-cols-12 gap-4">
         <div className="col-span-3 space-y-4 ">
           <div className={`rounded-t-3xl ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_div'}`}>
-            <div className="bg-white p-4 rounded-3xl shadow-lg">
+            <div className="bg-white p-4 rounded-3xl shadow-lg flex flex-col space-y-4">
               <CardPage />
-              <div className="flex items-center space-x-4 mt-4">
+              <div className="flex flex-wrap items-center space-x-2 mt-2">
                 <ActionButtons />
                 <TotalAmount />
               </div>

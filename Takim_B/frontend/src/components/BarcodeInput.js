@@ -22,14 +22,14 @@ const BarcodeInput = () => {
   };
 
   return (
-    <div className="p-4 shadow">
-      <form onSubmit={handleSubmit} className='flex items-center space-x-2 flex-grow'>
+    <div className="p-2 shadow">
+      <form onSubmit={handleSubmit} className='flex items-center flex-wrap space-x-2 flex-grow'>
         <input
           type="text"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Barkod"
-          className="border p-2 rounded-r-3xl rounded-l-3xl py-4 m-3 flex-grow"
+          placeholder="Barcode"
+          className="border p-2 rounded-r-3xl rounded-l-3xl py-2 m-2 flex-grow min-w-0"
         />
         <button
           type="submit"
@@ -37,7 +37,7 @@ const BarcodeInput = () => {
         >
           {/* Add Product */}
           <FaBarcode className="ml-2 text-3xl" /> 
-          Barkod
+          Barcode
         </button>
       </form>
       <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>

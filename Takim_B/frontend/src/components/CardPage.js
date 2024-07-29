@@ -15,7 +15,7 @@ const CardPage = () => {
     return (
         <div className="">
             <h2 className="text-xl font-bold mb-4">Sepet</h2>
-            <div className="max-h-56 overflow-y-auto">
+            <div className="max-h-44  overflow-y-auto">
                 <ul>
                     {products.map((product) => (
                         <li key={product.id} className="border-b py-2 justify-between items-center flex">
@@ -40,3 +40,4 @@ const CardPage = () => {
 }
 
 export default CardPage
+
