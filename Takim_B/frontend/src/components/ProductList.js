@@ -29,12 +29,12 @@ const ProductList = ({category, darkMode }) => {
 
   return (
     <div className={`p-4 rounded shadow max-h-[calc(100vh-8rem)] overflow-y-auto ${darkMode ? 'bg-primary' : 'bg-white'}`}>
-      <h2 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-black'}`}>Kategoriler</h2>
+      <h2 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler &gt; {category}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {products.map((product, index) => (
-          <div key={index} className={`border p-4 rounded shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-primary text-white'}`}>
-            <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-2 rounded" />
-            <h3 className="font-semibold">{product.name}</h3>
+        {selectedProducts.map(product => (
+          <div key={product.id} className={`border p-4 rounded shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-primary text-white'}`}>
+          <div className="w-full h-40 bg-gray-200"></div>
+          <h3 className="font-semibold">{product.name}</h3>
             <p>${product.price}</p>
           </div>
         ))}
