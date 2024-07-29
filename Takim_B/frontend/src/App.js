@@ -9,7 +9,6 @@ import LoginPage from './pages/LoginPage';
 import lightModeIcon from './assets/images/png/light.png';
 import darkModeIcon from './assets/images/png/dark.png';
 import user from './assets/images/png/person.png';
-import username from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage';
 import logout from './assets/images/svg/logout.svg';
@@ -17,6 +16,7 @@ import CardPage from './components/CardPage';
 
 function MainPage() {
   const [darkMode, setDarkMode] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
 
   const toggleDarkMode = () => {
@@ -77,13 +77,12 @@ function MainPage() {
             </div>
             <BarcodeInput />
           </div>
-        </div>
+          </div>
         <div className="col-span-6 space-y-4">
-          <ProductList darkMode={darkMode}/>
-
+          <ProductList category={selectedCategory} darkMode={darkMode} />
         </div>
         <div className="col-span-3">
-          <CategoryList darkMode={darkMode} />
+          <CategoryList setSelectedCategory={setSelectedCategory} darkMode={darkMode} />
         </div>
       </div>
     </div>
@@ -113,6 +112,8 @@ function App() {
       />
       } />
       <Route path="/main" element={<MainPage />} />
+      <Route path="/categories" element={<CategoryList darkMode={darkMode} />} />
+      <Route path="/categories/:categoryName" element={<ProductList darkMode={darkMode} />} />
     </Routes>
   );
 }
