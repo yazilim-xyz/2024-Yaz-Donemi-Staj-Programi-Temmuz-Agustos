@@ -7,8 +7,9 @@ const categories = [
   'Glutensiz Ürünler', 'Kahvaltılık Ürünler', 'Sağlık, Bakım', 'Temizlik'
 ];
 
-const CategoryList = ({ darkMode }) => {
+const CategoryList = ({setSelectedCategory, darkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
 
   return (
     <div>
@@ -16,9 +17,11 @@ const CategoryList = ({ darkMode }) => {
       <div className={`p-4 w-full rounded-3xl  shadow hidden lg:block ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_div'}`}>
         <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-lightBackground'  }`}>Kategoriler</h2>
         <ul>
-          {categories.map((category, index) => (
-            <li key={index} className={`border-b py-2 ${darkMode ? 'text-lightBackground':'text-lightBackground' }`}>
-              {category}
+        {categories.map((category, index) => (
+            <li key={index} className="border-b py-2">
+              <button onClick={() => setSelectedCategory(category)} className={`${darkMode ? 'text-white' : 'text-black'}`}>
+                {category}
+              </button>
             </li>
           ))}
         </ul>
@@ -37,12 +40,9 @@ const CategoryList = ({ darkMode }) => {
             {categories.map((category, index) => (
               <Menu.Item key={index}>
                 {({ active }) => (
-                  <a
-                    href="#"
-                    className={`block border-b py-2 ${active ? 'bg-primary text-white' : ''} ${darkMode ? ' text-lightBackground' : 'text-darkText'}`}
-                  >
-                    {category}
-                  </a>
+                  <button onClick={() => setSelectedCategory(category)} className={`block border-b py-2 ${active ? 'bg-primary text-white' : ''}`}>
+                  {category}
+                </button>
                 )}
               </Menu.Item>
             ))}
