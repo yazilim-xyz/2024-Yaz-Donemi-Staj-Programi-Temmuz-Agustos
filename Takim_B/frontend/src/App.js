@@ -66,18 +66,18 @@ function MainPage() {
         </div>
       </nav>
       <div className="pt-20 px-4 grid grid-cols-12 gap-4">
-        <div className="col-span-3 space-y-4 ">
+        <div className="col-span-3 space-y-4">
           <div className={`rounded-t-3xl ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_div'}`}>
             <div className="bg-white p-4 rounded-3xl shadow-lg flex flex-col space-y-4">
               <CardPage />
-              <div className="flex flex-wrap items-center space-x-2 mt-2">
+              <div className="flex flex-wrap items-center space-x-2 mt-4 sm:w-auto">
                 <ActionButtons />
                 <TotalAmount />
               </div>
             </div>
             <BarcodeInput />
           </div>
-          </div>
+        </div>
         <div className="col-span-6 space-y-4">
           <ProductList category={selectedCategory} darkMode={darkMode} />
         </div>

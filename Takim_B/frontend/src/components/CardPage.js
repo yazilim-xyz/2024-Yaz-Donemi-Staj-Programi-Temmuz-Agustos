@@ -13,28 +13,28 @@ const CardPage = () => {
     };
 
     return (
-        <div className="">
-            <h2 className="text-xl font-bold mb-4">Sepet</h2>
-            <div className="max-h-44  overflow-y-auto">
-                <ul>
-                    {products.map((product) => (
-                        <li key={product.id} className="border-b py-2 justify-between items-center flex">
-                            {product.name} - ${product.price}
-                            <button
-                                onClick={() => handleReturn(product.id)}
-                                className="bg-primary py-1 shadow-lg text-white p-1 rounded-l-2xl rounded-r-2xl flex items-center justify-between ml-4"
-                            >
-                                iade
-                                <img className="ml-2" src={remove}
-                                ></img>
+        <div className="h-10 md:h-44 sm:h-20">
+        <h2 className="text-xl font-bold mb-1">Sepet</h2>
+        <div className="max-h-28 sm:max-h-32 md:max-h-36 overflow-y-auto ">
+            <ul>
+                {products.map((product) => (
+                    <li key={product.id} className="border-b py-2 justify-between items-center flex flex-wrap ">
+                        <span className="w-full sm:w-auto">{product.name} - ${product.price}</span>
+                        <button
+                            onClick={() => handleReturn(product.id)}
+                            className="py-1 px-1 sm:px-2 md:px-3 bg-primary shadow-lg text-white p-1 rounded-l-2xl rounded-r-2xl flex items-center ml-0 sm:ml-4 mt-2 sm:mt-0 w-full sm:w-auto justify-center"
+                        >
+                            iade
+                            <img className="ml-2 w-4 h-4 sm:w-auto sm:h-auto" src={remove}
+                            ></img>
 
-                            </button>
-                        </li>
+                        </button>
+                    </li>
 
-                    ))}
-                </ul>
-            </div>
+                ))}
+            </ul>
         </div>
+    </div> 
     );
 
 }

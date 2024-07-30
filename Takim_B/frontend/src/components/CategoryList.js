@@ -19,7 +19,7 @@ const CategoryList = ({setSelectedCategory, darkMode }) => {
         <ul>
         {categories.map((category, index) => (
             <li key={index} className="border-b py-2">
-              <button onClick={() => setSelectedCategory(category)} className={`${darkMode ? 'text-white' : 'text-black'}`}>
+              <button onClick={() => setSelectedCategory(category)} className={`${darkMode ? 'text-white' : 'text-white'}`}>
                 {category}
               </button>
             </li>
