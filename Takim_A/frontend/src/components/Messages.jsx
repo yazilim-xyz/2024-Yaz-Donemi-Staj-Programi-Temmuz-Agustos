@@ -1,16 +1,20 @@
-import React from 'react'
+import React from 'react';
 import Message from './Message';
-const Messages = () => {
+
+const Messages = ({ messages }) => {
   return (
-    <div  style={{ height: 'calc(100% - 96px)' }} className='messages overflow-scroll bg-[#ddddf7] p-2.5 '>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
+    <div style={{ height: 'calc(100% - 96px)' }} className='messages overflow-scroll bg-[#ddddf7] p-2.5'>
+      {messages.map((msg, index) => (
+        <Message
+          key={index}
+          text={msg.text}
+          sender={msg.sender}
+          time={msg.time}
+          isCurrentUser={msg.isCurrentUser}
+        />
+      ))}
     </div>
-  )
+  );
 }
 
-export default Messages
+export default Messages;

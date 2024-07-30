@@ -1,30 +1,37 @@
-import React from 'react';
-import { FaSearch, FaUserPlus } from 'react-icons/fa'; // react-icons'dan ikonları ekleyelim
-import { BsThreeDots } from "react-icons/bs";
+import React, { useState } from 'react';
 import Messages from './Messages';
 import Input from './Input';
 
-
 const Chatting = () => {
+  const [messages, setMessages] = useState([]);
+
+  // Mesaj gönderme işlevi
+  const handleSendMessage = (newMessage) => {
+    setMessages([
+      ...messages,
+      {
+        text: newMessage,
+        sender: {
+          profilePic: 'https://pbs.twimg.com/profile_images/1235250851876352002/zXuZlI2k_400x400.jpg', // Profil fotoğrafı yolu
+        },
+        time: new Date(),
+        isCurrentUser: true, // Mesajı gönderen kullanıcı
+      }
+    ]);
+  };
+
   return (
-    <div className="flex-[2]">
-      <div className='chatInfo h-12 items-center flex bg-[#5d5b8d] p-2.5 text-slate-100 justify-between'>
-          <span>Jane</span>
-          <div className="chatIcaons flex  items-center gap-2  ">
-            <FaUserPlus
-            style={{height:"40px", width:"25px", gap:'10px',display:'flex'}}
-            className='cursor-pointer hover:text-gray-300 transition duration-300'
-            />
-            <BsThreeDots
-            style={{height:"40px", width:"25px",gap:'10px',display:'flex'}}
-            className='cursor-pointer hover:text-gray-300 transition duration-300'
-            />
-            <img src="" alt="" /> 
+    <div className="flex-[2] flex flex-col">
+      <div className='chatInfo h-12 flex items-center bg-[#5d5b8d] p-2.5 text-slate-100 justify-between'>
+        <span>Jane</span>
+        <div className="chatIcons flex items-center gap-2">
+          {/* İkonlar */}
         </div>
       </div>
-      <Messages/>
-      <Input/>
+      <Messages messages={messages} />
+      <Input onSend={handleSendMessage} />
     </div>
   )
 }
+
 export default Chatting;

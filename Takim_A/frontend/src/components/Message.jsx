@@ -1,19 +1,41 @@
 import React from 'react';
-import './Message.css';
 
-const Message = () => {
+const Message = ({ text, sender, time, isCurrentUser }) => {
+  const formatTime = (date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
   return (
-    <div className='message owner flex gap-5 mb-5'>
-      <div className="messageInfo flex-col text-gray-600 font-light">
-        <img src="https://pbs.twimg.com/profile_images/1235250851876352002/zXuZlI2k_400x400.jpg" alt=""  className='w-10 h-10 rounded-full object-cover'/>
-        <span>Just now</span>
+    <div className={`flex items-start gap-3 mb-3 ${isCurrentUser ? 'justify-end' : 'justify-start'}`}>
+      {!isCurrentUser && (
+        <img
+          src={sender.profilePic}
+          alt="Profile"
+          className="w-10 h-10 rounded-full object-cover"
+        />
+      )}
+      <div className={`flex flex-col ${isCurrentUser ? 'items-end' : 'items-start'}`}>
+        <div
+          className={`p-2.5 rounded-lg max-w-xs ${isCurrentUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+        >
+          <p>{text}</p>
+        </div>
+        <span className="text-xs text-gray-500 mt-1">{formatTime(time)}</span>
       </div>
-      <div className="messageContent max-w-[50%]  flex flex-col gap-2.5 ">
-        <p style={{maxWidth:'max-content'}} className='bg-white p-2.5 rounded-tl-[0px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px] bg-[#8da4f1] max-w-md'>Hello</p>
-        { <img src="https://pbs.twimg.com/profile_images/1235250851876352002/zXuZlI2k_400x400.jpg" alt="" className='w-10  h-10 rounded-full object-cover rounded-full'/> }
-      </div>
+      {isCurrentUser && (
+        <img
+          src={sender.profilePic}
+          alt="Profile"
+          className="w-10 h-10 rounded-full object-cover"
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Message
+export default Message;

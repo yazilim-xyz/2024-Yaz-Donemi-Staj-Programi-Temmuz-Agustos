@@ -43,7 +43,7 @@ const Login = () => {
                 <h2 className="text-2xl font-bold mb-6 text-center">Giriş Yap</h2>
                 <div className="mb-4">
                   <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
-                    E-posta
+                    Kullanıcı Adı
                   </label>
                   <input
                       type="email"
@@ -51,7 +51,7 @@ const Login = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="E-posta adresinizi girin"
+                      placeholder="Kullanıcı adınızı giriniz"
                   />
                 </div>
                 <div className="mb-6">
