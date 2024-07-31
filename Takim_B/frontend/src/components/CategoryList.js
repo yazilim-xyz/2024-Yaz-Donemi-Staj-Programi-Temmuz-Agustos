@@ -4,7 +4,7 @@ import { ReactComponent as MenuIcon } from '../assets/images/svg/menu.svg';
 
 const categories = [
   'Meyve, Sebze', 'Et, Şarküteri', 'Atıştırmalık', 'Kuruyemiş', 'İçecekler',
-  'Glutensiz Ürünler', 'Kahvaltılık Ürünler', 'Sağlık, Bakım', 'Temizlik'
+  'Glutensiz Ürünler', 'Kahvaltılık Ürünler', 'Sağlık,Bakım', 'Temizlik'
 ];
 
 const CategoryList = ({setSelectedCategory, darkMode }) => {

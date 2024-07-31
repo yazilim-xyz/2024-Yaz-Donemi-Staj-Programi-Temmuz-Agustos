@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaFileImage } from "react-icons/fa";
 import { IoMdAttach } from "react-icons/io";
+import { MdEmojiEmotions } from "react-icons/md";
+
 
 const Input = ({ onSend }) => {
   const [message, setMessage] = useState('');
@@ -18,10 +20,11 @@ const Input = ({ onSend }) => {
         type="text" 
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder='Bir mesaj yazın' 
+        placeholder='Mesajınızı buraya yazınız.'
         className='flex-1 bg-gray-100 border border-gray-300 rounded-lg p-2 text-gray-700 outline-none'
       />
       <div className='flex items-center gap-2'>
+        <MdEmojiEmotions className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl'/>
         <IoMdAttach className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl' />
         <input 
           type="file" 

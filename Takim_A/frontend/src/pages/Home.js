@@ -22,7 +22,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <Link to="/messages" className="hover:scale-105 transition-transform duration-300">
             <div className="bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300">
-              <div className="text-7xl mt-12 text-blue-600">
+              <div className="text-7xl mt-12 text-white">
                 <BsFillChatSquareTextFill />
               </div>
               <h2 className="text-xl font-semibold mt-5 text-white">Mesajlar</h2>
@@ -31,7 +31,7 @@ const Home = () => {
 
           <Link to="/groups" className="hover:scale-105 transition-transform duration-300">
             <div className="bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300">
-              <div className="text-8xl mt-7 text-blue-600">
+              <div className="text-8xl mt-7 text-white">
                 <MdGroups />
               </div>
               <h2 className="text-xl font-semibold mt-2 text-white">Gruplar</h2>
@@ -40,7 +40,7 @@ const Home = () => {
 
           <Link to="/settings" className="hover:scale-105 transition-transform duration-300">
             <div className="bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300">
-              <div className="text-8xl mt-7 text-blue-600">
+              <div className="text-8xl mt-7 text-white">
                 <IoMdSettings />
               </div>
               <h2 className="text-xl font-semibold text-white">Ayarlar</h2>
@@ -53,7 +53,7 @@ const Home = () => {
           onClick={handleLogoutClick} 
         >
           <h2 className="text-xl font-semibold mb-4 text-white">Çıkış Yap</h2>
-          <div className="text-8xl text-blue-600">
+          <div className="text-8xl text-white">
             <IoExitOutline />
           </div>
         </div>
