@@ -1,7 +1,7 @@
-// src/pages/RegisterPage.js
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../service/AuthContext';
+import {createUserWithEmailAndPassword} from "firebase/auth"
+import {auth} from "../service/firebase"
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -11,21 +11,27 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  
+
+  const handleRegister = useCallback(
+    (e) =>{
     e.preventDefault();
-    if (password !== confirmPassword) {
-      return alert("Passwords do not match");
+
+    if(!email || !password){
+      return;
     }
-    try {
-      await register(email, password);
-      navigate('/login');
-    } catch (error) {
-      console.error("Failed to register:", error);
-    }
-  };
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert('Kayıt Başarılı')
+      navigate("/login")
+    })
+    .catch(e => {
+      console.log(e);
+    }) 
+  }, [email, password])
 
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-darkBackground to-primary p-4 ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
@@ -88,8 +94,8 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
         <div className="flex justify-center w-full">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-secondary text-sm md:text-base"
-          >
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
+            onClick={handleRegister}>
             Kayıt Oluştur
           </button>
         </div>
@@ -99,5 +105,3 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
 };
 
 export default RegisterPage;
-
-

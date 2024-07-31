@@ -11,7 +11,7 @@ import user from '../assets/images/png/person.png';
 import logout from '../assets/images/svg/logout.svg';
 import CardPage from '../components/CardPage';
 
-function MainPage({ toggleDarkMode, darkMode }) { // Burada props eklenmiş
+function MainPage({ toggleDarkMode, darkMode }) { 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
 

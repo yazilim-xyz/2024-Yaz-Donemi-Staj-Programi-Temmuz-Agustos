@@ -14,8 +14,9 @@ module.exports = {
         secondary: '#ACACBA',
         lightBackground: '#FFFFFF',
         button: '#37A849',
+        buttonHover: '#267533',
         darkText: '000000',
-        dark_Background_ctgry: '#002D4ECC', // Özel renk tanımı
+        dark_Background_ctgry: '#002D4ECC', 
         light_Background_ctgr: '#4A4A6A',
         light_Background: 'background: #474766',
         light_div: '#335771',
