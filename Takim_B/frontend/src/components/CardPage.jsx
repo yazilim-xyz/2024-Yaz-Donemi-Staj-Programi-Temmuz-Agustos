@@ -13,7 +13,7 @@ const CardPage = () => {
     };
 
     return (
-        <div className="h-10 md:h-44 sm:h-20">
+        <div className="h-10 md:h-44 sm:h-40">
         <h2 className="text-xl font-bold mb-1">Sepet</h2>
         <div className="max-h-28 sm:max-h-32 md:max-h-36 overflow-y-auto ">
             <ul>

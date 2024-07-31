@@ -32,7 +32,7 @@ const ProductList = ({category, darkMode }) => {
       <h2 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler &gt; {category}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {selectedProducts.map(product => (
-          <div key={product.id} className={`border p-4 rounded shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-primary text-white'}`}>
+          <div key={product.id} className={`w-30 h-50 border p-4 rounded shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-primary text-white'}`}>
           <div className="w-full h-40 bg-gray-200"></div>
           <h3 className="font-semibold">{product.name}</h3>
             <p>${product.price}</p>

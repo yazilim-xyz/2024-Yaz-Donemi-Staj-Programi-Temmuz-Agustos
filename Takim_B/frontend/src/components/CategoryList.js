@@ -18,7 +18,7 @@ const CategoryList = ({setSelectedCategory, darkMode }) => {
         <h2 className={`text-xl font-bold mb-4 uppercase ${darkMode ? 'text-lightBackground':'text-lightBackground'  }`}>Kategoriler</h2>
         <ul>
         {categories.map((category, index) => (
-            <li key={index} className="border-b py-2">
+            <li key={index} className="border-b py-4 ">
               <button onClick={() => setSelectedCategory(category)} className={`${darkMode ? 'text-white' : 'text-white'}`}>
                 {category}
               </button>
@@ -30,7 +30,7 @@ const CategoryList = ({setSelectedCategory, darkMode }) => {
       {/* Menu Layout for Smaller Screens */}
       <Menu as="div" className="lg:hidden relative">
         <Menu.Button
-          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-dark_Background_ctgry text-lightBackground' : 'bg-light_Background_ctgry text-darkText'}`}
+          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-light_Background_ctgry text-lightBackground' : 'bg-light_Background_ctgry text-darkText'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <MenuIcon className="w-6 h-6" />

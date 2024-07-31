@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductByBarcode } from '../features/products/productSlice';
 import KeyPad from './KeyPad'; 
-import { FaBarcode } from 'react-icons/fa'; 
+import { FaBarcode, FaPlus } from 'react-icons/fa'; // FaPlus ikonunu ekleyin
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
@@ -13,6 +13,7 @@ const BarcodeInput = () => {
     dispatch(addProductByBarcode(barcode));
     setBarcode('');
   };
+  
   const handleKeyClick = (key) => {
     if (key === 'C') {
       setBarcode('');
@@ -31,13 +32,12 @@ const BarcodeInput = () => {
           placeholder="Barcode"
           className="border p-2 rounded-r-3xl rounded-l-3xl py-2 m-2 flex-grow min-w-0"
         />
+        <FaBarcode className="ml-2 text-3xl" /> 
         <button
           type="submit"
-          className="mt-2 font-bold p-2 rounded-lg"
+          className="mt-2 font-bold p-2 rounded-lg flex items-center space-x-2"
         >
-          {/* Add Product */}
-          <FaBarcode className="ml-2 text-3xl" /> 
-          Barcode
+          <FaPlus className="text-xl" /> {/* Submit butonuna ikon ekleme */}
         </button>
       </form>
       <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>

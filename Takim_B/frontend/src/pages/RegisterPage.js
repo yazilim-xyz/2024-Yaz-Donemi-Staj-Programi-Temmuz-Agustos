@@ -1,5 +1,7 @@
+// src/pages/RegisterPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../service/AuthContext';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -9,11 +11,20 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    navigate('/login');
+    if (password !== confirmPassword) {
+      return alert("Passwords do not match");
+    }
+    try {
+      await register(email, password);
+      navigate('/login');
+    } catch (error) {
+      console.error("Failed to register:", error);
+    }
   };
 
   return (
@@ -78,7 +89,6 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           <button
             type="submit"
             className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-secondary text-sm md:text-base"
-            onClick={handleRegister}
           >
             Kayıt Oluştur
           </button>
@@ -89,3 +99,5 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
 };
 
 export default RegisterPage;
+
+
