@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import {createUserWithEmailAndPassword} from "firebase/auth"
+import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
 import {auth} from "../service/firebase"
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
@@ -24,14 +24,13 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert('Kayıt Başarılı')
-      navigate("/login")
+    .then((auth) =>{
+      updateProfile(auth.user, {displayName: username});
     })
     .catch(e => {
       console.log(e);
     }) 
-  }, [email, password])
+  }, [username, email, password])
 
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-darkBackground to-primary p-4 ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
@@ -78,16 +77,6 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
             value={password}
             placeholder="Şifrenizi girin"
             onChange={(e) => setPassword(e.target.value)}
-            className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
-          />
-        </div>
-        <div className="mb-6 w-full">
-          <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>Şifre Tekrar</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            placeholder="Şifrenizi tekrar girin"
-            onChange={(e) => setConfirmPassword(e.target.value)}
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>

@@ -1,4 +1,3 @@
-// src/pages/LoginPage.js
 import React, { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -20,10 +19,6 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
         return;
       }
       signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate("/main");
-        alert("Başarıyla giriş yapıldı");
-      })
       .catch(() => {
         console.log(e);
       });
