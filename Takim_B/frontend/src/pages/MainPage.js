@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductList from '../components/ProductList';
 import TotalAmount from '../components/TotalAmount';
@@ -10,15 +10,16 @@ import darkModeIcon from '../assets/images/png/dark.png';
 import user from '../assets/images/png/person.png';
 import logout from '../assets/images/svg/logout.svg';
 import CardPage from '../components/CardPage';
+import { signOut } from 'firebase/auth';
+import { auth } from '../service/firebase';
 
 function MainPage({ toggleDarkMode, darkMode }) { 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    navigate('/login');
-  };
+  const handleLogout = useCallback(() => {
+    signOut(auth);
+  }, []);
 
   const ToggleButton = () => (
     <button onClick={toggleDarkMode} className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50">
@@ -36,7 +37,9 @@ function MainPage({ toggleDarkMode, darkMode }) {
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          <img src={logout} alt="Çıkış yap" className={`w-7 h-7 rounded-full object-cover cursor-pointer ${darkMode ? 'filter invert' : ''}`} onClick={handleLogout} />
+          <img src={logout} alt="Çıkış yap" 
+            className={`w-7 h-7 rounded-full object-cover cursor-pointer ${darkMode ? 'filter invert' : ''}`} 
+            onClick={handleLogout} />
           <ToggleButton />
         </div>
       </nav>

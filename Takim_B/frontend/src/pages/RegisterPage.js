@@ -24,10 +24,6 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert('Kayıt Başarılı')
-      navigate("/login")
-    })
     .catch(e => {
       console.log(e);
     }) 

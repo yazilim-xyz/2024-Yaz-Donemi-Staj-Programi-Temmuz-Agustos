@@ -19,10 +19,6 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
         return;
       }
       signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate("/main");
-        alert("Başarıyla giriş yapıldı");
-      })
       .catch(() => {
         console.log(e);
       });
