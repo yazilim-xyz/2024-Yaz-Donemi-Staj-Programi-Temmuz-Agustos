@@ -1,6 +1,8 @@
 // src/pages/LoginPage.js
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import {auth} from "../service/firebase"
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -10,10 +12,23 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    navigate('/main');
-  };
+  const handleLogin = useCallback(
+    (e)=>{
+      e.preventDefault();
+
+      if(!email || !password){
+        return;
+      }
+      signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigate("/main");
+        alert("Başarıyla giriş yapıldı");
+      })
+      .catch(() => {
+        console.log(e);
+      });
+  }, [email, password]);
+
   return (
     <div className={`flex flex-col items-center justify-center absolute w-full h-screen bg-gradient-to-r from-darkBackground to-primary p-4 ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
       <button
@@ -31,7 +46,7 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
         alt="Login Logo"
         className="object-contain"
       />
-      <form className="p-8 rounded w-full max-w-md">
+      <form onSubmit={handleLogin} className="p-8 rounded w-full max-w-md">
         <div className="mb-4 w-full">
           <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>E-Mail</label>
           <input
@@ -52,9 +67,9 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>
-        <a href="/forgot-password" className={`block mb-8 text-sm md:text-base hover:underline ${darkMode ? 'text-white' : 'text-black'}`}>
+        <Link to="/forgot-password" className={`block mb-8 text-sm md:text-base hover:underline ${darkMode ? 'text-white' : 'text-black'}`}>
           Şifremi Unuttum
-        </a>
+        </Link>
         <div className="flex justify-center">
           <button
             type="submit"
@@ -63,9 +78,9 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
             Giriş Yap
           </button>
         </div>
-        <a href="/register" className="flex justify-center block text-lgn_kyt text-sm md:text-base hover:underline">
-          Kayıt Oluştur
-        </a>
+        <Link to="/register" className="flex justify-center block text-lgn_kyt text-sm md:text-base hover:underline">
+          Hesabın yok mu? Kayıt oluştur
+        </Link>
       </form>
     </div>
   );

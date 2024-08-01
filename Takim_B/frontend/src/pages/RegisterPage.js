@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {createUserWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../service/firebase"
 import lightModeIcon from '../assets/images/png/light.png';
@@ -99,6 +99,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
             Kayıt Oluştur
           </button>
         </div>
+        <Link to="/login" className="flex justify-center block text-lgn_kyt text-sm md:text-base hover:underline">Hesabım var mı? Giriş Yap</Link>
       </form>
     </div>
   );

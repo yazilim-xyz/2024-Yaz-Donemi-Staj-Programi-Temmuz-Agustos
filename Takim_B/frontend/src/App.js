@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage'; // Düzenlemeyi unutmayın, MainPage içe aktarıldı
 import CategoryList from './components/CategoryList';
 import ProductList from './components/ProductList';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,6 +20,7 @@ function App() {
       <Route path="/main" element={<MainPage toggleDarkMode={toggleDarkMode} darkMode={darkMode} />} />
       <Route path="/categories" element={<CategoryList darkMode={darkMode} />} />
       <Route path="/categories/:categoryName" element={<ProductList darkMode={darkMode} />} />
+      <Route path="/forgot-password" element={<ForgotPassword toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>}/>
     </Routes>
   );
 }
