@@ -9,6 +9,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import MainLayout from './components/MainLayout';
 import AuthLayout from './components/AuthLayout';
 
+import MainAdmin from './admin_panel/MainAdmin';
+import AddProduct from './components/AddProduct';
+
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -29,7 +32,9 @@ function App() {
         <Route path="/register" element={<RegisterPage toggleDarkMode={toggleDarkMode} darkMode={darkMode} />} />
         <Route path="/forgot-password" element={<ForgotPassword toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>}/>
       </Route>
-      
+      <Route  path="/admin" element={<MainAdmin/>} />
+      <Route path="add-product" element={<AddProduct />} />
+
     </Routes>
   );
 }

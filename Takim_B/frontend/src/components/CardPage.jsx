@@ -34,7 +34,7 @@ const CardPage = () => {
                      {/* <span className="w-full sm:w-auto">{product.name} - ${product.price}</span> */}
                      {/* <span className="w-full sm:w-auto">{product.name} - {product.quantity} Adet x ${product.price} -- ${(product.price * product.quantity).toFixed(2)}</span> */}
                      <div className="w-full flex flex-col sm:flex-row justify-between items-start mb-2">
-                                <span>{product.id}- ({product.quantity} Adet x ${product.price})</span>
+                                <span>{product.id} - ({product.quantity} Adet x ${product.price})</span>
                             </div>
                             <div className="w-full flex flex-col sm:flex-row justify-between items-start">
                                 <span>{product.name}</span>
