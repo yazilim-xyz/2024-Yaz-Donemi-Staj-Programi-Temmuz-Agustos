@@ -10,11 +10,27 @@ const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    // addItem: (state, action) => {
+    //   state.items.push(action.payload);
+    // },
     addItem: (state, action) => {
-      state.items.push(action.payload);
+      // state.items.push(action.payload);
+      const product = state.items.find(item => item.id === action.payload.id);
+      if (product) {
+        product.quantity += 1;
+      } else {
+        state.items.push({ ...action.payload, quantity: 1 });
+      }
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      const product = state.items.find(item => item.id === action.payload);
+      if (product) {
+        if (product.quantity > 1) {
+          product.quantity -= 1;
+        } else {
+          state.items = state.items.filter(item => item.id !== action.payload);
+        }
+      }
     },
     reset: (state) => {
       state.items = [];
