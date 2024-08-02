@@ -16,7 +16,7 @@ function MainAdmin() {
   
       // Başka sayfalar eklenebilir
       default:
-        return <div>Dashboard İçeriği</div>; // Varsayılan içerik
+        return <div></div>; // Varsayılan içerik
     }
   };
 

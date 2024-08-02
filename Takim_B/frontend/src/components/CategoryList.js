@@ -30,13 +30,13 @@ const CategoryList = ({setSelectedCategory, darkMode }) => {
       {/* Menu Layout for Smaller Screens */}
       <Menu as="div" className="lg:hidden relative">
         <Menu.Button
-          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-dark_Background_ctgry text-lightBackground' : 'bg-light_Background_ctgry text-darkText'}`}
+          className={`p-4 rounded-lg shadow w-full ${darkMode ? 'bg-dark_Background_ctgry text-white' : 'bg-light_div text-white'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <MenuIcon className="w-6 h-6" />
+          <MenuIcon className="w-6 h-6"/>
         </Menu.Button>
         {isMenuOpen && (
-          <Menu.Items className={`absolute top-full left-0 mt-2 w-full p-4 rounded-lg shadow ${darkMode ? 'bg-dark_Background_ctgry' : 'bg-light_Background_ctgry'}`}>
+          <Menu.Items className={`absolute top-full left-0 mt-2 w-full p-4 rounded-lg shadow ${darkMode ? 'bg-dark_Background_ctgry text-white' : 'bg-light_div text-white'}`}>
             {categories.map((category, index) => (
               <Menu.Item key={index}>
                 {({ active }) => (

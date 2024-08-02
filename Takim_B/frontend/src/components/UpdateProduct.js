@@ -63,6 +63,7 @@ const UpdateProduct = () => {
               <option value="Sağlık, Bakım">Sağlık, Bakım</option>
               <option value="Temizlik">Temizlik</option>
               {/* Diğer kategoriler */}
+              {/* backendden çekilecek veriler örnek*/}
             </select>
           </div>
           <div className="mb-4">
