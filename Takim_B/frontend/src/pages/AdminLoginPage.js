@@ -20,7 +20,7 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
       }
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          navigate('/admin'); // Redirect to /admin on successful login
+          navigate('/admin');
         })
         .catch((error) => {
           console.log(error);
