@@ -22,7 +22,7 @@ const CardPage = () => {
           {products.map((product) => (
             <li key={product.id} className="border-b py-2 flex flex-col justify-between items-start mb-4">
               <div className="w-full flex flex-col sm:flex-row justify-between items-start mb-2">
-                <span>{product.id} - ({product.quantity} Adet x ${product.price})</span>
+                <span> ({product.quantity} Adet x ${product.price})</span>
               </div>
               <div className="w-full flex flex-col sm:flex-row justify-between items-start">
                 <span>{product.name}</span>

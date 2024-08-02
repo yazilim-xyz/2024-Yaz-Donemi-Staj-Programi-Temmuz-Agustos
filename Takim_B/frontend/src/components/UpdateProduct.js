@@ -7,7 +7,6 @@ const UpdateProduct = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Ürün güncelleme işlemleri burada yapılır
       console.log('Ürün güncellendi:', { productName, price, category, description });
     };
   

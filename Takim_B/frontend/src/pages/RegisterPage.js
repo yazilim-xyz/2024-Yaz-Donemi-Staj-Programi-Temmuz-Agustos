@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
-import {auth} from "../service/firebase"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../service/firebase";
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -11,26 +11,36 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  
-
   const handleRegister = useCallback(
-    (e) =>{
-    e.preventDefault();
+    (e) => {
+      e.preventDefault();
 
-    if(!email || !password){
-      return;
-    }
+      if (!email || !password) {
+        setError('E-Mail ve şifre gereklidir.');
+        return;
+      }
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((auth) =>{
-      updateProfile(auth.user, {displayName: username});
-    })
-    .catch(e => {
-      console.log(e);
-    }) 
-  }, [username, email, password])
+      const passwordPattern = /(?=.*[0-9].*[0-9].*[0-9].*[0-9].*[0-9].*[0-9])/;
+      if (!passwordPattern.test(password)) {
+        setError('Şifre en az 6 rakam içermelidir.');
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((auth) => {
+          updateProfile(auth.user, { displayName: username });
+          navigate('/login'); // Navigate to the main page after registration
+        })
+        .catch(e => {
+          console.log(e);
+          setError('Kayıt oluşturulurken bir hata oluştu.');
+        });
+    },
+    [username, email, password, navigate]
+  );
 
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-darkBackground to-primary p-4 ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
@@ -50,6 +60,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
         className="object-contain mb-8"
       />
       <form onSubmit={handleRegister} className="p-8 rounded w-full max-w-md">
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4 w-full">
           <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>Kullanıcı Adı</label>
           <input
@@ -80,11 +91,21 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
             className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
           />
         </div>
+        <div className="mb-4 w-full">
+          <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>Şifre Tekrar</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            placeholder="Şifrenizi tekrar girin"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
+          />
+        </div>
         <div className="flex justify-center w-full">
           <button
             type="submit"
             className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
-            onClick={handleRegister}>
+          >
             Kayıt Oluştur
           </button>
         </div>

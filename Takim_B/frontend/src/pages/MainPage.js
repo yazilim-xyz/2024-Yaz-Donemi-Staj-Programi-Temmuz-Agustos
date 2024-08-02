@@ -47,7 +47,7 @@ function MainPage({ toggleDarkMode, darkMode }) {
 
   return (
     <div className={`w-full h-screen ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center p-2">
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center p-1">
         <img src={xyzLogo} className={`w-36 h-20 object-contain`} />
         <div className="flex items-center space-x-4">
           <img src={logout} alt="Çıkış yap"
