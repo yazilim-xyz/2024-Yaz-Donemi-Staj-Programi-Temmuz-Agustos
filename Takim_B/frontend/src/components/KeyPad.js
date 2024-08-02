@@ -7,7 +7,7 @@ const KeyPad = ({ onKeyClick }) => {
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.', 'C'].map((key) => (
         <button
           key={key}
-          className="bg-gray-200 p-1 rounded text-sm h-9 sm:h-7 md:h-10"  // Adjusted padding and font size
+          className="bg-gray-200 p-1 rounded text-sm h-8 sm:h-7 md:h-10"  // Adjusted padding and font size
           onClick={() => onKeyClick(key)}
         >
           {key}
