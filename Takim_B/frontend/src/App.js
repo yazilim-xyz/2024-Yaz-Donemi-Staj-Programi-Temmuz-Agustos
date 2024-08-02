@@ -13,6 +13,7 @@ import MainAdmin from './admin_panel/MainAdmin';
 import AddProduct from './components/AddProduct';
 import FirstPage from './pages/FirstPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import UpdateProduct from './components/UpdateProduct';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,7 +37,8 @@ function App() {
       </Route>
 
       <Route path="/admin" element={<MainAdmin />} />
-      <Route path="add-product" element={<AddProduct />} />
+      <Route path="/add-product" element={<AddProduct />} />
+      <Route path="/update-product" element={<UpdateProduct />} />
     </Routes>
   );
 }
