@@ -43,15 +43,13 @@ function MainPage({ toggleDarkMode, darkMode }) {
     <div className={`w-full h-screen ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center p-2">
         <img src={xyzLogo} className={`w-36 h-20 object-contain`} />
-
-
         <div className="flex items-center space-x-4">
           <img src={logout} alt="Çıkış yap"
             className={`w-7 h-7 rounded-full object-cover cursor-pointer ${darkMode ? 'filter invert' : ''}`}
             onClick={handleLogout} />
           <ToggleButton />
           <div className="flex items-center">
-            <Link to="/admin"><img src={person} className={`w-10 h-10 rounded-full object-cover border-2 border-black ${darkMode ? 'filter invert' : ''}`} /></Link>
+            <img src={person} className={`w-10 h-10 rounded-full object-cover border-2 border-black ${darkMode ? 'filter invert' : ''}`} />
             <div className={`ml-2 ${darkMode ? 'text-white' : ''}`}>
               <p className="font-semibold">{user.displayName}</p>
             </div>
