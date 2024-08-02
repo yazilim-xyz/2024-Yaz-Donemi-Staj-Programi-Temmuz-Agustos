@@ -22,7 +22,7 @@ const Chatting = () => {
 
   return (
     <div className="flex-[2] flex flex-col">
-      <div className='chatInfo h-12 flex items-center bg-[#5d5b8d] p-2.5 text-slate-100 justify-between'>
+      <div className='chatInfo h-12 flex items-center bg-[#433D8B] p-2.5 text-slate-100 justify-between'>
         <span>Jane</span>
         <div className="chatIcons flex items-center gap-2">
           {/* İkonlar */}

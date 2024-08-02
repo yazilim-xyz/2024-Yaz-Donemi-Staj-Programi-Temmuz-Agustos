@@ -3,7 +3,7 @@ import Message from './Message';
 
 const Messages = ({ messages }) => {
   return (
-    <div style={{ height: 'calc(100% - 96px)' }} className='messages overflow-scroll bg-[#ddddf7] p-2.5'>
+    <div style={{ height: 'calc(100% - 96px)' }} className='messages overflow-scroll bg-[#BAD7E9] p-2.5'>
       {messages.map((msg, index) => (
         <Message
           key={index}

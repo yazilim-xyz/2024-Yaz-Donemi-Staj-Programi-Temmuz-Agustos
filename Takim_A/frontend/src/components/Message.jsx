@@ -21,7 +21,7 @@ const Message = ({ text, sender, time, isCurrentUser }) => {
       )}
       <div className={`flex flex-col ${isCurrentUser ? 'items-end' : 'items-start'}`}>
         <div
-          className={`p-2.5 rounded-lg max-w-xs ${isCurrentUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+          className={`p-2.5 rounded-lg max-w-xs ${isCurrentUser ? 'bg-[#508C9B] text-white' : 'bg-gray-200 text-black'}`}
         >
           <p>{text}</p>
         </div>

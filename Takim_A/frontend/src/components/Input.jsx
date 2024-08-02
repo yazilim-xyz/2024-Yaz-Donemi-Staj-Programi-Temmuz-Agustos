@@ -15,7 +15,7 @@ const Input = ({ onSend }) => {
   };
 
   return (
-    <div className='bg-white h-12 p-2.5 flex items-center gap-2.5 rounded-lg shadow-md'>
+    <div className='bg-white h-12 p-2.5 flex items-center gap-2.5 rounded-sm shadow-md'>
       <input 
         type="text" 
         value={message}

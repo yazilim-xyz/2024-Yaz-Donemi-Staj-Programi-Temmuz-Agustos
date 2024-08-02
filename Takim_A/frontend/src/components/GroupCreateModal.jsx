@@ -30,31 +30,31 @@ return (
             onChange={handleSearchChange}
             className="w-full px-4 py-2 border rounded-lg mb-4 text-black"
             />
-            <ul className="max-h-40 overflow-y-auto mb-4">
+            <ul className="max-h-40 overflow-y-auto mb-4 overflow-scroll">
                 {/* Örnek kişiler */}
                 {['Ahmet', 'Ayşe', 'Mehmet', 'Fatma'].map((user) => (
-                    <li key={user} className="py-2 pr-1 cursor-pointer hover:bg-[#B3C8CF] rounded-lg text-black" onClick={() => handleUserSelect(user)}>
+                    <li key={user} className="py-2 pr-1 cursor-pointer hover:bg-[#B3C8CF] rounded-lg text-black " onClick={() => handleUserSelect(user)}>
                         {user}
                     </li>
-                    ))}
+                ))}
             </ul>
             <div className="flex justify-end gap-2">
                 <button
                 onClick={onClose}
                 className="px-4 py-2 bg-gray-300 rounded-lg shadow hover:bg-[#B80000]"
                 >
-                    İptal
-                    </button>
-                    <button
-                    onClick={handleGroupCreate}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
-                    >
-                        Oluştur
-                        </button>
-                        </div>
-                        </div>
-                        </div>
-                        );
+                İptal
+                </button>
+                <button
+                onClick={handleGroupCreate}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+                >
+                    Oluştur
+                </button>
+                </div>
+                </div>
+                </div>
+                );
 };
 
 export default GroupCreateModal;
