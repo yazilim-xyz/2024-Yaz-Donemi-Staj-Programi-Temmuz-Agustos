@@ -10,10 +10,12 @@ import MainLayout from './components/MainLayout';
 import AuthLayout from './components/AuthLayout';
 
 import MainAdmin from './admin_panel/MainAdmin';
-import AddProduct from './components/AddProduct';
 import FirstPage from './pages/FirstPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import UpdateProduct from './components/UpdateProduct';
+import AddProduct from './components/AddProduct';
+import CategoryTable from './admin_panel/Categories';
+import ProductTable from './admin_panel/ProductTable';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -39,6 +41,8 @@ function App() {
       <Route path="/admin" element={<MainAdmin />} />
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="/update-product" element={<UpdateProduct />} />
+      <Route  path="/categories-admin" element={<CategoryTable/>} />
+      <Route  path="/productTable" element={<ProductTable/>} />
     </Routes>
   );
 }
