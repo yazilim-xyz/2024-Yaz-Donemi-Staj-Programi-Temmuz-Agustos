@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
 import ProductList from '../components/ProductList';
@@ -15,16 +15,25 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../service/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectProducts } from '../features/products/productSlice';
+import { calculateTotal, selectTotalAmount } from '../features/totalAmount/totalAmountSlice';
 
 function MainPage({ toggleDarkMode, darkMode }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
-
   const [user, isLoading] = useAuthState(auth);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  const totalAmount = useSelector(selectTotalAmount);
 
   const handleLogout = useCallback(() => {
     signOut(auth);
   }, []);
+
+  useEffect(() => {
+    dispatch(calculateTotal(products));
+  }, [products, dispatch]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -35,9 +44,6 @@ function MainPage({ toggleDarkMode, darkMode }) {
       <img src={darkMode ? darkModeIcon : lightModeIcon} alt="Toggle Dark Mode" className="object-cover h-full w-full" />
     </button>
   );
-
- 
-
 
   return (
     <div className={`w-full h-screen ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
