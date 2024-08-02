@@ -9,4 +9,4 @@ const GroupChat = () => {
   )
 }
 
-export default GroupChat
+export default GroupChat;

@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addProductByBarcode } from '../features/products/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductByBarcode, selectProducts } from '../features/products/productSlice';
+import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import KeyPad from './KeyPad'; 
-import { FaBarcode, FaPlus } from 'react-icons/fa'; // FaPlus ikonunu ekleyin
+import { FaBarcode, FaPlus } from 'react-icons/fa';
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
   const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addProductByBarcode(barcode));
     setBarcode('');
+    dispatch(calculateTotal(products));
   };
-  
+
   const handleKeyClick = (key) => {
     if (key === 'C') {
       setBarcode('');
@@ -37,7 +40,7 @@ const BarcodeInput = () => {
           type="submit"
           className="mt-2 font-bold p-2 rounded-lg flex items-center space-x-2"
         >
-          <FaPlus className="text-xl" /> {/* Submit butonuna ikon ekleme */}
+          <FaPlus className="text-xl" />
         </button>
       </form>
       <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>
