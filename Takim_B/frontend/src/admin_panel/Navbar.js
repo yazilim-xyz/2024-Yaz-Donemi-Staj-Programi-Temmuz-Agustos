@@ -17,20 +17,20 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white p-4 flex justify-between items-center shadow-lg">
+    <div className="bg-gray-100 text-gray-900 p-4 flex justify-between items-center shadow-md">
       <div className="flex items-center">
         <img
           src={person}
-          className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md mr-3"
+          className="w-10 h-10 rounded-full object-cover border-2 border-gray-300 shadow-sm mr-3"
           alt="User"
         />
-        <span className="text-2xl font-extrabold"></span>
+        <span className="text-xl font-bold">Admin Panel</span>
       </div>
       <div className="flex items-center">
-        <span className="mr-4 text-lg font-semibold">Hoşgeldiniz, Admin</span>
+        <span className="mr-4 text-lg">Hoşgeldiniz, Admin</span>
         <Link to="/">
           <button
-            className="bg-white text-red-500 px-4 py-2 rounded-lg shadow-md hover:bg-red-500 hover:text-white transition duration-300 ease-in-out font-semibold"
+            className="bg-gray-300 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300 ease-in-out"
             onClick={handleLogout}
           >
             Çıkış Yap

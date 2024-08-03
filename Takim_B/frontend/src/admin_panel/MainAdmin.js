@@ -13,7 +13,7 @@ function MainAdmin() {
     switch (activePage) {
       case 'addProduct':
         return <AddProduct />;
-      case 'updateProduct':
+      case 'update-product':
         return <UpdateProduct />;
         case 'categories-admin':
           return <AdminCategoryPage />;

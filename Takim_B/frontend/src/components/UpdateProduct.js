@@ -23,8 +23,8 @@ const UpdateProduct = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Ürün Güncelle</h1>
+    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Güncelle</h1>
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
@@ -36,7 +36,7 @@ const UpdateProduct = () => {
               id="productName"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               required
             />
           </div>
@@ -50,7 +50,7 @@ const UpdateProduct = () => {
               id="productId"
               value={productId}
               onChange={(e) => setProductId(e.target.value)}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               required
             />
           </div>
@@ -64,7 +64,7 @@ const UpdateProduct = () => {
               id="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               required
             />
           </div>
@@ -77,7 +77,7 @@ const UpdateProduct = () => {
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               required
             >
               <option value="">Kategori Seçin</option>
@@ -103,7 +103,7 @@ const UpdateProduct = () => {
               id="quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               min="1"
               required
             />
@@ -117,7 +117,7 @@ const UpdateProduct = () => {
               type="file"
               id="image"
               onChange={(e) => setImage(e.target.files[0])}
-              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
               accept="image/*"
             />
           </div>
@@ -131,7 +131,7 @@ const UpdateProduct = () => {
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-gray-500 focus:border-gray-500"
             rows="4"
           />
         </div>
@@ -139,7 +139,7 @@ const UpdateProduct = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300"
           >
             Güncelle
           </button>

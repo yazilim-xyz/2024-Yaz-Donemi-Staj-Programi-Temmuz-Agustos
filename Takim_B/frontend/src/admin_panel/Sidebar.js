@@ -21,7 +21,7 @@ function Sidebar({ setActivePage }) {
         <li onClick={() => setActivePage('addProduct')} className="px-4 py-2 hover:bg-gray-200 flex items-center cursor-pointer">
           <FaPlus className="mr-2" /> {isOpen && 'Ürün Ekle'}
         </li>
-        <li onClick={() => setActivePage('updateProduct')} className="px-4 py-2 hover:bg-gray-200 flex items-center cursor-pointer">
+        <li onClick={() => setActivePage('update-product')} className="px-4 py-2 hover:bg-gray-200 flex items-center cursor-pointer">
           <FaEdit className="mr-2" /> {isOpen && 'Ürün Güncelle'}
         </li>
         <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
