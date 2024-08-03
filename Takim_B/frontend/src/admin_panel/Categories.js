@@ -19,12 +19,12 @@ const categories = [
 
 const CategoryTable = ({ onEdit, onDelete }) => {
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Kategoriler</h1>
-      <div className="overflow-x-auto shadow-lg rounded-lg">
+    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Kategoriler</h1>
+      <div className="overflow-x-auto shadow-md rounded-lg">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {categories.map((category, index) => (
-            <div key={category.id} className={`border-b border-gray-300 ${index % 2 === 0 ? 'bg-indigo-100' : 'bg-purple-100'} hover:bg-purple-200 transition duration-300 p-4 rounded-lg`}>
+            <div key={category.id} className={`border border-gray-300 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300 p-4 rounded-lg`}>
               <div className="flex justify-between items-center">
                 <span className="font-bold">{index + 1}</span>
                 <span className="flex-1 text-center">{category.name}</span>
@@ -46,6 +46,7 @@ const CategoryTable = ({ onEdit, onDelete }) => {
 };
 
 export default CategoryTable;
+
 
 
 

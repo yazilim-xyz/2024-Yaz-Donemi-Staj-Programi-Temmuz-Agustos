@@ -22,8 +22,8 @@ function AddProduct() {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-700">Ürün Ekle</h1>
+    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Ekle</h1>
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
@@ -35,7 +35,7 @@ function AddProduct() {
               id="productName"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             />
           </div>
@@ -49,7 +49,7 @@ function AddProduct() {
               id="productId"
               value={productId}
               onChange={(e) => setProductId(e.target.value)}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             />
           </div>
@@ -63,7 +63,7 @@ function AddProduct() {
               id="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             />
           </div>
@@ -76,7 +76,7 @@ function AddProduct() {
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             >
               <option value="">Kategori Seçin</option>
@@ -101,7 +101,7 @@ function AddProduct() {
               id="quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               min="1"
               required
             />
@@ -115,7 +115,7 @@ function AddProduct() {
               type="file"
               id="image"
               onChange={(e) => setImage(e.target.files[0])}
-              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               accept="image/*"
             />
           </div>
@@ -124,7 +124,7 @@ function AddProduct() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300"
+            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300"
           >
             Ekle
           </button>
