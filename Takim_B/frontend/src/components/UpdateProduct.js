@@ -1,54 +1,83 @@
 import React, { useState } from "react";
+
 const UpdateProduct = () => {
-    const [productName, setProductName] = useState('');
-    const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [description, setDescription] = useState('');
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('Ürün güncellendi:', { productName, price, category, description });
-    };
-  
-    return (
-      <div className="max-w-md mx-auto mt-8">
-        <h2 className="text-2xl font-bold mb-4">Ürün Güncelle</h2>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="productName">
+  const [productName, setProductName] = useState('');
+  const [productId, setProductId] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Ürün güncellendi:', {
+      productName,
+      productId,
+      price,
+      category,
+      quantity,
+      image,
+      description,
+    });
+  };
+
+  return (
+    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Ürün Güncelle</h1>
+      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+          <div>
+            <label htmlFor="productName" className="block text-gray-800 text-sm font-medium mb-2">
               Ürün Adı
             </label>
             <input
-              id="productName"
               type="text"
+              id="productName"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+
+          <div>
+            <label htmlFor="productId" className="block text-gray-800 text-sm font-medium mb-2">
+              Barkod No
+            </label>
+            <input
+              type="number"
+              id="productId"
+              value={productId}
+              onChange={(e) => setProductId(e.target.value)}
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="price" className="block text-gray-800 text-sm font-medium mb-2">
               Fiyat
             </label>
             <input
-              id="price"
               type="number"
+              id="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+
+          <div>
+            <label htmlFor="category" className="block text-gray-800 text-sm font-medium mb-2">
               Kategori
             </label>
             <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
               required
             >
               <option value="">Kategori Seçin</option>
@@ -62,32 +91,62 @@ const UpdateProduct = () => {
               <option value="Sağlık, Bakım">Sağlık, Bakım</option>
               <option value="Temizlik">Temizlik</option>
               {/* Diğer kategoriler */}
-              {/* backendden çekilecek veriler örnek*/}
             </select>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-              Açıklama
+
+          <div>
+            <label htmlFor="quantity" className="block text-gray-800 text-sm font-medium mb-2">
+              Adet
             </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              rows="4"
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              min="1"
+              required
             />
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Güncelle
-            </button>
+
+          <div>
+            <label htmlFor="image" className="block text-gray-800 text-sm font-medium mb-2">
+              Ürün Resmi
+            </label>
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => setImage(e.target.files[0])}
+              className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+              accept="image/*"
+            />
           </div>
-        </form>
-      </div>
-    );
-  };
-  
-  export default UpdateProduct;
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="description" className="block text-gray-800 text-sm font-medium mb-2">
+            Açıklama
+          </label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-3 border border-indigo-300 rounded-lg bg-indigo-50 focus:ring-indigo-500 focus:border-indigo-500"
+            rows="4"
+          />
+        </div>
+
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
+          >
+            Güncelle
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default UpdateProduct;

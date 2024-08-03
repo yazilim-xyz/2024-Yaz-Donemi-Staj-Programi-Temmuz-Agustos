@@ -15,36 +15,34 @@ const categories = [
 
 const CategoryTable = ({ onEdit, onDelete }) => {
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Kategori Tablosu</h1>
-      <div className="overflow-x-auto">
-        <div className="max-h-[600px] overflow-y-auto">
-          <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead>
-              <tr className="bg-gray-200 text-left">
-                <th className="py-3 px-6 border-b">No</th>
-                <th className="py-3 px-6 border-b">Kategori</th>
-                <th className="py-3 px-6 border-b">İşlemler (Düzenle/Sil)</th>
+    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Kategori Tablosu</h1>
+      <div className="overflow-x-auto shadow-lg rounded-lg">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+          <thead>
+            <tr className="bg-indigo-500 text-white">
+              <th className="py-3 px-6 border-b">No</th>
+              <th className="py-3 px-6 border-b">Kategori</th>
+              <th className="py-3 px-6 border-b">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.map((category, index) => (
+              <tr key={category.id} className={`border-b ${index % 2 === 0 ? 'bg-indigo-100' : 'bg-purple-100'} hover:bg-purple-200 transition duration-300`}>
+                <td className="py-4 px-6 text-center">{index + 1}</td>
+                <td className="py-4 px-6">{category.name}</td>
+                <td className="py-4 px-6 flex justify-center space-x-6">
+                  <button onClick={() => onEdit(category.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
+                    <FaEdit className="inline-block" />
+                  </button>
+                  <button onClick={() => onDelete(category.id)} className="text-red-500 hover:text-red-700 transition duration-300">
+                    <FaTrash className="inline-block" />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {categories.map((category, index) => (
-                <tr key={category.id} className="border-b hover:bg-gray-50">
-                  <td className="py-3 px-6">{index + 1}</td>
-                  <td className="py-3 px-6">{category.name}</td>
-                  <td className="py-3 px-6 flex justify-center space-x-6">
-                    <button onClick={() => onEdit(category.id)} className="text-blue-500 hover:text-blue-700">
-                      <FaEdit className="inline-block" />
-                    </button>
-                    <button onClick={() => onDelete(category.id)} className="text-red-500 hover:text-red-700">
-                      <FaTrash className="inline-block" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
