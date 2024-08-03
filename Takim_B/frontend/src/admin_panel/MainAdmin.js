@@ -4,7 +4,7 @@ import Content from "./Content";
 import Navbar from "./Navbar";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
-import CategoryTable from "./Categories";
+import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 function MainAdmin() {
   const [activePage, setActivePage] = useState('dashboard'); // Varsayılan sayfa
@@ -16,7 +16,7 @@ function MainAdmin() {
       case 'updateProduct':
         return <UpdateProduct />;
         case 'categories-admin':
-          return <CategoryTable />;
+          return <AdminCategoryPage />;
         case 'productTable':
           return <ProductTable />;
   

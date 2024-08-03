@@ -1,26 +1,72 @@
-import React from 'react';
-import { FaEdit, FaTrash } from "react-icons/fa";
+import React, { useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
+import { db } from '../service/firebase';
+import { addCategory, updateCategory, deleteCategory } from '../service/categoryService';
 
-const categories = [
-  { id: 1, name: 'Meyve, Sebze' },
-  { id: 2, name: 'Et, Şarküteri' },
-  { id: 3, name: 'Atıştırmalık' },
-  { id: 4, name: 'Kuruyemiş' },
-  { id: 5, name: 'İçecekler' },
-  { id: 6, name: 'Glutensiz Ürünler' },
-  { id: 7, name: 'Kahvaltılık Ürünler' },
-  { id: 8, name: 'Sağlık, Bakım' },
-  { id: 9, name: 'Temizlik' },
-  { id: 10, name: 'Glutensiz Ürünler' },
-  { id: 11, name: 'Kahvaltılık Ürünler' },
-  { id: 12, name: 'Sağlık, Bakım' },
-  { id: 13, name: 'Temizlik' },
-];
+const AdminCategoryPage = () => {
+  const categoryCollection = collection(db, 'categories');
+  const [categories, loading, error] = useCollectionData(categoryCollection);
+  const [formData, setFormData] = useState({ name: '', id: null });
 
-const CategoryTable = ({ onEdit, onDelete }) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.id) {
+      await updateCategory(formData.id, { name: formData.name });
+    } else {
+      await addCategory({ name: formData.name });
+    }
+    setFormData({ name: '', id: null });
+  };
+
+  const handleEdit = (id, name) => {
+    setFormData({ id, name });
+  };
+
+  const handleDelete = async (id) => {
+    await deleteCategory(id);
+  };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Error: {error.message}</h1>;
+  }
+
   return (
     <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Kategoriler</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Kategori Yönetimi</h1>
+      <form onSubmit={handleSubmit} className="mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="name" className="block text-gray-800 text-sm font-medium mb-2">
+              Kategori Adı
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className="w-full p-3 border border-indigo-400 rounded-lg bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            />
+          </div>
+        </div>
+        <div className="flex justify-end mt-4">
+          <button type="submit" className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300">
+            {formData.id ? 'Güncelle' : 'Ekle'}
+          </button>
+        </div>
+      </form>
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {categories.map((category, index) => (
@@ -29,10 +75,10 @@ const CategoryTable = ({ onEdit, onDelete }) => {
                 <span className="font-bold">{index + 1}</span>
                 <span className="flex-1 text-center">{category.name}</span>
                 <div className="flex space-x-4">
-                  <button onClick={() => onEdit(category.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
+                  <button onClick={() => handleEdit(category.id, category.name)} className="text-blue-500 hover:text-blue-700 transition duration-300">
                     <FaEdit className="inline-block" />
                   </button>
-                  <button onClick={() => onDelete(category.id)} className="text-red-500 hover:text-red-700 transition duration-300">
+                  <button onClick={() => handleDelete(category.id)} className="text-red-500 hover:text-red-700 transition duration-300">
                     <FaTrash className="inline-block" />
                   </button>
                 </div>
@@ -45,63 +91,4 @@ const CategoryTable = ({ onEdit, onDelete }) => {
   );
 };
 
-export default CategoryTable;
-
-
-
-
-
-
-/*import React from 'react';
-import { FaEdit, FaTrash } from "react-icons/fa";
-
-const categories = [
-  { id: 1, name: 'Meyve, Sebze' },
-  { id: 2, name: 'Et, Şarküteri' },
-  { id: 3, name: 'Atıştırmalık' },
-  { id: 4, name: 'Kuruyemiş' },
-  { id: 5, name: 'İçecekler' },
-  { id: 6, name: 'Glutensiz Ürünler' },
-  { id: 7, name: 'Kahvaltılık Ürünler' },
-  { id: 8, name: 'Sağlık, Bakım' },
-  { id: 9, name: 'Temizlik' },
-  
-];
-
-const CategoryTable = ({ onEdit, onDelete }) => {
-  return (
-    <div className="p-6 max-w-6xl mx-auto bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">Kategori Tablosu</h1>
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="min-w-full bg-white border border-gray-300 rounded-lg">
-          <thead>
-            <tr className="bg-indigo-500 text-white">
-              <th className="py-3 px-6 border-b">No</th>
-              <th className="py-3 px-6 border-b">Kategori</th>
-              <th className="py-3 px-6 border-b">İşlemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((category, index) => (
-              <tr key={category.id} className={`border-b ${index % 2 === 0 ? 'bg-indigo-100' : 'bg-purple-100'} hover:bg-purple-200 transition duration-300`}>
-                <td className="py-4 px-6 text-center">{index + 1}</td>
-                <td className="py-4 px-6">{category.name}</td>
-                <td className="py-4 px-6 flex justify-center space-x-6">
-                  <button onClick={() => onEdit(category.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
-                    <FaEdit className="inline-block" />
-                  </button>
-                  <button onClick={() => onDelete(category.id)} className="text-red-500 hover:text-red-700 transition duration-300">
-                    <FaTrash className="inline-block" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-export default CategoryTable;
- */
+export default AdminCategoryPage;
