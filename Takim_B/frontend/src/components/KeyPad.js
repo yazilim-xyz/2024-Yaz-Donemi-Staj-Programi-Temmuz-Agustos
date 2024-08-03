@@ -1,13 +1,12 @@
-
 import React from 'react';
 
 const KeyPad = ({ onKeyClick }) => {
   return (
-    <div className="p-1 rounded grid grid-cols-3 gap-1 max-h-72"> {/* Adjusted padding and max height */}
+    <div className="grid grid-cols-3 gap-2 ">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.', 'C'].map((key) => (
         <button
           key={key}
-          className="bg-gray-200 p-1 rounded text-sm h-8 sm:h-7 md:h-10"  // Adjusted padding and font size
+          className="bg-gray-200 p-2 rounded-lg text-lg hover:bg-gray-300 transition-transform transform hover:scale-105"
           onClick={() => onKeyClick(key)}
         >
           {key}

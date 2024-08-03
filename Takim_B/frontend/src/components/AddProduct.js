@@ -89,7 +89,6 @@ function AddProduct() {
               <option value="Kahvaltılık Ürünler">Kahvaltılık Ürünler</option>
               <option value="Sağlık, Bakım">Sağlık, Bakım</option>
               <option value="Temizlik">Temizlik</option>
-              {/* Diğer kategoriler */}
             </select>
           </div>
 

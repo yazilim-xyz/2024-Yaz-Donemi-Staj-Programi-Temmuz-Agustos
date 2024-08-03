@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import { auth } from "../service/firebase";
+import { auth } from "../../service/firebase";
 
 
 const MainLayout = () => {

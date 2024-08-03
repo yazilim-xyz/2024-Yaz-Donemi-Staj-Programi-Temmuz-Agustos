@@ -4,6 +4,21 @@
 @tailwind utilities;
 
 @layer utilities {
+  .scrollbar {
+    @apply overflow-y-auto;
+  }
+  .scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 dark:bg-gray-600;
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500 dark:bg-gray-200;
+  }
     .dark-gradient {
       background: linear-gradient(90deg, #1E1E2E 18.9%, #4A4A6A 79.9%);
       color: black;

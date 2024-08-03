@@ -6,8 +6,8 @@ import MainPage from './pages/MainPage'; // Düzenlemeyi unutmayın, MainPage i�
 import CategoryList from './components/CategoryList';
 import ProductList from './components/ProductList';
 import ForgotPassword from './pages/ForgotPassword';
-import MainLayout from './components/MainLayout';
-import AuthLayout from './components/AuthLayout';
+import MainLayout from './components/layout/MainLayout';
+import AuthLayout from './components/layout/AuthLayout';
 
 import MainAdmin from './admin_panel/MainAdmin';
 import FirstPage from './pages/FirstPage';

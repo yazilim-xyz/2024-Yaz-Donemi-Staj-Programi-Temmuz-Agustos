@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProductByBarcode, selectProducts } from '../features/products/productSlice';
 import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import KeyPad from './KeyPad';
-import { FaBarcode, FaPlus } from 'react-icons/fa';
+import { FaBarcode } from 'react-icons/fa';
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
@@ -26,22 +26,22 @@ const BarcodeInput = () => {
   };
 
   return (
-    <div className="p-4 shadow-lg max-w-lg mx-auto">
-      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2'>
+    <div className="p-4 shadow-lg rounded-lg max-w-lg mx-auto bg-white">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
         <input
           type="text"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Barcode"
+          placeholder="Barkod"
           className="border p-2 rounded-lg w-full"
         />
-        <FaBarcode className="sm:ml-2 text-3xl" /> 
         <button
           type="submit"
-          className="mt-2 sm:mt-0 font-bold p-2 rounded-lg flex items-center space-x-2"
+          className="mt-2 sm:mt-0 font-bold p-2 rounded-lg flex items-center space-x-2 bg-green-500 text-white hover:bg-green-600 transition-transform transform hover:scale-105"
         >
-          <FaPlus className="text-xl" />
+          <span>Sepete Ekle</span>
         </button>
+        <FaBarcode className="sm:ml-2 text-3xl" />
       </form>
       <div className="mt-4">
         <KeyPad onKeyClick={handleKeyClick} />

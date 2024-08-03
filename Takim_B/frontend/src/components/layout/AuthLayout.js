@@ -1,6 +1,6 @@
 import {useAuthState} from "react-firebase-hooks/auth";
 import { Outlet, Navigate } from "react-router-dom";
-import { auth } from "../service/firebase";
+import { auth } from "../../service/firebase";
 
 const AuthLayout = () => {
 

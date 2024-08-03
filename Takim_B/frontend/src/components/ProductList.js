@@ -9,9 +9,6 @@ const products = {
     { id: 5, name: 'Product 2', price: 39 },
     { id: 6, name: 'Product 2', price: 39 },
     { id: 7, name: 'Product 2', price: 39 },
-
-
-    
   ],
   'Meyve, Sebze': [
     { id: 3, name: 'Elma', price: 5 },
@@ -152,24 +149,22 @@ const products = {
    ], 
   };
 
-const ProductList = ({category, darkMode }) => {
-  const selectedProducts = products[category] || [];
-
-
-  return (
-    <div className={`p-4 rounded-3xl shadow max-h-[calc(100vh-8rem)] overflow-y-auto ${darkMode ? 'bg-primary' : 'bg-white'}`}>
-      <h2 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler &gt; {category}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {selectedProducts.map(product => (
-          <div key={product.id} className={`w-30 h-50 border p-4 rounded-3xl shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-primary text-white'}`}>
-          <div className="w-full h-40 bg-gray-200 rounded-2xl"></div>
-          <h3 className="font-semibold">{product.name}</h3>
-            <p>${product.price}</p>
-          </div>
-        ))}
+  const ProductList = ({ category, darkMode }) => {
+    const selectedProducts = products[category] || [];
+  
+    return (
+      <div className="p-4 max-h-full overflow-auto scrollbar">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {selectedProducts.map(product => (
+            <div key={product.id} className={`w-full h-full  p-4 rounded-3xl shadow-sm ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}>
+              <div className="w-full h-40 bg-gray-200 rounded-2xl"></div>
+              <h3 className="font-semibold">{product.name}</h3>
+              <p>${product.price}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
-
-export default ProductList;
+    );
+  };
+  
+  export default ProductList;
