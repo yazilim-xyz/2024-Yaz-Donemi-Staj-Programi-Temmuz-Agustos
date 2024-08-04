@@ -1,11 +1,12 @@
 import React, { useState }from "react";
 import Sidebar from "./Sidebar";
-import Content from "./Content";
 import Navbar from "./Navbar";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import CategoryTable from "./Categories";
 import ProductTable from "./ProductTable";
+import Dashboard from "./Dashboard";
+import Members from "./Members";
 function MainAdmin() {
   const [activePage, setActivePage] = useState('dashboard'); // Varsayılan sayfa
  
@@ -19,20 +20,22 @@ function MainAdmin() {
           return <CategoryTable />;
         case 'productTable':
           return <ProductTable />;
+          case 'kullanıcılar':
+            return <Members />;
   
       // Başka sayfalar eklenebilir
       default:
-        return <div></div>; // Varsayılan içerik
+        return <div className="min-h-screen"><Dashboard></Dashboard></div>; // Varsayılan içerik
     }
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-100">
+    <div className="flex flex-col min-h-screen
+     bg-gray-100 pt-16">
     <Navbar />
     <div className="flex flex-1">
-      <Sidebar setActivePage={setActivePage} />
+      <Sidebar setActivePage={setActivePage} activePage={activePage} />
       {renderContent()}
-      {/* <Content /> */}
     </div>
   </div>
   );

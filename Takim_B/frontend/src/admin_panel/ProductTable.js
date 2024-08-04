@@ -6,6 +6,8 @@ const products = [
   { id: 2, name: 'Süt', barcode: '0987654321', price: 2.99, quantity: 50, category: 'Gıda' },
   { id: 3, name: 'Ekmek', barcode: '1122334455', price: 1.49, quantity: 200, category: 'Gıda' },
   { id: 4, name: 'Peynir', barcode: '2233445566', price: 4.49, quantity: 80, category: 'Süt Ürünleri' },
+  
+  
   // Daha fazla ürün ekleyebilirsiniz
 ];
 
@@ -20,7 +22,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
   );
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+    <div className="p-6 max-w-6xl mt-4 mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Tablosu</h1>
       <div className="relative mb-4">
         <input
