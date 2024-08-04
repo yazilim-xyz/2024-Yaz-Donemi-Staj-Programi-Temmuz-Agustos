@@ -7,6 +7,7 @@ import Chat from './pages/Chat';
 import About from './components/About';
 import Contact from './components/Contact';
 import Groups from './components/Groups';
+import GroupChat from './pages/GroupChat';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/groups" element={<Groups />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/groupchat" element={<GroupChat />} />
       </Routes>
     </Router>
   );
