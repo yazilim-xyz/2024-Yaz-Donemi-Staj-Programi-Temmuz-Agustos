@@ -75,7 +75,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
           <tbody>
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product, index) => {
-                const price = Number(product.price) || 0; // Sayıya dönüştür
+                const price = Number(product.price) || 0; 
                 return (
                   <tr key={product.id} className={`border-b ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300`}>
                     <td className="py-2 px-4 text-center text-xs sm:text-sm md:text-base">{index + 1}</td>
