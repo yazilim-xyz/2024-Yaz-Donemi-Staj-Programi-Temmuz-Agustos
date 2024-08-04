@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
-import CategoryTable from "./Categories";
+import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
 import Members from "./Members";
@@ -17,7 +17,7 @@ function MainAdmin() {
       case 'update-product':
         return <UpdateProduct />;
         case 'categories-admin':
-          return <CategoryTable />;
+          return <AdminCategoryPage />;
         case 'productTable':
           return <ProductTable />;
           case 'kullanıcılar':
