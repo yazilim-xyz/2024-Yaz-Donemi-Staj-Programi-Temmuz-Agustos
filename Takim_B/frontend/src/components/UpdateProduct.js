@@ -24,7 +24,7 @@ const UpdateProduct = () => {
 
   return (
     <div className="p-6 max-w-4xl mt-4 mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Güncelle</h1>
+      <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Ürün Güncelle</h1>
       <form onSubmit={handleSubmit} className="bg-white p-8 shadow-md rounded-lg space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>

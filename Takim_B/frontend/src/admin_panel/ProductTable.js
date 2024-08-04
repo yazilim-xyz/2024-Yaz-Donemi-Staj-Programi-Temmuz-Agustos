@@ -1,28 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
-
-const products = [
-  { id: 1, name: 'Elma', barcode: '1234567890', price: 5.99, quantity: 100, category: 'Meyve, Sebze' },
-  { id: 2, name: 'Süt', barcode: '0987654321', price: 2.99, quantity: 50, category: 'Gıda' },
-  { id: 3, name: 'Ekmek', barcode: '1122334455', price: 1.49, quantity: 200, category: 'Gıda' },
-  { id: 4, name: 'Peynir', barcode: '2233445566', price: 4.49, quantity: 80, category: 'Süt Ürünleri' },
-  
-  
-  // Daha fazla ürün ekleyebilirsiniz
-];
-
+import { fetchProducts } from '../service/productService';
+import { deleteProduct } from '../service/productService';
+import { useNavigate } from 'react-router-dom';
 const ProductTable = ({ onEdit, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const handleDelete = async (id) => {
+    try {
+      await deleteProduct(id);
+      // Ürün başarıyla silindiğinde yapılacak işlemler
+      alert('Ürün başarıyla silindi!');
+      // Ürün listesini yeniden yükle
+      const updatedProducts = await fetchProducts();
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error("Ürün silinirken bir hata oluştu:", error);
+      alert('Ürün silinirken bir hata oluştu.');
+    }
+  };
+ 
+  useEffect(() => {
+    // Ürünleri Firestore'dan çek
+    const fetchProductList = async () => {
+      const productsFromFirestore = await fetchProducts();
+      setProducts(productsFromFirestore);
+    };
+
+    fetchProductList();
+  }, []); // Boş bağımlılık dizisi ile sadece bir kez çağrılır
 
   // Filtreleme fonksiyonu
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.barcode.includes(searchTerm) ||
-    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products.filter(product => {
+    const name = product.name || '';
+    const barcode = product.barcode || '';
+    const category = product.category || '';
+
+    return name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           barcode.includes(searchTerm) ||
+           category.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
-    <div className="p-6 max-w-6xl mt-4 mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Tablosu</h1>
       <div className="relative mb-4">
         <input
@@ -33,15 +54,16 @@ const ProductTable = ({ onEdit, onDelete }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <FaSearch
-        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
-        size={20}
-      />
+          className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+          size={20}
+        />
       </div>
       <div className="overflow-x-auto">
         <table className="w-full bg-white border border-gray-300 rounded-lg">
           <thead>
             <tr className="bg-gray-800 text-white">
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">No</th>
+              <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Resim</th>
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Ürün Adı</th>
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Barkod No</th>
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Kategori</th>
@@ -52,27 +74,37 @@ const ProductTable = ({ onEdit, onDelete }) => {
           </thead>
           <tbody>
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((product, index) => (
-                <tr key={product.id} className={`border-b ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300`}>
-                  <td className="py-2 px-4 text-center text-xs sm:text-sm md:text-base">{index + 1}</td>
-                  <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.name}</td>
-                  <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.barcode}</td>
-                  <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.category}</td>
-                  <td className="py-2 px-4 text-xs sm:text-sm md:text-base">${product.price.toFixed(2)}</td>
-                  <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.quantity}</td>
-                  <td className="py-2 px-4 flex justify-center space-x-4 text-xs sm:text-sm md:text-base">
-                    <button onClick={() => onEdit(product.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
-                      <FaEdit className="inline-block" />
-                    </button>
-                    <button onClick={() => onDelete(product.id)} className="text-red-500 hover:text-red-700 transition duration-300">
-                      <FaTrash className="inline-block" />
-                    </button>
-                  </td>
-                </tr>
-              ))
+              filteredProducts.map((product, index) => {
+                const price = Number(product.price) || 0; // Sayıya dönüştür
+                return (
+                  <tr key={product.id} className={`border-b ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300`}>
+                    <td className="py-2 px-4 text-center text-xs sm:text-sm md:text-base">{index + 1}</td>
+                    <td className="py-2 px-4 text-center">
+                      <img
+                        src={product.image}
+                        alt={product.productNamename}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productName}</td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productId}</td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.category}</td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">${price.toFixed(2)}</td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.quantity || 0}</td>
+                    <td className="py-2 px-4 flex justify-center space-x-4 text-xs sm:text-sm md:text-base">
+                      <button onClick={() => onEdit(product.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
+                        <FaEdit className="inline-block" />
+                      </button>
+                      <button onClick={() => handleDelete(product.id)} className="text-red-500 hover:text-red-700 transition duration-300">
+                        <FaTrash className="inline-block" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
-                <td colSpan="7" className="py-4 px-4 text-center text-gray-500 text-xs sm:text-sm md:text-base">Arama sonucunda ürün bulunamadı</td>
+                <td colSpan="8" className="py-4 px-4 text-center text-gray-500 text-xs sm:text-sm md:text-base">Arama sonucunda ürün bulunamadı</td>
               </tr>
             )}
           </tbody>
