@@ -8,7 +8,6 @@ const AdminCategoryPage = () => {
   const [editCategoryId, setEditCategoryId] = useState(null);
   const [editCategoryName, setEditCategoryName] = useState('');
 
-  // Fetch categories from Firestore on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -18,9 +17,8 @@ const AdminCategoryPage = () => {
         
         console.log('Fetched categories:', categoryList); // Debugging line
         
-        // Ensure no duplicate categories are set
         setCategories(prevCategories => {
-          // Compare and update only if different
+         
           if (JSON.stringify(prevCategories) !== JSON.stringify(categoryList)) {
             return categoryList;
           }
@@ -32,9 +30,9 @@ const AdminCategoryPage = () => {
     };
 
     fetchCategories();
-  }, []); // Empty dependency array ensures it runs only once
+  }, []); 
 
-  // Add a new category to Firestore
+  
   const handleAddCategory = async () => {
     if (newCategory.trim()) {
       try {
@@ -51,7 +49,6 @@ const AdminCategoryPage = () => {
     }
   };
 
-  // Delete a category from Firestore
   const handleDeleteCategory = async (id) => {
     try {
       const categoryDoc = doc(db, 'categories', id);
@@ -62,7 +59,7 @@ const AdminCategoryPage = () => {
     }
   };
 
-  // Edit a category
+ 
   const handleEditCategory = async () => {
     if (editCategoryId && editCategoryName.trim()) {
       try {

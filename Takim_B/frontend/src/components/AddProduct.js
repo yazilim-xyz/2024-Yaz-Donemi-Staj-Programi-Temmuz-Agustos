@@ -12,7 +12,7 @@ function AddProduct() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // Fetch categories from Firestore
+  
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'categories'));
@@ -35,7 +35,6 @@ function AddProduct() {
     try {
       let imageUrl = null;
 
-      // If an image is selected, upload it to Firebase Storage
       if (image) {
         const storage = getStorage();
         const imageRef = ref(storage, `product_images/${image.name}`);
@@ -43,18 +42,18 @@ function AddProduct() {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      // Add product data to Firestore
+      
       await addDoc(collection(db, 'products'), {
         productName,
         productId,
         price,
         category,
         quantity,
-        image: imageUrl || "", // Use the image URL or an empty string if no image
+        image: imageUrl || "", 
       });
       
       alert('Ürün başarıyla eklendi!');
-      // Reset the form
+      
       setProductName('');
       setProductId('');
       setPrice('');

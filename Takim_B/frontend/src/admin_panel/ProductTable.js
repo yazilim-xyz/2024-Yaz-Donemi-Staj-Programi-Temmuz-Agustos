@@ -10,9 +10,9 @@ const ProductTable = ({ onEdit, onDelete }) => {
   const handleDelete = async (id) => {
     try {
       await deleteProduct(id);
-      // Ürün başarıyla silindiğinde yapılacak işlemler
+      
       alert('Ürün başarıyla silindi!');
-      // Ürün listesini yeniden yükle
+      
       const updatedProducts = await fetchProducts();
       setProducts(updatedProducts);
     } catch (error) {
@@ -22,16 +22,16 @@ const ProductTable = ({ onEdit, onDelete }) => {
   };
  
   useEffect(() => {
-    // Ürünleri Firestore'dan çek
+   
     const fetchProductList = async () => {
       const productsFromFirestore = await fetchProducts();
       setProducts(productsFromFirestore);
     };
 
     fetchProductList();
-  }, []); // Boş bağımlılık dizisi ile sadece bir kez çağrılır
+  }, []); 
 
-  // Filtreleme fonksiyonu
+
   const filteredProducts = products.filter(product => {
     const name = product.name || '';
     const barcode = product.barcode || '';

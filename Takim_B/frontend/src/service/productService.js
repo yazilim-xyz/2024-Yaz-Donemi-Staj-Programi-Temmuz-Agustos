@@ -1,4 +1,3 @@
-// service/productService.js
 import { db, collection, getDocs, addDoc, updateDoc, deleteDoc, getDoc, doc } from './firebase';
 export const fetchProducts = async () => {
   const productsCollection = collection(db, 'products');

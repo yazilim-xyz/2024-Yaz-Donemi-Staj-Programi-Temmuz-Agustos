@@ -6,11 +6,11 @@ const Dashboard = ({ totalProducts, totalCategories }) => {
   const [activePage, setActivePage] = useState(''); // Aktif sayfayı takip eder
 
   const handleClick = (page) => {
-    setActivePage(page); // Tıklanan sayfayı aktif sayfa olarak ayarlar
+    setActivePage(page); 
   };
 
   if (activePage) {
-    // Aktif sayfa varsa sadece ilgili içerik gösterilir
+    
     return (
       <div className="p-5">
         {activePage === 'productTable' && <ProductTable />}

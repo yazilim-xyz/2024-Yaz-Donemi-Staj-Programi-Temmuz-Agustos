@@ -8,7 +8,7 @@ import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
 import Members from "./Members";
 function MainAdmin() {
-  const [activePage, setActivePage] = useState('dashboard'); // Varsayılan sayfa
+  const [activePage, setActivePage] = useState('dashboard'); 
  
   const renderContent = () => {
     switch (activePage) {
