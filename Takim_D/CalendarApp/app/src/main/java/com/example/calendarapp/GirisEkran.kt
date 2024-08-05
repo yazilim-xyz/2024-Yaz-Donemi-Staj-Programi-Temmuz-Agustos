@@ -66,7 +66,7 @@ fun GirisEkran(navController: NavController) {
 
             Spacer(modifier = Modifier.height(250.dp)) // Burada boşluk ekliyoruz
 
-            Text(text = "Giriş Yap", fontSize = 20.sp , fontWeight = FontWeight.Bold)
+            Text(text = "", fontSize = 20.sp , fontWeight = FontWeight.Bold)
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -131,24 +131,6 @@ fun GirisEkran(navController: NavController) {
                     )
                 ) {
                     Text(text = "Kullanıcı Girişi")
-                }
-
-                Button(
-                    onClick = {
-                        val specialCharacters = "!@#$%^&*(),.?\":{}|<>"
-                        val containsSpecialCharacter = specialCharacters.any { it in sifre }
-                        if (posta.contains("@") && containsSpecialCharacter) {
-                            navController.navigate("takvim sayfa")
-                        } else {
-                            errorMesage = "Geçersiz e-posta adresi veya şifre lütfen şifrenizin özel karakter içermesine dikkat edin."
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = customColor,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(text = "Yetkili Girişi")
                 }
             }
 
