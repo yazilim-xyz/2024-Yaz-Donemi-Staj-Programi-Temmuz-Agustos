@@ -38,9 +38,9 @@ import java.util.Locale
 @Composable
 fun PanelSayfa(navController: NavController) {
     val customColor = Color(android.graphics.Color.parseColor("#6771E0"))
-    val names = listOf("Sinem Ertural", "Ahmet Yılmaz", "Ayşe Demir", "Mehmet Kaya", "Elif Çelik", "Fatma Koç", "Ali Yıldız",
-        "Zeynep Şahin", "Canan Öztürk", "Hüseyin Çınar", "Emre Sarı", "Gizem Toprak", "Kadir Kara", "Merve Güneş", "Tuba Ak",
-        "Cemal Dağ", "Özlem Acar", "Rıza Kurt", "Derya Gül", "Serkan Deniz")
+    val names = listOf("Sinem Ertural", "Batuhan Mercan","Şeyma Kayacık" ,"Ayşe Demir", "Mehmet Kaya", "Elif Çelik", "Fatma Koç", "Ali Yıldız",
+        "Zeynep Şahin", "Canan Öztürk", "Hüseyin Çınar", "Emre Sarı", "Gizem Toprak", "Kadir Kara", "Merve Güneş",
+        "Cemal Dağ", "Özlem Acar", "Rıza Kurt")
 
 
     val image: Painter = painterResource(id = R.drawable.arkaplan)
@@ -87,7 +87,7 @@ fun PanelSayfa(navController: NavController) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = name,
-                            fontSize = 25.sp,
+                            fontSize = 20.sp,
                             color = Color.Black
                         )
                     }

@@ -21,7 +21,7 @@ fun HosgeldinSayfa(navController: NavController) {
     val customColor = Color(android.graphics.Color.parseColor("#6771E0"))
 
     LaunchedEffect(Unit) {
-        delay(3000)
+        delay(2000)
         navController.navigate("giris sayfa") {
             popUpTo("ilk sayfa") { inclusive = true }
         }

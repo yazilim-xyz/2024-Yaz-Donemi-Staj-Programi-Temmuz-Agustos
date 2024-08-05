@@ -19,32 +19,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GirisEkran(navController: NavController) {
 
     val image: Painter = painterResource(id = R.drawable.arkaplann)
-    var posta by remember {
-        mutableStateOf("")
-    }
-    var sifre by rememberSaveable {
-        mutableStateOf("")
-    }
+    var posta by remember { mutableStateOf("") }
+    var sifre by rememberSaveable { mutableStateOf("") }
+    var errorMesage by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
 
-    var errorMesage by remember {
-        mutableStateOf("")
-    }
-    var passwordVisibility by remember {
-        mutableStateOf(false)
-    }
-
-    val icon = if (passwordVisibility)
-        painterResource(id = R.drawable.baseline_visibility_24)
-    else
-        painterResource(id = R.drawable.baseline_visibility_off_24)
-
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val icon = if (passwordVisibility) painterResource(id = R.drawable.baseline_visibility_24)
+    else painterResource(id = R.drawable.baseline_visibility_off_24)
     val customColor = Color(android.graphics.Color.parseColor("#6771E0"))
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,22 +45,25 @@ fun GirisEkran(navController: NavController) {
             painter = image,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop
         )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Spacer(modifier = Modifier.height(250.dp)) // Burada boşluk ekliyoruz
+            Spacer(modifier = Modifier.height(230.dp)) // Burada boşluk ekliyoruz
 
-            Text(text = "Giriş Yap", fontSize = 20.sp , fontWeight = FontWeight.Bold)
-
-            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "Giriş Yap",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 20.dp)
+            )
 
             OutlinedTextField(
                 value = posta,
@@ -110,51 +105,30 @@ fun GirisEkran(navController: NavController) {
                     .padding(horizontal = 30.dp, vertical = 8.dp)
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            Button(
+                onClick = {
+                    auth.signInWithEmailAndPassword(posta, sifre)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val user: FirebaseUser? = auth.currentUser
+                                navController.navigate("takvim sayfa")
+                            } else {
+                                errorMesage = "Geçersiz e-posta adresi veya şifre lütfen tekrar deneyiniz."
+                            }
+                        }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = customColor,
+                    contentColor = Color.White
+                ),
+                modifier = Modifier.padding(16.dp)
             ) {
-                Button(
-                    onClick = {
-                        val specialCharacters = "!@#$%^&*(),.?\":{}|<>"
-                        val containsSpecialCharacter = specialCharacters.any { it in sifre }
-                        if (posta.contains("@") && containsSpecialCharacter) {
-                            navController.navigate("takvim sayfa")
-                        } else {
-                            errorMesage = "Geçersiz e-posta adresi veya şifre lütfen şifrenizin özel karakter içermesine dikkat edin."
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = customColor,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(text = "Kullanıcı Girişi")
-                }
-
-                Button(
-                    onClick = {
-                        val specialCharacters = "!@#$%^&*(),.?\":{}|<>"
-                        val containsSpecialCharacter = specialCharacters.any { it in sifre }
-                        if (posta.contains("@") && containsSpecialCharacter) {
-                            navController.navigate("takvim sayfa")
-                        } else {
-                            errorMesage = "Geçersiz e-posta adresi veya şifre lütfen şifrenizin özel karakter içermesine dikkat edin."
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = customColor,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(text = "Yetkili Girişi")
-                }
+                Text(text = "Kullanıcı Girişi")
             }
 
             if (errorMesage.isNotEmpty()) {
                 Text(
-                    errorMesage,
+                    text = errorMesage,
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(8.dp)
@@ -163,7 +137,7 @@ fun GirisEkran(navController: NavController) {
 
             TextButton(onClick = { navController.navigate("panel giris") }) {
                 Text(
-                    text = "Yetki vermek mi istiyorsunuz ?",
+                    text = "Yetki vermek mi istiyorsunuz?",
                     modifier = Modifier.padding(30.dp),
                     textAlign = TextAlign.Center,
                     fontSize = 15.sp,

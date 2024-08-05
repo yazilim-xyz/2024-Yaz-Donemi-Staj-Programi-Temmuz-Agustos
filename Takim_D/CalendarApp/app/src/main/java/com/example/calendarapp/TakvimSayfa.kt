@@ -37,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -218,6 +220,7 @@ fun CalendarGrid(
 
 @Composable
 fun DayCell(dayOfMonth: Int, isToday: Boolean, isSelected: Boolean, hasNote: Boolean, onClick: () -> Unit) {
+
     Box(
         modifier = Modifier
             .size(40.dp)
@@ -232,7 +235,8 @@ fun DayCell(dayOfMonth: Int, isToday: Boolean, isSelected: Boolean, hasNote: Boo
             .clickable { onClick() }
             .padding(4.dp),
         contentAlignment = Alignment.Center
-    ) {
+    )
+    {
         Text(
             text = dayOfMonth.toString(),
             color = if (isToday || hasNote) Color.White else Color.Black,
