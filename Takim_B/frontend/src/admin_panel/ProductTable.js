@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
-import { fetchProducts } from '../service/productService';
-import { deleteProduct } from '../service/productService';
+import { fetchProducts, deleteProduct } from '../service/productService';
 import { useNavigate } from 'react-router-dom';
+
 const ProductTable = ({ onEdit, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
   const handleDelete = async (id) => {
     try {
       await deleteProduct(id);
@@ -20,6 +21,11 @@ const ProductTable = ({ onEdit, onDelete }) => {
       alert('Ürün silinirken bir hata oluştu.');
     }
   };
+
+  const handleEdit = (product) => {
+    navigate(`/update-product`, { state: { product } });
+  };
+  
  
   useEffect(() => {
    
@@ -33,7 +39,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
 
 
   const filteredProducts = products.filter(product => {
-    const name = product.name || '';
+    const name = product.productName || '';
     const barcode = product.barcodeId || '';
     const category = product.category || '';
 
@@ -83,7 +89,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
                       <img
                         src={product.image}
                         alt={product.productNamename}
-                        className="w-16 h-16 object-cover rounded"
+                        className="w-16 h-16 object-content rounded "
                       />
                     </td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productName}</td>
@@ -92,9 +98,9 @@ const ProductTable = ({ onEdit, onDelete }) => {
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">${price.toFixed(2)}</td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.quantity || 0}</td>
                     <td className="py-2 px-4 flex justify-center space-x-4 text-xs sm:text-sm md:text-base">
-                      <button onClick={() => onEdit(product.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
-                        <FaEdit className="inline-block" />
-                      </button>
+                    <button onClick={() => handleEdit(product.id)} className="text-blue-500 hover:text-blue-700 transition duration-300">
+                      <FaEdit className="inline-block" />
+                    </button>
                       <button onClick={() => handleDelete(product.id)} className="text-red-500 hover:text-red-700 transition duration-300">
                         <FaTrash className="inline-block" />
                       </button>

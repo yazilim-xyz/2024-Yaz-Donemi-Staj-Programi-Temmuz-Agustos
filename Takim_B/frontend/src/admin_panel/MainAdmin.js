@@ -6,7 +6,6 @@ import UpdateProduct from "../components/UpdateProduct";
 import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
-import Members from "./Members";
 function MainAdmin() {
   const [activePage, setActivePage] = useState('dashboard'); 
  
@@ -20,8 +19,7 @@ function MainAdmin() {
           return <AdminCategoryPage />;
         case 'productTable':
           return <ProductTable />;
-          case 'kullanıcılar':
-            return <Members />;
+          
   
       // Başka sayfalar eklenebilir
       default:

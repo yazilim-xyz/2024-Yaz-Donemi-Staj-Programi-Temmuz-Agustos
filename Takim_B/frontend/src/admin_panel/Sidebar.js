@@ -35,22 +35,11 @@ function Sidebar({ setActivePage, activePage }) {
           <FaPlus className="mr-2" /> {isOpen && 'Ürün Ekle'}
         </li>
         <li
-          onClick={() => handleClick('update-product')}
-          className={`px-4 py-2 flex items-center cursor-pointer ${activePage === 'update-product' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
-        >
-          <FaEdit className="mr-2" /> {isOpen && 'Ürün Güncelle'}
-        </li>
-        <li
           className={`px-4 py-2 flex items-center ${activePage === 'stock-tracking' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
         >
           <FaChartLine className="mr-2" /> {isOpen && <Link to="/stock-tracking" onClick={() => handleClick('stock-tracking')}>Stok Takip</Link>}
         </li>
-        <li
-          onClick={() => handleClick('kullanıcılar')}
-          className={`px-4 py-2 flex items-center cursor-pointer ${activePage === 'kullanıcılar' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
-        >
-          <FaUserCog className="mr-2" /> {isOpen && 'Kullanıcılar'}
-        </li>
+
         <li
           className={`px-4 py-2 flex items-center ${activePage === 'logout' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
         >

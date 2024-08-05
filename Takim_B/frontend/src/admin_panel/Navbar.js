@@ -17,7 +17,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0  bg-green_a text-gray-900 p-4 flex justify-between items-center shadow-md z-50">
+    <div className="fixed top-0 left-0 w-full flex justify-between items-center p-1 z-50">
       <div className="flex items-center">
         <img
           src={person}

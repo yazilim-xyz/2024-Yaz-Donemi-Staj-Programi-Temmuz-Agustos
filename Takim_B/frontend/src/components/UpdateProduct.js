@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation to access navigation state
 
 const UpdateProduct = () => {
-  const [productName, setProductName] = useState('');
-  const [barcodeId, setBarcodeId] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [quantity, setQuantity] = useState(1);
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState('');
+  const location = useLocation(); // Access location object
+  const productData = location.state?.product; // Get product data passed from ProductTable
+
+  const [productName, setProductName] = useState(productData?.productName || '');
+  const [barcodeId, setBarcodeId] = useState(productData?.barcodeId || '');
+  const [price, setPrice] = useState(productData?.price || '');
+  const [category, setCategory] = useState(productData?.category || '');
+  const [quantity, setQuantity] = useState(productData?.quantity || 1);
+  const [image, setImage] = useState(null); // Images usually can't be pre-filled from file inputs for security reasons
+  const [description, setDescription] = useState(productData?.description || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Ürün güncellendi:', {
+    console.log('Product updated:', {
       productName,
       barcodeId,
       price,
@@ -132,6 +136,7 @@ const UpdateProduct = () => {
           </button>
 
           <button
+          onClick={handleSubmit}
             type="submit"
             className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300 shadow-lg"
           >

@@ -41,7 +41,7 @@ const ProductList = ({ category, darkMode }) => {
         {selectedProducts.map(product => (
                     <div key={product.id} className={`w-full h-full p-4 rounded-3xl shadow-sm ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}>
                     <div className="w-full h-40 bg-gray-200 rounded-2xl">
-                      {product.image && <img src={product.image} alt={product.productName} className="w-full h-full object-cover rounded-2xl" />}
+                      {product.image && <img src={product.image} alt={product.productName} className="w-full h-full object-content rounded-2xl" />}
                     </div>
                     <h3 className="font-semibold mt-2">{product.productName}</h3>
                     <p>${product.price}</p>

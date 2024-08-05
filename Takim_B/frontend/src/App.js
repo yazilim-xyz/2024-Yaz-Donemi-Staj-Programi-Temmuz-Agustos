@@ -36,13 +36,14 @@ function App() {
         <Route path="/main" element={<MainPage toggleDarkMode={toggleDarkMode} darkMode={darkMode} />} />
         <Route path="/categories" element={<CategoryList darkMode={darkMode} />} />
         <Route path="/categories/:categoryName" element={<ProductList darkMode={darkMode} />} />
-      </Route>
-
-      <Route path="/admin" element={<MainAdmin />} />
+        <Route path="/admin" element={<MainAdmin />} />
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="/update-product" element={<UpdateProduct />} />
       <Route  path="/categories-admin" element={<CategoryTable/>} />
       <Route  path="/productTable" element={<ProductTable/>} />
+      </Route>
+
+
     </Routes>
   );
 }
