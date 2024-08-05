@@ -71,7 +71,7 @@ fun TakvimSayfa(navController: NavController) {
         content = {
             Column(modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(20.dp)
                 .background(Color(0xFFF5F5F5))
             ) {
                 CalendarView(
