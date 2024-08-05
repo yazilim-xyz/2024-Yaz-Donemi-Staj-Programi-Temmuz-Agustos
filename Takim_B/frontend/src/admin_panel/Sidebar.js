@@ -1,32 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBox, FaPlus, FaEdit, FaTrash, FaTags, FaChartLine, FaSignOutAlt } from "react-icons/fa";
+import { FaBox, FaPlus, FaEdit, FaTags, FaChartLine, FaSignOutAlt, FaUserCog } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({ setActivePage, activePage }) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleClick = (page) => {
+    setActivePage(page);
+  };
+
   return (
-    <div className="w-64 bg-white shadow-md">
-      <div className="p-4 font-bold text-xl border-b">Yönetim Paneli</div>
-      <ul className="mt-4">
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaBox className="mr-2" /> <Link to="/products">Ürünler</Link>
+    <div className={`transition-all bg-cinder duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-cinder shadow-md`}>
+      <div className="p-4 font-bold text-xl border-b flex items-center justify-between cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen && <span className="text-white">Yönetim Paneli</span>}
+        <span className={`text-white transform ${isOpen ? 'rotate-180' : ''}`}>&#9660;</span>
+      </div>
+      <ul className={`mt-4 ${isOpen ? 'block' : 'hidden'}`}>
+        <li
+          onClick={() => handleClick('categories-admin')}
+          className={`px-4 py-2 flex items-center cursor-pointer ${activePage === 'categories-admin' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
+        >
+          <FaTags className="mr-2" /> {isOpen && 'Kategoriler'}
         </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaTags className="mr-2" /> <Link to="/categories">Kategoriler</Link>
+        <li
+          onClick={() => handleClick('productTable')}
+          className={`px-4 py-2 flex items-center cursor-pointer ${activePage === 'productTable' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
+        >
+          <FaBox className="mr-2" /> {isOpen && 'Ürünler'}
         </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaPlus className="mr-2" /> <Link to="/add-product">Ürün Ekle</Link>
+        <li
+          onClick={() => handleClick('addProduct')}
+          className={`px-4 py-2 flex items-center cursor-pointer ${activePage === 'addProduct' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
+        >
+          <FaPlus className="mr-2" /> {isOpen && 'Ürün Ekle'}
         </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaEdit className="mr-2" /> <Link to="/update-product">Ürün Güncelle</Link>
+        <li
+          className={`px-4 py-2 flex items-center ${activePage === 'stock-tracking' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
+        >
+          <FaChartLine className="mr-2" /> {isOpen && <Link to="/stock-tracking" onClick={() => handleClick('stock-tracking')}>Stok Takip</Link>}
         </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaTrash className="mr-2" /> <Link to="/delete-product">Ürün Sil</Link>
-        </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaChartLine className="mr-2" /> <Link to="/stock-tracking">Stok Takip</Link>
-        </li>
-        <li className="px-4 py-2 hover:bg-gray-200 flex items-center">
-          <FaSignOutAlt className="mr-2" /> <Link to="/">Çıkış Yap</Link>
+
+        <li
+          className={`px-4 py-2 flex items-center ${activePage === 'logout' ? 'bg-gray-200 text-black' : 'text-white hover:bg-gray-200 hover:text-black'}`}
+        >
+          <FaSignOutAlt className="mr-2" /> {isOpen && <Link to="/" onClick={() => handleClick('logout')}>Çıkış Yap</Link>}
         </li>
       </ul>
     </div>

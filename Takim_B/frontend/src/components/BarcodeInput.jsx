@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addProductByBarcode } from '../features/products/productSlice';
-import KeyPad from './KeyPad'; 
-import { FaBarcode, FaPlus } from 'react-icons/fa'; // FaPlus ikonunu ekleyin
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductByBarcode, selectProducts } from '../features/products/productSlice';
+import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
+import KeyPad from './KeyPad';
+import { FaBarcode } from 'react-icons/fa';
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
   const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addProductByBarcode(barcode));
     setBarcode('');
+    dispatch(calculateTotal(products));
   };
-  
+
   const handleKeyClick = (key) => {
     if (key === 'C') {
       setBarcode('');
@@ -23,24 +26,26 @@ const BarcodeInput = () => {
   };
 
   return (
-    <div className="p-2 shadow">
-      <form onSubmit={handleSubmit} className='flex items-center flex-wrap space-x-2 flex-grow'>
+    <div className="p-4 shadow-lg rounded-lg max-w-lg mx-auto bg-white">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
         <input
           type="text"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
-          placeholder="Barcode"
-          className="border p-2 rounded-r-3xl rounded-l-3xl py-2 m-2 flex-grow min-w-0"
+          placeholder="Barkod"
+          className="border p-2 rounded-lg w-full"
         />
-        <FaBarcode className="ml-2 text-3xl" /> 
         <button
           type="submit"
-          className="mt-2 font-bold p-2 rounded-lg flex items-center space-x-2"
+          className="mt-2 sm:mt-0 font-bold p-2 rounded-lg flex items-center space-x-2 bg-green-500 text-white hover:bg-green-600 transition-transform transform hover:scale-105"
         >
-          <FaPlus className="text-xl" /> {/* Submit butonuna ikon ekleme */}
+          <span>Sepete Ekle</span>
         </button>
+        <FaBarcode className="sm:ml-2 text-3xl" />
       </form>
-      <KeyPad onKeyClick={handleKeyClick} className="flex-grow"/>
+      <div className="mt-4">
+        <KeyPad onKeyClick={handleKeyClick} />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from "../service/firebase"
 import lightModeIcon from '../assets/images/png/light.png';
@@ -9,7 +9,6 @@ import xyzLogo from '../assets/images/png/xyz-logo.png';
 const LoginPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = useCallback(
     (e)=>{

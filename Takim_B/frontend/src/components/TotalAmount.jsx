@@ -6,9 +6,9 @@ const TotalAmount = () => {
   const totalAmount = useSelector(selectTotalAmount);
 
   return (
-    <div>
-      <h2 className="text-xl font-bold text-primary">Toplam Tutar</h2>
-      <p className="text-2xl text-primary">${totalAmount.toFixed(2)}</p>
+    <div >
+      <h2 className="text-xl font-bold mb-2">Toplam Tutar</h2>
+      <p className="text-2xl">${totalAmount.toFixed(2)}</p>
     </div>
   );
 };

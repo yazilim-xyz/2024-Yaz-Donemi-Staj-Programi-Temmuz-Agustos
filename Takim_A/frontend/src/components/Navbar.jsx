@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className='flex items-center justify-between bg-[#3955b0] h-[60px] px-4 sm:px-6 md:px-10 lg:px-12  text-white shadow-lg rounded'>
+    <div className='flex items-center justify-between bg-[#3955b0] h-[60px] px-4 sm:px-6 md:px-10 lg:px-12 border  border-slate-900 text-white shadow-lg rounded'>
       <span className='text-lg sm:text-xl font-bold text-left m-2'>WorkChat</span>
       <div className='flex items-center gap-2 sm:gap-4 relative '>
         <div className='flex items-center gap-2'> 

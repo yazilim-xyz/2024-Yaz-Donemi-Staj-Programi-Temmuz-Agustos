@@ -58,12 +58,18 @@ fun GirisEkran(navController: NavController) {
 
             Spacer(modifier = Modifier.height(230.dp)) // Burada boşluk ekliyoruz
 
+<<<<<<< HEAD
             Text(
                 text = "Giriş Yap",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 20.dp)
             )
+=======
+            Text(text = "", fontSize = 20.sp , fontWeight = FontWeight.Bold)
+
+            Spacer(modifier = Modifier.height(20.dp))
+>>>>>>> e941c7e1a067c0d5847e1d7a762f094c28af057b
 
             OutlinedTextField(
                 value = posta,
@@ -123,7 +129,27 @@ fun GirisEkran(navController: NavController) {
                 ),
                 modifier = Modifier.padding(16.dp)
             ) {
+<<<<<<< HEAD
                 Text(text = "Kullanıcı Girişi")
+=======
+                Button(
+                    onClick = {
+                        val specialCharacters = "!@#$%^&*(),.?\":{}|<>"
+                        val containsSpecialCharacter = specialCharacters.any { it in sifre }
+                        if (posta.contains("@") && containsSpecialCharacter) {
+                            navController.navigate("takvim sayfa")
+                        } else {
+                            errorMesage = "Geçersiz e-posta adresi veya şifre lütfen şifrenizin özel karakter içermesine dikkat edin."
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = customColor,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Kullanıcı Girişi")
+                }
+>>>>>>> e941c7e1a067c0d5847e1d7a762f094c28af057b
             }
 
             if (errorMesage.isNotEmpty()) {

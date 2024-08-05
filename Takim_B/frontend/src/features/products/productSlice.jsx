@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-
   items: [],
   barcode: '',
 };
@@ -10,11 +9,7 @@ const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    // addItem: (state, action) => {
-    //   state.items.push(action.payload);
-    // },
     addItem: (state, action) => {
-      // state.items.push(action.payload);
       const product = state.items.find(item => item.id === action.payload.id);
       if (product) {
         product.quantity += 1;

@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Chat from './pages/Chat';
-import GroupChat from './pages/GroupChat';
+//import GroupChat from './pages/GroupChat';
 import About from './components/About';
 import Contact from './components/Contact';
+import Groups from './components/Groups';
+import GroupChat from './pages/GroupChat';
 
 
 
@@ -16,9 +18,10 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
         <Route path="/messages" element={<Chat />}/>
-        <Route path="/GroupChat" element={<GroupChat />} />
+        <Route path="/groups" element={<Groups />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/groupchat" element={<GroupChat />} />
       </Routes>
     </Router>
   );
