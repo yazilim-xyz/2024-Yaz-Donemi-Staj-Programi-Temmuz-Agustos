@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Message = ({ text, sender, time, isCurrentUser }) => {
+const Message = ({ text, sender, time, isCurrentUser, image }) => {
   const formatTime = (date) => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
@@ -24,6 +24,7 @@ const Message = ({ text, sender, time, isCurrentUser }) => {
           className={`p-2.5 rounded-lg max-w-xs ${isCurrentUser ? 'bg-[#508C9B] text-white' : 'bg-gray-200 text-black'}`}
         >
           <p>{text}</p>
+          {image && <img src={image} alt="Sent" className="mt-2  rounded-lg max-h-60 max-w-60 object-contain" />}
         </div>
         <span className="text-xs text-gray-500 mt-1">{formatTime(time)}</span>
       </div>

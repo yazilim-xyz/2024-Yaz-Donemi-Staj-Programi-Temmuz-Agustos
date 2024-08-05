@@ -6,11 +6,12 @@ const Chatting = () => {
   const [messages, setMessages] = useState([]);
 
   // Mesaj gönderme işlevi
-  const handleSendMessage = (newMessage) => {
+  const handleSendMessage = ({ text, image }) => {
     setMessages([
       ...messages,
       {
-        text: newMessage,
+        text,
+        image, // Resmi de ekle
         sender: {
           profilePic: 'https://pbs.twimg.com/profile_images/1235250851876352002/zXuZlI2k_400x400.jpg', // Profil fotoğrafı yolu
         },
@@ -31,7 +32,7 @@ const Chatting = () => {
       <Messages messages={messages} />
       <Input onSend={handleSendMessage} />
     </div>
-  )
+  );
 }
 
 export default Chatting;

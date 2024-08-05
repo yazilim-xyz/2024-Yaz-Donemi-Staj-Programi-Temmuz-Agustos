@@ -6,7 +6,7 @@ import Chat from './pages/Chat';
 //import GroupChat from './pages/GroupChat';
 import About from './components/About';
 import Contact from './components/Contact';
-import Groups from './components/Groups';
+import GroupsPage from './components/GroupsPage'
 import GroupChat from './pages/GroupChat';
 
 
@@ -18,10 +18,10 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
         <Route path="/messages" element={<Chat />}/>
-        <Route path="/groups" element={<Groups />} />
+        <Route path="/groups" element={<GroupsPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/groupchat" element={<GroupChat />} />
+        {/* <Route path="/groupchat" element={<GroupChat />} /> */}
       </Routes>
     </Router>
   );

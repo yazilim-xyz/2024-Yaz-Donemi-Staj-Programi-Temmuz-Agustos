@@ -44,7 +44,7 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
         try {
             if (selectedUsers.length === 0) {
                 throw new Error("Lütfen gruba eklemek istediğiniz kişileri seçiniz!!!");
-                return;
+                
             }
             setIsNameModalOpen(true); // Name modalı açılır.
             setErrorMessage(""); // Hata mesajını temizle
@@ -60,13 +60,13 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
         try {
             if (!groupName.trim()) {
                 throw new Error("Lütfen gruba isim giriniz!");
-                return;
+                
             }
             console.log("Grup ismi: ", groupName);
             console.log("Seçilen kullanıcılar: ", selectedUsers); //kullanıcı
             setIsNameModalOpen(false);
             onClose();
-            navigate('/groupchat');
+            // navigate('/groupchat');
         } catch (error) {
             setErrorMessage(error.message); // Hata mesajını state'e kaydet
         }
