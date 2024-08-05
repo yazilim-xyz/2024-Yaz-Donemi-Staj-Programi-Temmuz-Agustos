@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const UpdateProduct = () => {
   const [productName, setProductName] = useState('');
-  const [productId, setProductId] = useState('');
+  const [barcodeId, setBarcodeId] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -13,7 +13,7 @@ const UpdateProduct = () => {
     e.preventDefault();
     console.log('Ürün güncellendi:', {
       productName,
-      productId,
+      barcodeId,
       price,
       category,
       quantity,
@@ -42,14 +42,14 @@ const UpdateProduct = () => {
           </div>
 
           <div>
-            <label htmlFor="productId" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="barcodeId" className="block text-gray-800 text-sm font-medium mb-2">
               Barkod No
             </label>
             <input
               type="number"
-              id="productId"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
+              id="barcodeId"
+              value={barcodeId}
+              onChange={(e) => setBarcodeId(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
               required
             />

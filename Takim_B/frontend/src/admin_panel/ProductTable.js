@@ -34,7 +34,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
 
   const filteredProducts = products.filter(product => {
     const name = product.name || '';
-    const barcode = product.barcode || '';
+    const barcode = product.barcodeId || '';
     const category = product.category || '';
 
     return name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -87,7 +87,7 @@ const ProductTable = ({ onEdit, onDelete }) => {
                       />
                     </td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productName}</td>
-                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productId}</td>
+                    <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.barcodeId}</td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.category}</td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">${price.toFixed(2)}</td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.quantity || 0}</td>

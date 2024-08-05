@@ -4,7 +4,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 function AddProduct() {
   const [productName, setProductName] = useState("");
-  const [productId, setProductId] = useState("");
+  const [barcodeId, setBarcodeId] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -45,7 +45,7 @@ function AddProduct() {
       
       await addDoc(collection(db, 'products'), {
         productName,
-        productId,
+        barcodeId,
         price,
         category,
         quantity,
@@ -55,7 +55,7 @@ function AddProduct() {
       alert('Ürün başarıyla eklendi!');
       
       setProductName('');
-      setProductId('');
+      setBarcodeId('');
       setPrice('');
       setCategory('');
       setQuantity(1);
@@ -85,14 +85,14 @@ function AddProduct() {
           </div>
 
           <div>
-            <label htmlFor="productId" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="barcodeId" className="block text-gray-800 text-sm font-medium mb-2">
               Barkod No
             </label>
             <input
               type="number"
-              id="productId"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
+              id="barcodeId"
+              value={barcodeId}
+              onChange={(e) => setBarcodeId(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             />
