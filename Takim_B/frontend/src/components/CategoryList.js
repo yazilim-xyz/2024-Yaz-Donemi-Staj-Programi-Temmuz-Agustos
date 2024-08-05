@@ -15,10 +15,12 @@ const CategoryList = ({ setSelectedCategory, darkMode, isTabBar = false }) => {
     return <h1>Loading...</h1>;
   }
 
+  const categories = [{ id: 'all', name: 'Tüm Ürünler' }, ...data];
+
   if (isTabBar) {
     return (
       <div className={`flex justify-between ${darkMode ? 'bg-gray-800' : 'bg-gray-100'} p-2 rounded-t-lg shadow-md`}>
-        {data.map((category) => (
+        {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => setSelectedCategory(category.name)}
@@ -36,7 +38,7 @@ const CategoryList = ({ setSelectedCategory, darkMode, isTabBar = false }) => {
       {/* Default Category List for Larger Screens */}
       <div className={`p-4 w-full rounded-3xl shadow hidden lg:block ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
         <ul>
-          {data.map((category) => (
+          {categories.map((category) => (
             <li key={category.id} className="border-b py-2">
               <button
                 onClick={() => setSelectedCategory(category.name)}
@@ -60,7 +62,7 @@ const CategoryList = ({ setSelectedCategory, darkMode, isTabBar = false }) => {
         </Menu.Button>
         {isMenuOpen && (
           <Menu.Items className={`absolute top-full left-0 mt-2 w-full p-4 rounded-lg shadow ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
-            {data.map((category) => (
+            {categories.map((category) => (
               <Menu.Item key={category.id}>
                 {({ active }) => (
                   <button

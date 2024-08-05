@@ -12,7 +12,7 @@ import AuthLayout from './components/layout/AuthLayout';
 import MainAdmin from './admin_panel/MainAdmin';
 import FirstPage from './pages/FirstPage';
 import AdminLoginPage from './pages/AdminLoginPage';
-import UpdateProduct from './components/UpdateProduct';
+import UpdateProduct from './admin_panel/UpdateProductModal';
 import AddProduct from './components/AddProduct';
 import CategoryTable from './admin_panel/Categories';
 import ProductTable from './admin_panel/ProductTable';

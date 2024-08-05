@@ -32,7 +32,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((auth) => {
           updateProfile(auth.user, { displayName: username });
-          navigate('/login'); // Navigate to the main page after registration
+          navigate('/login'); 
         })
         .catch(e => {
           console.log(e);
