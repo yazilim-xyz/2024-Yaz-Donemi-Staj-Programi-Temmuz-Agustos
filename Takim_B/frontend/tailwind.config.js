@@ -4,9 +4,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      height: {
-        '1/2': '50%',
-      },
+      
       borderRadius: {
         'full': '50%', // Yuvarlak bir daire için %50
         'egik': '10%',

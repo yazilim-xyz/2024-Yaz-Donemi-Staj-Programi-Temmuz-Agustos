@@ -49,14 +49,18 @@ function MainPage({ toggleDarkMode, darkMode }) {
           <div className="flex items-center justify-center w-36 h-14 bg-white rounded-full shadow-md">
             <img src={xyzLogo} alt="Mutlu Marketi Logo" className="w-32 h-12 object-contain" />
           </div>
-          <span className="ml-3 text-xl font-bold">{darkMode ? 'Mutlu Alışverişler' : 'Mutlu Alışverişler'}</span>
+          
         </div>
         <div className="flex items-center space-x-4">
           <ToggleButton />
-          <div className="relative group">
-            <img src={person} className={`w-8 h-8 rounded-full object-cover border-2 ${darkMode ? 'border-white' : 'border-black'} cursor-pointer`} />
+          <div className="relative group flex items-center space-x-2">
+            <p className="font-semibold">{user.displayName}</p>
+            <img
+              src={person}
+              alt="User Icon"
+              className={`w-8 h-8 object-cover cursor-pointer`}
+            />
             <div className={`absolute top-full right-0 mt-2 w-48 p-4 rounded-lg shadow-md transform transition-all scale-0 group-hover:scale-100 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-              <p className="font-semibold">{user.displayName}</p>
               <button onClick={handleLogout} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-700">Çıkış Yap</button>
             </div>
           </div>

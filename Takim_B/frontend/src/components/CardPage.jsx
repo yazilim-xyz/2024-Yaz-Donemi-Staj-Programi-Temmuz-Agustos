@@ -17,7 +17,7 @@ const CardPage = () => {
   };
 
   return (
-    <div className="p-4 shadow-lg rounded-lg bg-white h-1/2 flex flex-col">
+    <div className="p-4 shadow-lg rounded-lg bg-white h-96 flex flex-col">
       <div className="flex-grow overflow-y-auto scrollbar">
         {products.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full">
