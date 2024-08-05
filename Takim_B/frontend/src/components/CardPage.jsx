@@ -15,7 +15,6 @@ const CardPage = () => {
     dispatch(removeItem(id));
     dispatch(calculateTotal(products));
   };
-
   return (
     <div className="p-4 shadow-lg rounded-lg bg-white h-1/2 flex flex-col">
       <div className="flex-grow overflow-y-auto scrollbar">

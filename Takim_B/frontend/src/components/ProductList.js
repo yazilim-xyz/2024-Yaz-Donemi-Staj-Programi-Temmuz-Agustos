@@ -36,21 +36,20 @@ const ProductList = ({ category, darkMode }) => {
   }
 
   return (
-    <div className="p-4 max-h-full overflow-auto scrollbar">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="p-4 max-h-full overflow-auto scrollbar ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
         {selectedProducts.map(product => (
-                    <div key={product.id} className={`w-full h-full p-4 rounded-3xl shadow-sm ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}>
-                    <div className="w-full h-40 bg-gray-200 rounded-2xl">
-                      {product.image && <img src={product.image} alt={product.productName} className="w-full h-full object-content rounded-2xl" />}
-                    </div>
-                    <h3 className="font-semibold mt-2">{product.productName}</h3>
-                    <p>${product.price}</p>
-                  </div>
-                ))}
-              </div>
+          <div key={product.id} className={`transition-transform transform hover:scale-105 w-full h-full p-4 rounded-3xl shadow-sm ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}>
+            <div className="w-full h-40 bg-gray-200 rounded-2xl">
+              {product.image && <img src={product.image} alt={product.productName} className="w-full h-full object-content rounded-2xl" />}
             </div>
-          );
-        };
-        
-        export default ProductList;
-        
+            <h3 className="font-semibold mt-2">{product.productName}</h3>
+            <p>${product.price}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;
