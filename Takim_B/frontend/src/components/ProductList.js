@@ -58,6 +58,7 @@ const ProductList = ({ category, darkMode }) => {
             </div>
             <h3 className="font-semibold mt-2">{product.productName}</h3>
             <p>${product.price}</p>
+
           </div>
         ))}
       </div>

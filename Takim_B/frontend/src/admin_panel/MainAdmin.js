@@ -2,7 +2,7 @@ import React, { useState }from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import AddProduct from "../components/AddProduct";
-import UpdateProduct from "../components/UpdateProduct";
+import UpdateProduct from "./UpdateProductModal";
 import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
