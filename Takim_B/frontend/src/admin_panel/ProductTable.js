@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from 'react';
+import { FaEdit, FaTrash, FaSearch, FaEllipsisV } from "react-icons/fa";
 import { fetchProducts, deleteProduct } from '../service/productService';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../service/firebase'; // Adjust the import path as needed
@@ -11,6 +11,9 @@ const ProductTable = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [openMenu, setOpenMenu] = useState(null); // Track the currently open menu
+  const menuRef = useRef(null);
+  const menuButtonRef = useRef(null);
 
   const handleDelete = async (id) => {
     try {
@@ -50,8 +53,27 @@ const ProductTable = () => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    const closeMenuOnOutsideClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpenMenu(null);
+      }
+    };
+  
+    document.addEventListener('click', closeMenuOnOutsideClick);
+  
+    return () => {
+      document.removeEventListener('click', closeMenuOnOutsideClick);
+    };
+  }, []);
+  
+  const handleMenuToggle = (productId) => {
+    setOpenMenu(openMenu === productId ? null : productId);
+  };
+  
+
   const filteredProducts = products.filter(product => {
-    const name = product.name || '';
+    const name = product.productName || '';
     const barcode = product.barcodeId || '';
     const category = product.category || '';
     return name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -86,7 +108,7 @@ const ProductTable = () => {
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Kategori</th>
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Fiyat</th>
               <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Adet</th>
-              <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">İşlemler</th>
+              <th className="py-3 px-4 border-b text-xs sm:text-sm md:text-base">Eylem</th>
             </tr>
           </thead>
           <tbody>
@@ -100,7 +122,7 @@ const ProductTable = () => {
                       <img
                         src={product.image}
                         alt={product.productName}
-                        className="w-16 h-16 object-content rounded "
+                        className="w-16 h-16 object-cover rounded"
                       />
                     </td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.productName}</td>
@@ -109,12 +131,34 @@ const ProductTable = () => {
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">${price.toFixed(2)}</td>
                     <td className="py-2 px-4 text-xs sm:text-sm md:text-base">{product.quantity || 0}</td>
                     <td className="py-2 px-4 flex justify-center space-x-4 text-xs sm:text-sm md:text-base">
-                      <button onClick={() => handleEdit(product)} className="text-blue-500 hover:text-blue-700 transition duration-300">
-                        <FaEdit className="inline-block" />
-                      </button>
-                      <button onClick={() => handleDelete(product.id)} className="text-red-500 hover:text-red-700 transition duration-300">
-                        <FaTrash className="inline-block" />
-                      </button>
+                      {/* Actions Menu */}
+                      <div className="relative mt-6">
+                        <FaEllipsisV
+                          ref={menuButtonRef}
+                          className="text-gray-500 cursor-pointer hover:text-gray-700"
+                          size={20}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent event from bubbling up to document
+                            handleMenuToggle(product.id);
+                          }}
+                        />
+                        {openMenu === product.id && (
+                          <div ref={menuRef} className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                            <button
+                              onClick={() => handleEdit(product)}
+                              className="w-full px-4 py-2 text-left text-blue-500 hover:bg-green-100"
+                            >
+                              <FaEdit className="inline-block" /> Güncelle
+                            </button>
+                            <button
+                              onClick={() => handleDelete(product.id)}
+                              className="w-full px-4 py-2 text-left text-red-500 hover:bg-red-100"
+                            >
+                              <FaTrash className="inline-block" /> Sil
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );

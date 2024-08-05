@@ -58,7 +58,7 @@ function MainPage({ toggleDarkMode, darkMode }) {
             <img
               src={person}
               alt="User Icon"
-              className={`w-8 h-8 object-cover cursor-pointer`}
+              className={` w-8 h-8 object-cover cursor-pointer`}
             />
             <div className={`absolute top-full right-0 mt-2 w-48 p-4 rounded-lg shadow-md transform transition-all scale-0 group-hover:scale-100 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
               <button onClick={handleLogout} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-700">Çıkış Yap</button>
