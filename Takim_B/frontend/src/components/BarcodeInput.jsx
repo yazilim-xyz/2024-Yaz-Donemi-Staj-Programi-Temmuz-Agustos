@@ -7,14 +7,20 @@ import { FaBarcode } from 'react-icons/fa';
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (barcode.trim() === '') {
+      setError('Barcod boş olamaz.');
+      return;
+    }
     dispatch(addProductByBarcode(barcode));
     setBarcode('');
     dispatch(calculateTotal(products));
+    setError('');
   };
 
   const handleKeyClick = (key) => {
@@ -25,13 +31,23 @@ const BarcodeInput = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setBarcode(value);
+      setError('');
+    } else {
+      setError('Lütfen yalnızca sayısal değer girin!');
+    }
+  };
+
   return (
     <div className="p-4 shadow-lg rounded-lg max-w-lg mx-auto bg-white">
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
         <input
           type="text"
           value={barcode}
-          onChange={(e) => setBarcode(e.target.value)}
+          onChange={handleChange} // Pass the event object here
           placeholder="Barkod"
           className="border p-2 rounded-lg w-full"
         />
@@ -46,6 +62,7 @@ const BarcodeInput = () => {
       <div className="mt-4">
         <KeyPad onKeyClick={handleKeyClick} />
       </div>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

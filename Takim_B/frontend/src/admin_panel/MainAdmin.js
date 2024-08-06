@@ -23,7 +23,7 @@ function MainAdmin() {
   
       // Başka sayfalar eklenebilir
       default:
-        return <div className="min-h-screen mt-8"><Dashboard></Dashboard></div>; // Varsayılan içerik
+        return <div className="min-h-screen mt-5"><Dashboard></Dashboard></div>; // Varsayılan içerik
     }
   };
 
