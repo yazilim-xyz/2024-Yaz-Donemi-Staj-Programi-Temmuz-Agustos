@@ -1,9 +1,12 @@
+
+// src/components/Home.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsFillChatSquareTextFill } from "react-icons/bs";
 import { MdGroups } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { IoExitOutline } from "react-icons/io5";
+import { MdAdminPanelSettings } from "react-icons/md"; // Add admin icon
 
 const Home = () => {
   const navigate = useNavigate(); 
@@ -19,7 +22,7 @@ const Home = () => {
       </header>
 
       <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <Link to="/messages" className="hover:scale-105 transition-transform duration-300">
             <div className="bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300">
               <div className="text-7xl mt-12 text-white">
@@ -44,6 +47,15 @@ const Home = () => {
                 <IoMdSettings />
               </div>
               <h2 className="text-xl font-semibold text-white">Ayarlar</h2>
+            </div>
+          </Link>
+
+          <Link to="/admin" className="hover:scale-105 transition-transform duration-300">
+            <div className="bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300">
+              <div className="text-8xl mt-7 text-white">
+                <MdAdminPanelSettings />
+              </div>
+              <h2 className="text-xl font-semibold text-white">Admin</h2>
             </div>
           </Link>
         </div>

@@ -8,7 +8,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import GroupsPage from './components/GroupsPage'
 import GroupChat from './pages/GroupChat';
-
+import Settings from './components/Settings';
+import Admin from './components/Admin';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         {/* <Route path="/groupchat" element={<GroupChat />} /> */}
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );
