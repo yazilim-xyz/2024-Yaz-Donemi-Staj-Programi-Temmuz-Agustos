@@ -36,13 +36,13 @@ function MainPage({ toggleDarkMode, darkMode }) {
   }
 
   return (
-    <div className={`w-full h-full ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} overflow-hidden`}>
+    <div className={`w-full h-full ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} overflow-hidden `}>
       <Navbar
         toggleDarkMode={toggleDarkMode}
         darkMode={darkMode}
         toggleCartVisibility={toggleCartVisibility}
       />
-      <div className={`pt-20 px-4 h-full grid ${isCartVisible ? 'grid-cols-1 md:grid-cols-6' : 'grid-cols-1 lg:grid-cols-12'} gap-4`}>
+      <div className={`pt-20 px-4 h-full grid ${isCartVisible ? 'grid-cols-1 md:grid-cols-6' : 'grid-cols-1 lg:grid-cols-12'} gap-4 `}>
         {isCartVisible && (
           <div className="md:col-span-2 flex flex-col h-full overflow-auto lg:hidden">
             <div className="flex flex-col space-y-4">
@@ -55,7 +55,7 @@ function MainPage({ toggleDarkMode, darkMode }) {
           <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Kategoriler</h2>
           <CategoryList setSelectedCategory={setSelectedCategory} darkMode={darkMode} />
         </div>
-        <div className={`lg:col-span-6 flex flex-col h-full overflow-auto ${isCartVisible ? 'md:col-span-4' : ''}`}>
+        <div className={`lg:col-span-6 flex flex-col h-full overflow-auto ${isCartVisible ? 'md:col-span-4' : ''} transition-all duration-100 ease-in-out`}>
           <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler</h2>
           <ProductList category={selectedCategory} darkMode={darkMode} />
         </div>

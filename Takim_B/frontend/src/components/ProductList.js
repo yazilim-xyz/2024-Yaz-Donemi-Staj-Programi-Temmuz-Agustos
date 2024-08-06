@@ -44,8 +44,8 @@ const ProductList = ({ category, darkMode }) => {
   }
 
   return (
-    <div className="p-4 max-h-full overflow-auto scrollbar pb-24 lg:pb-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="p-4 max-h-full overflow-auto scrollbar pb-24 lg:pb-4 transition-all duration-300 ease-in-out">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 transition-all duration-300 ease-in-out">
         {currentProducts.map(product => (
           <div
             key={product.id}
@@ -77,10 +77,10 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   }
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex justify-center mt-4 transition-all duration-100 ease-in-out">
       <ul className="flex space-x-2">
         {pageNumbers.map(number => (
-          <li key={number} className={`cursor-pointer ${currentPage === number ? 'font-bold' : ''}`}>
+          <li key={number} className={`cursor-pointer ${currentPage === number ? 'font-bold' : ''} transition-all duration-100 ease-in-out`}>
             <a
               onClick={() => paginate(number)}
               className="p-2 rounded-lg transition-transform duration-300 ease-in-out hover:bg-primary hover:text-white transform hover:scale-105"

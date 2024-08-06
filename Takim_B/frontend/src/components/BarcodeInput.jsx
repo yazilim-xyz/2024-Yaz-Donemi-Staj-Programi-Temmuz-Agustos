@@ -11,16 +11,24 @@ const BarcodeInput = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (barcode.trim() === '') {
-      setError('Barcod boş olamaz.');
+      setError('Barkod boş olamaz.');
       return;
     }
-    dispatch(addProductByBarcode(barcode));
-    setBarcode('');
-    dispatch(calculateTotal(products));
-    setError('');
+    try {
+      const resultAction = await dispatch(addProductByBarcode(barcode));
+      if (addProductByBarcode.fulfilled.match(resultAction)) {
+        setBarcode('');
+        setError('');
+        dispatch(calculateTotal(resultAction.payload)); // Güncellenmiş ürünleri kullanarak toplamı hesapla
+      } else {
+        setError('Ürün bulunamadı.');
+      }
+    } catch (err) {
+      setError('Ürün bulunamadı.');
+    }
   };
 
   const handleKeyClick = (key) => {
@@ -47,7 +55,7 @@ const BarcodeInput = () => {
         <input
           type="text"
           value={barcode}
-          onChange={handleChange} // Pass the event object here
+          onChange={handleChange}
           placeholder="Barkod"
           className="border p-2 rounded-lg w-full"
         />

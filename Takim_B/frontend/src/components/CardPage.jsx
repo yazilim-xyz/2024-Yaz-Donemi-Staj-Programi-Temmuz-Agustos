@@ -1,23 +1,36 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectProducts, removeItem } from '../features/products/productSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeItem } from '../features/products/productSlice';
 import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import { FaTrashAlt } from 'react-icons/fa';
 import TotalAmount from './TotalAmount';
 import ActionButton from './ActionButton';
 import emptyCartImage from '../assets/images/png/empty-card.png';
+import { getCartItems } from '../service/cartService';
 
 const CardPage = () => {
-  const products = useSelector(selectProducts);
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const items = await getCartItems();
+      setProducts(items);
+      dispatch(calculateTotal(items));
+    };
+
+    fetchCartItems();
+  }, [dispatch]);
 
   const handleReturn = (id) => {
     dispatch(removeItem(id));
-    dispatch(calculateTotal(products));
+    const updatedProducts = products.filter(product => product.id !== id);
+    setProducts(updatedProducts);
+    dispatch(calculateTotal(updatedProducts));
   };
 
   return (
-    <div className="p-4 shadow-lg rounded-lg bg-white h-1/2 flex flex-col">
+    <div className="p-4 shadow-lg rounded-lg bg-white h-80 flex flex-col">
       <div className="flex-grow overflow-y-auto scrollbar">
         {products.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full">
@@ -29,11 +42,11 @@ const CardPage = () => {
             {products.map((product) => (
               <li key={product.id} className="border-b py-2 flex flex-col">
                 <div className="flex justify-between items-center">
-                  <span>{product.name}</span>
-                  <span>${(product.price * product.quantity).toFixed(2)}</span>
+                  <span>{product.productName}</span>
+                  <span>${(parseFloat(product.price) * product.amount).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>({product.quantity} Adet x ${product.price})</span>
+                  <span>({product.amount} Adet x ${parseFloat(product.price)})</span>
                   <button
                     onClick={() => handleReturn(product.id)}
                     className="flex items-center space-x-1 bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105"

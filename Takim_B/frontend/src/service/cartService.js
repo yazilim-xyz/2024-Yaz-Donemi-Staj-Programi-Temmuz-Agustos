@@ -1,22 +1,22 @@
 // File: /service/cartService.js
 
 import { db } from './firebase';
-import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, updateDoc, getDocs, query, where } from 'firebase/firestore';
 
-// Function to get product details by barcode
+// Barkod numarasına göre ürün detaylarını getirme işlevi
 export const fetchProductByBarcode = async (barcode) => {
   const productsRef = collection(db, 'products');
-  const q = query(productsRef, where('barkodNo', '==', barcode));
+  const q = query(productsRef, where('barcodeId', '==', barcode));
   const querySnapshot = await getDocs(q);
   if (!querySnapshot.empty) {
     const productDoc = querySnapshot.docs[0];
     return { id: productDoc.id, ...productDoc.data() };
   } else {
-    throw new Error('Product not found');
+    throw new Error('Ürün bulunamadı');
   }
 };
 
-// Function to add product to cart
+// Ürünü sepete ekleme işlevi
 export const addProductToCart = async (product, amount) => {
   const cartRef = collection(db, 'cart');
   const productInCartRef = doc(cartRef, product.id);
@@ -30,37 +30,17 @@ export const addProductToCart = async (product, amount) => {
     await setDoc(productInCartRef, {
       product_id: product.id,
       amount: amount,
+      price: product.price,
+      productName: product.productName, // İlgili ürün bilgilerini ekleyin
     });
   }
 };
 
-// Function to get all cart items
+// Sepetteki tüm ürünleri getirme işlevi
 export const getCartItems = async () => {
   const cartRef = collection(db, 'cart');
   const cartSnapshot = await getDocs(cartRef);
   const cartItems = cartSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  const productsRef = collection(db, 'products');
-  const productPromises = cartItems.map(async (item) => {
-    const productDoc = await getDoc(doc(productsRef, item.product_id));
-    return {
-      ...item,
-      ...productDoc.data(),
-      id: productDoc.id,
-    };
-  });
-
-  return Promise.all(productPromises);
+  return cartItems;
 };
-
-// Test function
-const testGetCartItems = async () => {
-  try {
-    const cartItems = await getCartItems();
-    console.log('Cart Items:', cartItems);
-  } catch (error) {
-    console.error('Error fetching cart items:', error);
-  }
-};
-
-testGetCartItems();
