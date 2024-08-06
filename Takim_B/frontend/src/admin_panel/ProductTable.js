@@ -12,6 +12,9 @@ const ProductTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [openMenu, setOpenMenu] = useState(null); // Track the currently open menu
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 7; // Sayfa başına ürün sayısı
+
   const menuRef = useRef(null);
   const menuButtonRef = useRef(null);
 
@@ -71,7 +74,6 @@ const ProductTable = () => {
     setOpenMenu(openMenu === productId ? null : productId);
   };
   
-
   const filteredProducts = products.filter(product => {
     const name = product.productName || '';
     const barcode = product.barcodeId || '';
@@ -80,6 +82,14 @@ const ProductTable = () => {
            barcode.includes(searchTerm) ||
            category.toLowerCase().includes(searchTerm.toLowerCase());
   });
+
+  // Mevcut sayfa için ürünleri filtreleme
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Sayfa değiştirme işlevi
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
@@ -112,12 +122,12 @@ const ProductTable = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product, index) => {
+            {currentProducts.length > 0 ? (
+              currentProducts.map((product, index) => {
                 const price = Number(product.price) || 0;
                 return (
                   <tr key={product.id} className={`border-b ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300`}>
-                    <td className="py-2 px-4 text-center text-xs sm:text-sm md:text-base">{index + 1}</td>
+                    <td className="py-2 px-4 text-center text-xs sm:text-sm md:text-base">{indexOfFirstProduct + index + 1}</td>
                     <td className="py-2 px-4 text-center">
                       <img
                         src={product.image}
@@ -171,6 +181,12 @@ const ProductTable = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={filteredProducts.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       {isModalOpen && selectedProduct && (
         <UpdateProductModal
           product={selectedProduct}
@@ -184,6 +200,28 @@ const ProductTable = () => {
           }}
         />
       )}
+    </div>
+  );
+};
+
+const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div className="flex justify-center mt-4">
+      <ul className="flex space-x-2">
+        {pageNumbers.map(number => (
+          <li key={number} className={`cursor-pointer ${currentPage === number ? 'font-bold' : ''}`}>
+            <a onClick={() => paginate(number)} className="p-2 border rounded-lg hover:bg-gray-300 transition duration-300">
+              {number}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
