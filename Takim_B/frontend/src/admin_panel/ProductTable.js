@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaEdit, FaTrash, FaSearch, FaEllipsisV } from "react-icons/fa";
 import { fetchProducts, deleteProduct } from '../service/productService';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../service/firebase'; // Adjust the import path as needed
-import UpdateProductModal from './UpdateProductModal';
+import { db } from '../service/firebase'; 
+import UpdateProductModal from '../components/modal/UpdateProductModal';
 
 const ProductTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +11,7 @@ const ProductTable = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [openMenu, setOpenMenu] = useState(null); // Track the currently open menu
+  const [openMenu, setOpenMenu] = useState(null); 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 7; // Sayfa başına ürün sayısı
 

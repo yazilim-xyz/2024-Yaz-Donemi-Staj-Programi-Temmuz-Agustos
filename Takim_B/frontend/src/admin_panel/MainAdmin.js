@@ -2,7 +2,7 @@ import React, { useState }from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "../components/Navbar";
 import AddProduct from "../components/AddProduct";
-import UpdateProduct from "./UpdateProductModal";
+import UpdateProduct from "../components/modal/UpdateProductModal";
 import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
@@ -23,7 +23,7 @@ function MainAdmin() {
   
       // Başka sayfalar eklenebilir
       default:
-        return <div className="min-h-screen mt-5"><Dashboard></Dashboard></div>; // Varsayılan içerik
+        return <div className="min-h-screen"><Dashboard></Dashboard></div>; // Varsayılan içerik
     }
   };
 

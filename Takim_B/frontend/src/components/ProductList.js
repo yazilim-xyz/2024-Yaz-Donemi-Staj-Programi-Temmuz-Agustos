@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../service/firebase'; // Adjust path as needed
+import { db } from '../service/firebase';
 
 const ProductList = ({ category, darkMode }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(9); // Sayfa başına ürün sayısı
+  const [productsPerPage] = useState(9);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,12 +33,10 @@ const ProductList = ({ category, darkMode }) => {
     fetchProducts();
   }, [category]);
 
-  // Mevcut sayfa için ürünleri filtreleme
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = selectedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // Sayfa değiştirme işlevi
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (loading) {
@@ -46,7 +44,7 @@ const ProductList = ({ category, darkMode }) => {
   }
 
   return (
-    <div className="p-4 max-h-full overflow-auto scrollbar">
+    <div className="p-4 max-h-full overflow-auto scrollbar pb-24 lg:pb-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {currentProducts.map(product => (
           <div
@@ -58,7 +56,6 @@ const ProductList = ({ category, darkMode }) => {
             </div>
             <h3 className="font-semibold mt-2">{product.productName}</h3>
             <p>${product.price}</p>
-
           </div>
         ))}
       </div>

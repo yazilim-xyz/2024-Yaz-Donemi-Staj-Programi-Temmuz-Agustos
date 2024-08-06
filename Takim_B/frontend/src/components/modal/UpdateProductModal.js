@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { updateProduct } from '../../service/productService'; // İlgili yolu kontrol edin
 
 const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onProductUpdate }) => {
   const [productName, setProductName] = useState(product?.productName || '');
@@ -8,6 +9,7 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
   const [category, setCategory] = useState(product?.category || '');
   const [quantity, setQuantity] = useState(product?.quantity || 1);
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(product?.image || ''); // Yeni state
   const [description, setDescription] = useState(product?.description || '');
 
   useEffect(() => {
@@ -17,22 +19,42 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
       setPrice(product.price);
       setCategory(product.category);
       setQuantity(product.quantity);
-      setDescription(product.description);
+      setDescription(product.description || '');
+      setImagePreview(product.image || ''); // Mevcut resmi göster
     }
   }, [product]);
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Product updated:', {
-      productName,
-      barcodeId,
-      price,
-      category,
-      quantity,
-      image,
-      description,
-    });
-    onProductUpdate();
+    try {
+      const updatedProduct = {
+        productName,
+        barcodeId,
+        price,
+        category,
+        quantity,
+        description: description || '',
+      };
+      if (image) {
+        // Image upload logic here if necessary
+      }
+      await updateProduct(product.id, updatedProduct);
+      onProductUpdate();
+    } catch (error) {
+      console.error("Error updating product: ", error);
+    }
   };
 
   const customStyles = {
@@ -144,10 +166,15 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
               <label htmlFor="image" className="block text-gray-800 text-sm font-medium mb-2">
                 Ürün Resmi
               </label>
+              {imagePreview && (
+                <div className="mb-4">
+                  <img src={imagePreview} alt="Ürün Resmi" className="max-w-xs h-auto rounded-lg" /> {/* Resim boyutu sınırlandırıldı */}
+                </div>
+              )}
               <input
                 type="file"
                 id="image"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={handleImageChange}
                 className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
                 accept="image/*"
               />
@@ -166,6 +193,7 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
             <button
               type="submit"
               className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300 shadow-lg"
+              onClick={handleSubmit}
             >
               Güncelle
             </button>

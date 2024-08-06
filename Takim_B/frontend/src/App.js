@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import MainPage from './pages/MainPage'; // Düzenlemeyi unutmayın, MainPage içe aktarıldı
+import MainPage from './pages/MainPage';
 import CategoryList from './components/CategoryList';
 import ProductList from './components/ProductList';
 import ForgotPassword from './pages/ForgotPassword';
@@ -12,7 +12,7 @@ import AuthLayout from './components/layout/AuthLayout';
 import MainAdmin from './admin_panel/MainAdmin';
 import FirstPage from './pages/FirstPage';
 import AdminLoginPage from './pages/AdminLoginPage';
-import UpdateProduct from './admin_panel/UpdateProductModal';
+import UpdateProduct from './components/modal/UpdateProductModal';
 import AddProduct from './components/AddProduct';
 import CategoryTable from './admin_panel/Categories';
 import ProductTable from './admin_panel/ProductTable';
