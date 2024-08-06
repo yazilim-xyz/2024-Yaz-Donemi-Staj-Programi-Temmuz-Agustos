@@ -37,7 +37,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 mt-20">
       <div className="flex flex-wrap justify-center gap-6">
         {/* Categories Card */}
         <div onClick={() => handleClick('categories-admin')} className="flex-1 min-w-[250px] max-w-[300px] p-6 bg-yellow bg-opacity-90 shadow-md border border-gray-300 rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer opacity-90 hover:opacity-100 hover:scale-105 hover:shadow-lg">
