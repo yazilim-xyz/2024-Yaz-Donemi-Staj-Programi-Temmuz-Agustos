@@ -5,7 +5,7 @@ import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import { FaTrashAlt } from 'react-icons/fa';
 import TotalAmount from './TotalAmount';
 import ActionButton from './ActionButton';
-import emptyCartImage from '../assets/images/png/empty-card.png'; // Sepet boşken gösterilecek resim
+import emptyCartImage from '../assets/images/png/empty-card.png';
 
 const CardPage = () => {
   const products = useSelector(selectProducts);
@@ -15,6 +15,7 @@ const CardPage = () => {
     dispatch(removeItem(id));
     dispatch(calculateTotal(products));
   };
+
   return (
     <div className="p-4 shadow-lg rounded-lg bg-white h-96 flex flex-col">
       <div className="flex-grow overflow-y-auto scrollbar">
@@ -46,7 +47,7 @@ const CardPage = () => {
           </ul>
         )}
       </div>
-      <div className="mt-auto sticky bottom-0 left-0 w-full p-4  flex justify-between items-center">
+      <div className="mt-auto sticky bottom-0 left-0 w-full p-4 flex justify-between items-center">
         <TotalAmount />
         <ActionButton />
       </div>

@@ -1,24 +1,19 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import xyzLogo from '../assets/images/png/xyz-logo.png';
+import React, { useState, useCallback, useEffect } from 'react';
 import ProductList from '../components/ProductList';
 import BarcodeInput from '../components/BarcodeInput';
 import CategoryList from '../components/CategoryList';
-import lightModeIcon from '../assets/images/png/light.png';
-import darkModeIcon from '../assets/images/png/dark.png';
-import person from '../assets/images/png/person.png';
 import CardPage from '../components/CardPage';
+import Navbar from '../components/Navbar';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
 import { auth } from '../service/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import {useCollectionData} from 'react-firebase-hooks/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts } from '../features/products/productSlice';
 import { calculateTotal, selectTotalAmount } from '../features/totalAmount/totalAmountSlice';
 
 function MainPage({ toggleDarkMode, darkMode }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const navigate = useNavigate();
+  const [isCartVisible, setIsCartVisible] = useState(false);
   const [user, isLoading] = useAuthState(auth);
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
@@ -32,60 +27,44 @@ function MainPage({ toggleDarkMode, darkMode }) {
     dispatch(calculateTotal(products));
   }, [products, dispatch]);
 
+  const toggleCartVisibility = () => {
+    setIsCartVisible(!isCartVisible);
+  };
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  const ToggleButton = () => (
-    <button onClick={toggleDarkMode} className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50">
-      <img src={darkMode ? darkModeIcon : lightModeIcon} alt="Toggle Dark Mode" className="object-cover h-full w-full" />
-    </button>
-  );
-
   return (
     <div className={`w-full h-full ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} overflow-hidden`}>
-      <nav className={`fixed top-0 left-0 w-full flex justify-between items-center p-1 ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} z-50`}>
-        <div className="flex items-center">
-          <div className="flex items-center justify-center w-36 h-14 bg-white rounded-full shadow-md">
-            <img src={xyzLogo} alt="Mutlu Marketi Logo" className="w-32 h-12 object-contain" />
-          </div>
-          
-        </div>
-        <div className="flex items-center space-x-4">
-          <ToggleButton />
-          <div className="relative group flex items-center space-x-2">
-            <p className="font-semibold">{user.displayName}</p>
-            <img
-              src={person}
-              alt="User Icon"
-              className={` w-8 h-8 object-cover cursor-pointer`}
-            />
-            <div className={`absolute top-full right-0 mt-2 w-48 p-4 rounded-lg shadow-md transform transition-all scale-0 group-hover:scale-100 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-              <button onClick={handleLogout} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-700">Çıkış Yap</button>
+      <Navbar
+        toggleDarkMode={toggleDarkMode}
+        darkMode={darkMode}
+        toggleCartVisibility={toggleCartVisibility}
+      />
+      <div className={`pt-20 px-4 h-full grid ${isCartVisible ? 'grid-cols-1 md:grid-cols-6' : 'grid-cols-1 lg:grid-cols-12'} gap-4`}>
+        {isCartVisible && (
+          <div className="md:col-span-2 flex flex-col h-full overflow-auto lg:hidden">
+            <div className="flex flex-col space-y-4">
+              <CardPage />
+              <BarcodeInput />
             </div>
           </div>
-        </div>
-      </nav>
-      
-      <div className="pt-20 px-4 h-full grid grid-cols-1 md:grid-cols-12 gap-4">
-        <div className="md:col-span-3 flex flex-col h-full overflow-auto">
-          <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Sepet</h2>
-          <CardPage />
-          <div className="my-4" /> {/* Add spacing between CardPage and BarcodeInput */}
-          <BarcodeInput />
-        </div>
-        <div className="md:col-span-6 flex flex-col h-full overflow-auto">
-          <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler</h2>
-          <ProductList category={selectedCategory} darkMode={darkMode} />
-        </div>
-        <div className="md:col-span-3 flex flex-col h-full overflow-auto hidden md:block">
+        )}
+        <div className={`lg:col-span-3 flex flex-col h-full overflow-auto ${isCartVisible ? 'md:col-span-4' : ''}`}>
           <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Kategoriler</h2>
           <CategoryList setSelectedCategory={setSelectedCategory} darkMode={darkMode} />
         </div>
-      </div>
-      
-      <div className="fixed bottom-0 left-0 w-full dark:bg-gray-800 p-2 md:hidden overflow-auto">
-        <CategoryList setSelectedCategory={setSelectedCategory} darkMode={darkMode} isTabBar />
+        <div className={`lg:col-span-6 flex flex-col h-full overflow-auto ${isCartVisible ? 'md:col-span-4' : ''}`}>
+          <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler</h2>
+          <ProductList category={selectedCategory} darkMode={darkMode} />
+        </div>
+        {!isCartVisible && (
+          <div className="hidden lg:flex lg:col-span-3 flex-col h-full overflow-auto space-y-4">
+            <CardPage />
+            <BarcodeInput />
+          </div>
+        )}
       </div>
     </div>
   );
