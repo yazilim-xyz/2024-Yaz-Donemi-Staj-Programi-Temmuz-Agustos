@@ -81,9 +81,8 @@ const AdminCategoryPage = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+    <div className="mt-20 p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Kategori Yönetimi</h1>
-
       <div className="mb-6 flex items-center">
         <input
           type="text"

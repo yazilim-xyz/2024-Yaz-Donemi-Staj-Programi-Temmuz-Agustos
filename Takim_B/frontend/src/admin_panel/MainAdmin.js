@@ -2,13 +2,17 @@ import React, { useState }from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import AddProduct from "../components/AddProduct";
-import UpdateProduct from "../components/UpdateProduct";
+import UpdateProduct from "../components/modal/UpdateProductModal";
 import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
 function MainAdmin() {
   const [activePage, setActivePage] = useState('dashboard'); 
- 
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prevMode => !prevMode); // This should be a function
+  };
   const renderContent = () => {
     switch (activePage) {
       case 'addProduct':
@@ -29,8 +33,8 @@ function MainAdmin() {
 
   return (
     <div className="flex flex-col min-h-screen
-     bg-gray-100 pt-16">
-    <Navbar />
+     bg-gray-100 ">
+    <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
     <div className="flex flex-1">
       <Sidebar setActivePage={setActivePage} activePage={activePage} />
       {renderContent()}

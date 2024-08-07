@@ -9,7 +9,7 @@ const totalAmountSlice = createSlice({
   initialState,
   reducers: {
     calculateTotal: (state, action) => {
-      state.totalAmount = action.payload.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      state.totalAmount = action.payload.reduce((sum, item) => sum + parseFloat(item.price) * item.amount, 0);
     },
   },
 });

@@ -7,14 +7,28 @@ import { FaBarcode } from 'react-icons/fa';
 
 const BarcodeInput = () => {
   const [barcode, setBarcode] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addProductByBarcode(barcode));
-    setBarcode('');
-    dispatch(calculateTotal(products));
+    if (barcode.trim() === '') {
+      setError('Barkod boş olamaz.');
+      return;
+    }
+    try {
+      const resultAction = await dispatch(addProductByBarcode(barcode));
+      if (addProductByBarcode.fulfilled.match(resultAction)) {
+        setBarcode('');
+        setError('');
+        dispatch(calculateTotal(resultAction.payload)); // Güncellenmiş ürünleri kullanarak toplamı hesapla
+      } else {
+        setError('Ürün bulunamadı.');
+      }
+    } catch (err) {
+      setError('Ürün bulunamadı.');
+    }
   };
 
   const handleKeyClick = (key) => {
@@ -25,13 +39,23 @@ const BarcodeInput = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setBarcode(value);
+      setError('');
+    } else {
+      setError('Lütfen yalnızca sayısal değer girin!');
+    }
+  };
+
   return (
     <div className="p-4 shadow-lg rounded-lg max-w-lg mx-auto bg-white">
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
         <input
           type="text"
           value={barcode}
-          onChange={(e) => setBarcode(e.target.value)}
+          onChange={handleChange}
           placeholder="Barkod"
           className="border p-2 rounded-lg w-full"
         />
@@ -46,6 +70,7 @@ const BarcodeInput = () => {
       <div className="mt-4">
         <KeyPad onKeyClick={handleKeyClick} />
       </div>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

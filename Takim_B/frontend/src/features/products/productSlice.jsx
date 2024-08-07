@@ -1,49 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchProductByBarcode, addProductToCart, getCartItems } from '../../service/cartService';
 
-const initialState = {
-  items: [],
-  barcode: '',
-};
+export const addProductByBarcode = createAsyncThunk(
+  'products/addProductByBarcode',
+  async (barcode, { rejectWithValue }) => {
+    try {
+      const product = await fetchProductByBarcode(barcode);
+      await addProductToCart(product, 1);
+      const updatedProducts = await getCartItems(); // Güncellenmiş sepeti al
+      return updatedProducts; // Güncellenmiş sepeti döndür
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const productSlice = createSlice({
   name: 'products',
-  initialState,
+  initialState: [],
   reducers: {
-    addItem: (state, action) => {
-      const product = state.items.find(item => item.id === action.payload.id);
-      if (product) {
-        product.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
-    },
     removeItem: (state, action) => {
-      const product = state.items.find(item => item.id === action.payload);
-      if (product) {
-        if (product.quantity > 1) {
-          product.quantity -= 1;
-        } else {
-          state.items = state.items.filter(item => item.id !== action.payload);
-        }
-      }
+      return state.filter(product => product.id !== action.payload);
     },
-    reset: (state) => {
-      state.items = [];
-      state.barcode = '';
-    },
-    setBarcode: (state, action) => {
-      state.barcode = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addProductByBarcode.fulfilled, (state, action) => {
+        return action.payload; // Güncellenmiş sepeti state'e aktar
+      });
   },
 });
 
-export const { addItem, removeItem, reset, setBarcode } = productSlice.actions;
-
-export const selectProducts = (state) => state.products.items;
-export const addProductByBarcode = (barcode) => (dispatch) => {
-  // Simulate adding a product by barcode
-  const product = { id: barcode, name: `Product ${barcode}`, price: 10 };
-  dispatch(addItem(product));
-};
-
+export const { removeItem } = productSlice.actions;
+export const selectProducts = (state) => state.products;
 export default productSlice.reducer;

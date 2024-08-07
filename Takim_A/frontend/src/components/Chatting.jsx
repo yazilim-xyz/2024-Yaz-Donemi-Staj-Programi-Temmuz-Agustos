@@ -4,13 +4,14 @@ import Input from './Input';
 
 const Chatting = () => {
   const [messages, setMessages] = useState([]);
-
+  const [polls, setPolls] = useState([]); 
   // Mesaj gönderme işlevi
-  const handleSendMessage = (newMessage) => {
+  const handleSendMessage = ({ text, image }) => {
     setMessages([
       ...messages,
       {
-        text: newMessage,
+        text,
+        image, // Resmi de ekle
         sender: {
           profilePic: 'https://pbs.twimg.com/profile_images/1235250851876352002/zXuZlI2k_400x400.jpg', // Profil fotoğrafı yolu
         },
@@ -20,6 +21,7 @@ const Chatting = () => {
     ]);
   };
 
+  
   return (
     <div className="flex-[2] flex flex-col">
       <div className='chatInfo h-12 flex items-center bg-[#433D8B] p-2.5 text-slate-100 justify-between'>
@@ -29,9 +31,9 @@ const Chatting = () => {
         </div>
       </div>
       <Messages messages={messages} />
-      <Input onSend={handleSendMessage} />
+      <Input onSend={handleSendMessage}  polls={polls} setPolls={setPolls}/>
     </div>
-  )
+  );
 }
 
 export default Chatting;

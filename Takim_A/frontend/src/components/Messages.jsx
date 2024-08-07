@@ -11,6 +11,7 @@ const Messages = ({ messages }) => {
           sender={msg.sender}
           time={msg.time}
           isCurrentUser={msg.isCurrentUser}
+          image={msg.image}
         />
       ))}
     </div>

@@ -9,15 +9,32 @@ import xyzLogo from '../assets/images/png/xyz-logo.png';
 const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
   const handleLogin = useCallback(
     (e) => {
       e.preventDefault();
 
-      if (!email || !password) {
+      let hasError = false;
+      const newErrors = { email: '', password: '' };
+
+      if (!email) {
+        newErrors.email = 'Bu alan boş bırakılamaz';
+        hasError = true;
+      }
+
+      if (!password) {
+        newErrors.password = 'Bu alan boş bırakılamaz';
+        hasError = true;
+      }
+
+      if (hasError) {
+        setErrors(newErrors);
         return;
       }
+
+      setErrors({ email: '', password: '' });
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           navigate('/admin');
@@ -47,25 +64,35 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
         className="object-contain"
       />
       <form onSubmit={handleLogin} className="p-8 rounded w-full max-w-md">
-        <div className="mb-4 w-full">
+        <div className="mb-4 w-full relative">
           <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>E-Mail</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-Mail adresinizi girin"
-            className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
+            className={`border ${errors.email ? 'border-red-500' : 'border-secondary'} p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base`}
           />
+          {errors.email && (
+            <div className="absolute right-0 top-full mt-1 text-red-600 text-sm bg-white p-3 rounded-lg shadow-lg border border-red-600">
+              {errors.email}
+            </div>
+          )}
         </div>
-        <div className="mb-6 w-full">
+        <div className="mb-6 w-full relative">
           <label className={`block text-sm md:text-base mb-2 ${darkMode ? 'text-secondary' : 'text-text_lgn'}`}>Şifre</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Şifrenizi girin"
-            className="border border-secondary p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base"
+            className={`border ${errors.password ? 'border-red-500' : 'border-secondary'} p-3 rounded-3xl w-full bg-lightBackground text-darkBackground text-sm md:text-base`}
           />
+          {errors.password && (
+            <div className="absolute right-0 top-full mt-1 text-red-600 text-sm bg-white p-3 rounded-lg shadow-lg border border-red-600">
+              {errors.password}
+            </div>
+          )}
         </div>
         <Link to="/forgot-password" className={`block mb-8 text-sm md:text-base hover:underline ${darkMode ? 'text-white' : 'text-black'}`}>
           Şifremi Unuttum
@@ -73,7 +100,7 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base" 
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
           >
             Giriş Yap
           </button>

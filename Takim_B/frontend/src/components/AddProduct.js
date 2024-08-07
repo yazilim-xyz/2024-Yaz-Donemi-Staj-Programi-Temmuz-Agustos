@@ -66,7 +66,7 @@ function AddProduct() {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+    <div className="mt-20 p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Ekle</h1>
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
