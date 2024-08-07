@@ -10,7 +10,7 @@ function Sidebar({ setActivePage, activePage }) {
   };
 
   return (
-    <div className={`top-0 left-0 h-100% z-20 transition-all bg-cinder duration-300 ${isOpen ? 'w-64' : 'w-16'} shadow-md`}>
+    <div className={`top-0 left-0 h-full z-20 transition-all bg-cinder duration-300 ${isOpen ? 'w-64' : 'w-16'} shadow-md fixed`}>
       <div className="p-4 font-bold text-xl border-b flex items-center justify-between cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
         {isOpen && <span className="text-white">Yönetim Paneli</span>}
         <span className={`text-white transform ${isOpen ? 'rotate-180' : ''}`}>&#9660;</span>
