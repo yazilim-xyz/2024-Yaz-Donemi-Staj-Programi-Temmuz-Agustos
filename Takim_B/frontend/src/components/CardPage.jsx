@@ -7,26 +7,50 @@ import TotalAmount from './TotalAmount';
 import ActionButton from './ActionButton';
 import emptyCartImage from '../assets/images/png/empty-card.png';
 import { getCartItems } from '../service/cartService';
-
+import {collection, onSnapshot,doc, db, deleteDoc, updateDoc} from '../service/firebase';
 const CardPage = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const items = await getCartItems();
+  useEffect(() => { const cartRef = collection(db, 'cart');
+
+    // Firestore'dan ürünleri dinlemek için onSnapshot kullanıyoruz
+    const unsubscribe = onSnapshot(cartRef, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setProducts(items);
       dispatch(calculateTotal(items));
-    };
+    });
 
-    fetchCartItems();
+    // Cleanup function: Dinleyiciyi kaldırmak için
+    return () => unsubscribe();
   }, [dispatch]);
 
-  const handleReturn = (id) => {
-    dispatch(removeItem(id));
-    const updatedProducts = products.filter(product => product.id !== id);
-    setProducts(updatedProducts);
-    dispatch(calculateTotal(updatedProducts));
+  const handleReturn = async (id) => {
+    const product = products.find(product => product.id === id);
+
+    if (product) {
+      let updatedProducts;
+      const newQuantity = product.amount - 1; // newQuantity'yi tanımladık
+      if (product.amount > 1) {
+        // Ürün miktarını azalt
+        const updatedProduct = {  ...product, amount: newQuantity };
+        updatedProducts = products.map(p => p.id === id ? updatedProduct : p);
+        const productDocRef  = doc(db, 'cart', id);
+        const updatedData = {
+          amount: newQuantity,
+        };
+        await updateDoc(productDocRef, updatedData);
+    
+      } else {
+        // Ürünü kaldır
+        updatedProducts = products.filter(p => p.id !== id);
+        const cartRef = doc(db, 'cart', id);
+        await deleteDoc(cartRef);
+      }
+
+      setProducts(updatedProducts);
+      dispatch(calculateTotal(updatedProducts)); // Toplamı güncelle
+    }
   };
 
   return (
@@ -69,3 +93,30 @@ const CardPage = () => {
 };
 
 export default CardPage;
+
+
+
+/* const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const items = await getCartItems();
+      setProducts(items);
+      dispatch(calculateTotal(items));
+    };
+
+    fetchCartItems();
+  }, [dispatch]);
+
+  const handleReturn = async (id) => {
+    // İade edilen ürünü sepetten kaldır
+    await dispatch(removeItem(id));
+    // Toplam tutarı yeniden hesapla
+    dispatch(calculateTotal(products.filter((product) => product.id !== id)));
+  
+    // Sepet veritabanından da ürünü sil
+    const cartRef = doc(db, 'cart', id);
+    await deleteDoc(cartRef);
+  };
+   */ 
