@@ -60,7 +60,6 @@ fun Pages() {
         composable(route = "takvim sayfa"){
             TakvimSayfa(navController)
         }
-
     }
 }
 
