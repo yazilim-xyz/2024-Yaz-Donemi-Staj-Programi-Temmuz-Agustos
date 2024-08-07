@@ -46,7 +46,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className={`fixed w-full z-10 text-gray-900 p-1 flex justify-between items-center shadow-md ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'}`}>
+    <div className={`fixed top-0 left-0 w-full flex justify-between items-center p-1 z-50 transition-all duration-300 ease-in-out`}>
       <div className="flex items-center ml-auto">
         <button onClick={toggleDarkMode} className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50">
           <img src={darkMode ? darkModeIcon : lightModeIcon} alt="Toggle Dark Mode" className="object-cover h-full w-full" />
