@@ -5,53 +5,31 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.YearMonth
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
-import java.util.Locale
+import java.util.*
 
+import com.google.firebase.firestore.FirebaseFirestore
+
+val db = FirebaseFirestore.getInstance()
 
 @SuppressLint("MutableCollectionMutableState", "UnusedMaterial3ScaffoldPaddingParameter")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -59,26 +37,28 @@ import java.util.Locale
 @Composable
 fun TakvimSayfa(navController: NavController) {
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-    var notesMap by remember { mutableStateOf(mutableMapOf<LocalDate, String>()) }
+    var notesMap by remember { mutableStateOf(mutableMapOf<LocalDate, Pair<String, LocalDateTime>>()) }
     var newNote by remember { mutableStateOf("") }
 
+    // Uygulama açıldığında notları yükleyin
+    LaunchedEffect(Unit) {
+        loadNotes { notes ->
+            notesMap = notes.toMutableMap()
+        }
+    }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Calendar") },
-                colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color(0xFF6200EE))
-            )
-        },
         content = {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .background(Color(0xFFF5F5F5))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .background(Color(0xFFF5F5F5))
             ) {
                 CalendarView(
                     onDateSelected = { date ->
                         selectedDate = date
+                        newNote = notesMap[date]?.first ?: "" // Display the note if it exists
                     },
                     notesMap = notesMap
                 )
@@ -110,7 +90,9 @@ fun TakvimSayfa(navController: NavController) {
                     Button(
                         onClick = {
                             selectedDate?.let { date ->
-                                notesMap[date] = newNote
+                                val note = Pair(newNote, LocalDateTime.now())
+                                notesMap[date] = note
+                                saveNoteToFirebase(date, note) // Notu Firestore'a kaydet
                                 newNote = ""
                             }
                         },
@@ -118,6 +100,57 @@ fun TakvimSayfa(navController: NavController) {
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE))
                     ) {
                         Text("Save Note", color = Color.White)
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Display the note in a colored box if it exists
+                    val note = notesMap[date]
+                    note?.let {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFFBBDEFB))
+                                .padding(16.dp)
+                        ) {
+                            Column {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(end = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = it.first,
+                                        color = Color.Black,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                    IconButton(onClick = {
+                                        selectedDate?.let { date ->
+                                            notesMap = notesMap.toMutableMap().apply { remove(date) }
+                                            deleteNoteFromFirebase(date) // Notu Firestore'dan sil
+                                            newNote = ""
+                                        }
+                                    }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Delete Note",
+                                            tint = Color.White
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = "Saved at: ${it.second.format(DateTimeFormatter.ofPattern("HH:mm:ss"))}",
+                                    color = Color.Gray,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Light
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -129,7 +162,7 @@ fun TakvimSayfa(navController: NavController) {
 @Composable
 fun CalendarView(
     onDateSelected: (LocalDate) -> Unit,
-    notesMap: Map<LocalDate, String>
+    notesMap: Map<LocalDate, Pair<String, LocalDateTime>>
 ) {
     val currentMonth = YearMonth.now()
     val currentDate = LocalDate.now()
@@ -147,9 +180,9 @@ fun CalendarView(
             text = currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault()),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF6200EE)
+            color = Color(0xFF6200EE),
+            modifier = Modifier.padding(bottom = 16.dp)
         )
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Days of week header
         Row(
@@ -185,7 +218,7 @@ fun CalendarView(
 fun CalendarGrid(
     currentMonth: YearMonth,
     currentDate: LocalDate,
-    notesMap: Map<LocalDate, String>,
+    notesMap: Map<LocalDate, Pair<String, LocalDateTime>>,
     onDateSelected: (LocalDate) -> Unit
 ) {
     val daysInMonth = currentMonth.lengthOfMonth()
@@ -220,28 +253,84 @@ fun CalendarGrid(
 
 @Composable
 fun DayCell(dayOfMonth: Int, isToday: Boolean, isSelected: Boolean, hasNote: Boolean, onClick: () -> Unit) {
+    val backgroundColor = when {
+        isToday -> Color(0xFF03DAC6)
+        hasNote -> Color(0xFFFFD600)
+        isSelected -> Color(0xFF6200EE)
+        else -> Color.Transparent
+    }
+
+    val textColor = when {
+        isToday || hasNote || isSelected -> Color.White
+        else -> Color.Black
+    }
 
     Box(
         modifier = Modifier
             .size(40.dp)
-            .background(
-                when {
-                    isToday -> Color(0xFF03DAC6)
-                    hasNote -> Color(0xFFFFD600)
-                    else -> Color.Transparent
-                },
-                shape = CircleShape
-            )
+            .background(backgroundColor, shape = CircleShape)
             .clickable { onClick() }
             .padding(4.dp),
         contentAlignment = Alignment.Center
-    )
-    {
+    ) {
         Text(
             text = dayOfMonth.toString(),
-            color = if (isToday || hasNote) Color.White else Color.Black,
+            color = textColor,
             fontSize = 14.sp,
             fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal
         )
     }
+}
+
+// Notu Firestore'a kaydetme fonksiyonu
+private fun saveNoteToFirebase(date: LocalDate, note: Pair<String, LocalDateTime>) {
+    val noteData = hashMapOf(
+        "note" to note.first,
+        "timestamp" to note.second
+    )
+    db.collection("notes").document(date.toString())
+        .set(noteData)
+        .addOnSuccessListener {
+            // Başarılı kaydetme işlemi
+            println("Note saved successfully")
+        }
+        .addOnFailureListener { e ->
+            // Kaydetme hatası
+            println("Error saving note: ${e.message}")
+        }
+}
+
+// Firestore'dan notları yükleme fonksiyonu
+@RequiresApi(Build.VERSION_CODES.O)
+private fun loadNotes(onNotesLoaded: (Map<LocalDate, Pair<String, LocalDateTime>>) -> Unit) {
+    db.collection("notes")
+        .get()
+        .addOnSuccessListener { result ->
+            val notes = mutableMapOf<LocalDate, Pair<String, LocalDateTime>>()
+            for (document in result) {
+                val date = LocalDate.parse(document.id)
+                val note = document.getString("note") ?: ""
+                val timestamp = document.getTimestamp("timestamp")?.toDate()?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDateTime() ?: LocalDateTime.now()
+                notes[date] = Pair(note, timestamp)
+            }
+            onNotesLoaded(notes)
+        }
+        .addOnFailureListener { e ->
+            // Yükleme hatası
+            println("Error loading notes: ${e.message}")
+        }
+}
+
+// Notu Firestore'dan silme fonksiyonu
+private fun deleteNoteFromFirebase(date: LocalDate) {
+    db.collection("notes").document(date.toString())
+        .delete()
+        .addOnSuccessListener {
+            // Başarılı silme işlemi
+            println("Note deleted successfully")
+        }
+        .addOnFailureListener { e ->
+            // Silme hatası
+            println("Error deleting note: ${e.message}")
+        }
 }
