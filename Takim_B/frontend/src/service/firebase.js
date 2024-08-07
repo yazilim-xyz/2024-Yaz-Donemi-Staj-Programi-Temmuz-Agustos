@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, onSnapshot, getDoc, runTransaction } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, onSnapshot, getDoc, runTransaction, query, where } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -22,4 +22,4 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { auth, db, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, ref, uploadBytes, getDownloadURL, onSnapshot, getDoc, runTransaction }; // runTransaction'ı ekleyin
+export { auth, db, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, ref, uploadBytes, getDownloadURL, onSnapshot, getDoc, runTransaction, query, where }; 

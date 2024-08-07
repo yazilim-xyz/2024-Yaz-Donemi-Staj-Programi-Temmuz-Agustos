@@ -33,6 +33,7 @@ const ProductTable = () => {
   const handleEdit = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
+    setOpenMenu(null);
   };
 
   useEffect(() => {
