@@ -1,6 +1,9 @@
+// File: /components/AddProduct.js
+
 import React, { useState, useEffect } from "react";
 import { db, collection, addDoc, getDocs } from '../service/firebase';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { generateUniqueBarcode } from '../service/productService'; 
 
 function AddProduct() {
   const [productName, setProductName] = useState("");
@@ -12,7 +15,6 @@ function AddProduct() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-  
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'categories'));
@@ -33,6 +35,8 @@ function AddProduct() {
     e.preventDefault();
 
     try {
+      const newBarcode = await generateUniqueBarcode(); // Generate a unique barcode
+
       let imageUrl = null;
 
       if (image) {
@@ -42,10 +46,9 @@ function AddProduct() {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      
       await addDoc(collection(db, 'products'), {
         productName,
-        barcodeId,
+        barcodeId: newBarcode, // Use the unique barcode
         price,
         category,
         quantity,
@@ -55,7 +58,6 @@ function AddProduct() {
       alert('Ürün başarıyla eklendi!');
       
       setProductName('');
-      setBarcodeId('');
       setPrice('');
       setCategory('');
       setQuantity(1);
@@ -79,20 +81,6 @@ function AddProduct() {
               id="productName"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="barcodeId" className="block text-gray-800 text-sm font-medium mb-2">
-              Barkod No
-            </label>
-            <input
-              type="number"
-              id="barcodeId"
-              value={barcodeId}
-              onChange={(e) => setBarcodeId(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
               required
             />

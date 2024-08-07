@@ -57,31 +57,15 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
     }
   };
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      padding: '2rem',
-      borderRadius: '1rem',
-      backgroundColor: '#f9fafb', // Customize background color
-    },
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.75)', // Dark overlay background
-    },
-  };
-
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Ürün Güncelle"
-      style={customStyles}
+      className="flex items-center justify-center fixed inset-0 z-50 outline-none focus:outline-none"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-75"
     >
-      <div className="p-6 max-w-4xl mx-auto">
+      <div className="relative w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 overflow-y-auto scrollbar max-h-screen">
         <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Ürün Güncelle</h1>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -168,7 +152,7 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
               </label>
               {imagePreview && (
                 <div className="mb-4">
-                  <img src={imagePreview} alt="Ürün Resmi" className="max-w-xs h-auto rounded-lg" /> {/* Resim boyutu sınırlandırıldı */}
+                  <img src={imagePreview} alt="Ürün Resmi" className="max-w-xs max-h-48 object-contain rounded-lg" /> {/* Resim boyutunu küçülttük */}
                 </div>
               )}
               <input
