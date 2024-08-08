@@ -16,6 +16,7 @@ import UpdateProduct from './components/modal/UpdateProductModal';
 import AddProduct from './components/AddProduct';
 import AdminCategoryPage from './admin_panel/Categories';
 import ProductTable from './admin_panel/ProductTable';
+import StockTracking from './admin_panel/StockTracking';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -41,6 +42,7 @@ function App() {
       <Route path="/update-product" element={<UpdateProduct darkMode={darkMode}/>} />
       <Route  path="/categories-admin" element={<AdminCategoryPage darkMode={darkMode}/>} />
       <Route  path="/productTable" element={<ProductTable darkMode={darkMode}/>} />
+      <Route  path="/stock-tracking" element={<StockTracking darkMode={darkMode}/>} />
       </Route>
 
 

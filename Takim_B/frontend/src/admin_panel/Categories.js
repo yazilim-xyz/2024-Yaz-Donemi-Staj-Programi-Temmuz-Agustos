@@ -95,7 +95,7 @@ const AdminCategoryPage = ({darkMode}) => {
 
   return (
     <div className="mt-20 p-6 max-w-6xl mx-auto">
-      <h1 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-black'}`}>Kategori Yönetimi</h1>
+      <h1 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-gray-800'}`}>Kategori Yönetimi</h1>
       <div className="mb-6 flex justify-center items-center">
         <input
           type="text"

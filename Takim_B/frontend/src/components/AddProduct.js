@@ -4,6 +4,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { generateUniqueBarcode } from '../service/productService'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from './Loading';
 
 function AddProduct({darkMode}) {
   const [productName, setProductName] = useState("");
@@ -12,10 +13,12 @@ function AddProduct({darkMode}) {
   const [quantity, setQuantity] = useState(1);
   const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setLoading(true);
         const querySnapshot = await getDocs(collection(db, 'categories'));
         const fetchedCategories = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -24,6 +27,8 @@ function AddProduct({darkMode}) {
         setCategories(fetchedCategories);
       } catch (error) {
         console.error("Hata oluştu: ", error);
+      }finally {
+        setLoading(false);
       }
     };
 
@@ -66,7 +71,9 @@ function AddProduct({darkMode}) {
       toast.error('Ürün eklenirken bir hata oluştu.');
     }
   };
-
+  if(loading) {
+    return <Loading/>;
+  }
   return (
     <div className={`mt-20 p-6 max-w-6xl mx-auto`}>
       <form onSubmit={handleSubmit} className={`p-6 shadow-md rounded-3xl  ${darkMode ? 'bg-darkBackground' : 'bg-lightBackground'}`}>

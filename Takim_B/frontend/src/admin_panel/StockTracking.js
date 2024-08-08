@@ -3,7 +3,7 @@ import { db, collection, getDocs } from '../service/firebase';
 import { FaList } from 'react-icons/fa';
 import Loading from '../components/Loading';
 
-const StockTracking = () => {
+const StockTracking = ({ darkMode }) => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -74,8 +74,8 @@ const StockTracking = () => {
     }
 
     return (
-        <div className="p-6 max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Stokta Olmayan Ürünler</h1>
+        <div className="mt-9 p-6 max-w-6xl mx-auto">
+            <h1 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-gray-800'}`}>Stokta Olmayan Ürünler</h1>
             <div className="mb-6 flex justify-end relative">
                 <button
                     onClick={toggleMenu}
