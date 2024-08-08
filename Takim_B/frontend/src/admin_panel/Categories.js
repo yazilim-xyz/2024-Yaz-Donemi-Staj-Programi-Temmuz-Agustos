@@ -133,7 +133,7 @@ const AdminCategoryPage = ({darkMode}) => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className={`p-4 border border-gray-300 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}
+            className={`p-4 border border-gray-300 rounded-lg shadow-md transition duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}
           >
             <div className="flex flex-col items-center">
               <span className="font-bold text-lg mb-2">{category.name}</span>
