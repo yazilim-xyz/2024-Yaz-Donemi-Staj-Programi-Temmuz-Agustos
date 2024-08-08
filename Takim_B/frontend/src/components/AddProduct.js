@@ -5,9 +5,8 @@ import { generateUniqueBarcode } from '../service/productService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function AddProduct() {
+function AddProduct({darkMode}) {
   const [productName, setProductName] = useState("");
-  const [barcodeId, setBarcodeId] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -69,13 +68,13 @@ function AddProduct() {
   };
 
   return (
-    <div className="mt-20 p-6 max-w-6xl mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 mb-16">Ürün Ekle</h1>
+    <div className={`mt-20 p-6 max-w-6xl mx-auto`}>
+      <form onSubmit={handleSubmit} className={`p-6 shadow-md rounded-3xl  ${darkMode ? 'bg-darkBackground' : 'bg-lightBackground'}`}>
+        <h1 className={`text-3xl font-bold mb-6 text-center mb-16 ${darkMode ? 'text-white' : 'text-black'}`}>Ürün Ekle</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 mb-4`}>
           <div>
-            <label htmlFor="productName" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="productName" className={`block text-sm font-medium mb-2  ${darkMode ? 'text-white' : 'text-gray-800'}`}>
               Ürün Adı
             </label>
             <input
@@ -84,28 +83,13 @@ function AddProduct() {
               value={productName}
               placeholder="Ürün Adı"
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full p-3 border-b-2 border-gray-300"
+              className="w-full p-3 border-b-2 border-gray-300 rounded-3xl"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="barcodeId" className="block text-gray-800 text-sm font-medium mb-2">
-              Barkod No
-            </label>
-            <input
-              type="number"
-              id="barcodeId"
-              value={barcodeId}
-              placeholder="Ürün Barkod No"
-              onChange={(e) => setBarcodeId(e.target.value)}
-              className="w-full p-3 border-b-2 border-gray-300"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="price" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="price" className={`block text-sm font-medium mb-2  ${darkMode ? 'text-white' : 'text-gray-800'}`}>
               Fiyat
             </label>
             <input
@@ -114,20 +98,20 @@ function AddProduct() {
               value={price}
               placeholder="Fiyat"
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full p-3 border-b-2 border-gray-300"
+              className="w-full p-3 border-b-2 border-gray-300 rounded-3xl"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="category" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="category" className={`block text-sm font-medium mb-2  ${darkMode ? 'text-white' : 'text-gray-800'}`}>
               Kategori
             </label>
             <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full p-3 border-b-2 border-gray-300"
+              className="w-full p-3 border-b-2 border-gray-300 rounded-3xl"
               required
             >
               <option value="" className="text-gray-500">Kategori Seçin</option>
@@ -138,7 +122,7 @@ function AddProduct() {
           </div>
 
           <div>
-            <label htmlFor="quantity" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="quantity" className={`block text-sm font-medium mb-2  ${darkMode ? 'text-white' : 'text-gray-800'}`}>
               Adet
             </label>
             <input
@@ -147,21 +131,21 @@ function AddProduct() {
               value={quantity}
               placeholder="Ürün Adet"
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full p-3 border-b-2 border-gray-300"
+              className="w-full p-3 border-b-2 border-gray-300 rounded-3xl"
               min="1"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="image" className="block text-gray-800 text-sm font-medium mb-2">
+            <label htmlFor="image" className={`block text-sm font-medium mb-2  ${darkMode ? 'text-white' : 'text-gray-800'}`}>
               Ürün Resmi
             </label>
             <input
               type="file"
               id="image"
               onChange={(e) => setImage(e.target.files[0])}
-              className="w-full p-3 border-b-2 border-gray-300"
+              className="bg-white w-full p-3 border-b-2 border-gray-300 rounded-3xl"
               accept="image/*"
             />
           </div>

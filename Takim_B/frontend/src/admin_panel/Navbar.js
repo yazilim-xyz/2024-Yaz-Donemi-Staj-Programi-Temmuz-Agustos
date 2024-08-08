@@ -9,19 +9,14 @@ import { FaSignOutAlt } from "react-icons/fa"; // Import your icon
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 
-const Navbar = () => {
+const Navbar = ({toggleDarkMode, darkMode}) => {
   const [user, isLoading] = useAuthState(auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
   // Toggle menu visibility
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Toggle menu visibility
-  const toggleDarkMode = () => {
-    setDarkMode(prevMode => !prevMode); // This should be a function
-  };
   // Handle click outside of menu
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {

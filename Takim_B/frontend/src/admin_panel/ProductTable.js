@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 
-const ProductTable = () => {
+const ProductTable = ({darkMode}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -106,7 +106,7 @@ const ProductTable = () => {
             const price = Number(product.price) || 0;
             const quantity = product.quantity;
             return (
-              <div key={product.id} className="flex items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105">
+              <div key={product.id} className={`flex items-center p-4 border border-gray-300 rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-darkBackground' : 'bg-lightBackground'}`}>
                 <div className="w-1/4">
                   <img
                     src={product.image}
@@ -114,7 +114,7 @@ const ProductTable = () => {
                     className="w-full h-32 object-cover rounded"
                   />
                 </div>
-                <div className="w-1/2 px-4">
+                <div className="w-1/2 px-4 text-gray-600">
                   <h2 className="text-lg font-semibold">{product.productName}</h2>
                   <p className="text-black">Kategori: <span className="text-gray-600">{product.category}</span></p>
                   <p className="text-black">Barkod No: <span className="text-gray-600">{product.barcodeId}</span></p>

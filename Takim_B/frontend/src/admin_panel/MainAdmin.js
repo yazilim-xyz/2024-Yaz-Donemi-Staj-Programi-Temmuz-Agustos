@@ -14,18 +14,19 @@ function MainAdmin() {
   const toggleDarkMode = () => {
     setDarkMode(prevMode => !prevMode); // This should be a function
   };
+  
   const renderContent = () => {
     switch (activePage) {
       case 'addProduct':
-        return <AddProduct />;
+        return <AddProduct darkMode={darkMode}/>;
       case 'update-product':
-        return <UpdateProduct />;
+        return <UpdateProduct darkMode={darkMode}/>;
         case 'categories-admin':
-          return <AdminCategoryPage />;
+          return <AdminCategoryPage darkMode={darkMode}/>;
         case 'productTable':
-          return <ProductTable />;
+          return <ProductTable darkMode={darkMode}/>;
           case 'stock-tracking':
-            return <StockTrackink/>
+            return <StockTrackink darkMode={darkMode}/>
           
   
       // Başka sayfalar eklenebilir
@@ -35,8 +36,7 @@ function MainAdmin() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen
-     bg-gray-100 ">
+    <div className={`flex flex-col min-h-screen bg-gray-100 ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'}`}>
     <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
     <div className="flex flex-1">
       <Sidebar setActivePage={setActivePage} activePage={activePage} />

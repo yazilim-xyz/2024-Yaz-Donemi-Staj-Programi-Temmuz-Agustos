@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 
-const AdminCategoryPage = () => {
+const AdminCategoryPage = ({darkMode}) => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [editCategoryId, setEditCategoryId] = useState(null);
@@ -95,7 +95,7 @@ const AdminCategoryPage = () => {
 
   return (
     <div className="mt-20 p-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Kategori Yönetimi</h1>
+      <h1 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-black'}`}>Kategori Yönetimi</h1>
       <div className="mb-6 flex justify-center items-center">
         <input
           type="text"
@@ -133,7 +133,7 @@ const AdminCategoryPage = () => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className="bg-white p-4 border border-gray-300 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 ease-in-out hover:scale-105"
+            className={`p-4 border border-gray-300 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}
           >
             <div className="flex flex-col items-center">
               <span className="font-bold text-lg mb-2">{category.name}</span>
