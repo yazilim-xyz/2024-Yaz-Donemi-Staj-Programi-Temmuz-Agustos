@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 
 
 const GroupCreateModal = ({ isOpen, onClose }) => {
@@ -9,7 +8,7 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
     const [isNameModalOpen, setIsNameModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (isOpen) {
@@ -44,7 +43,7 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
         try {
             if (selectedUsers.length === 0) {
                 throw new Error("Lütfen gruba eklemek istediğiniz kişileri seçiniz!!!");
-                
+
             }
             setIsNameModalOpen(true); // Name modalı açılır.
             setErrorMessage(""); // Hata mesajını temizle
@@ -56,11 +55,11 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
 
 
     const handleGroupNameSubmit = () => {
-        
+
         try {
             if (!groupName.trim()) {
                 throw new Error("Lütfen gruba isim giriniz!");
-                
+
             }
             console.log("Grup ismi: ", groupName);
             console.log("Seçilen kullanıcılar: ", selectedUsers); //kullanıcı

@@ -46,7 +46,7 @@ const Admin = () => {
   const handleRemoveUserFromGroup = async (userId, groupId) => {
     try {
       await axios.post(`/api/groups/${groupId}/removeUser`, { userId }); // BACKEND: Kullanıcıyı gruptan çıkaran endpoint
-      setGroups(groups.map(group => 
+      setGroups(groups.map(group =>
         group._id === groupId ? { ...group, users: group.users.filter(id => id !== userId) } : group
       ));
     } catch (error) {
@@ -57,7 +57,7 @@ const Admin = () => {
   const handleAddUserToGroup = async (userId, groupId) => {
     try {
       await axios.post(`/api/groups/${groupId}/addUser`, { userId }); // BACKEND: Kullanıcıyı gruba ekleyen endpoint
-      setGroups(groups.map(group => 
+      setGroups(groups.map(group =>
         group._id === groupId ? { ...group, users: [...group.users, userId] } : group
       ));
     } catch (error) {
@@ -111,15 +111,15 @@ const Admin = () => {
 
         <h2 className={`text-2xl font-bold mb-4 mt-6 ${settings.theme === 'light' ? 'text-black' : 'text-white'}`}>Groups</h2>
         {groups.map(group => (
-          <div 
-            key={group._id} 
+          <div
+            key={group._id}
             className={`bg-secondary bg-opacity-60 p-6 rounded-lg shadow-lg mb-4 relative ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
             onMouseEnter={() => setSelectedGroup(group)} // Üzerine gelindiğinde grup üyelerini göster
             onMouseLeave={() => setSelectedGroup(null)}  // Üzerinden ayrıldığında üyeleri gizle
           >
             <h3 className={`text-xl font-semibold mb-4 ${settings.theme === 'light' ? 'text-black' : 'text-white'}`}>Group: {group.name}</h3>
             {selectedGroup && selectedGroup._id === group._id && (
-              <div 
+              <div
                 className={`absolute left-0 mt-2 p-2 ${settings.theme === 'light' ? 'bg-gray-100' : 'bg-gray-800'} text-white rounded shadow-lg w-48`}
                 style={{ zIndex: 1 }}
               >
@@ -135,8 +135,8 @@ const Admin = () => {
                 </ul>
               </div>
             )}
-            
-            <div className="mt-4"> 
+
+            <div className="mt-4">
               <label htmlFor="userSelect" className={`block ${settings.theme === 'light' ? 'text-black' : 'text-white'} font-semibold mb-2`}>Add user to group:</label>
               <select
                 id="userSelect"

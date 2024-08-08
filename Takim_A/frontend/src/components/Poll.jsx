@@ -15,10 +15,10 @@ const Poll = ({ poll, onVote }) => {
       <div>
         {poll.options.map((option, index) => (
           <div key={index} className="flex items-center mb-2">
-            <input 
-              type="radio" 
-              name="poll-option" 
-              value={index} 
+            <input
+              type="radio"
+              name="poll-option"
+              value={index}
               checked={selectedOption === index}
               onChange={() => setSelectedOption(index)}
               className="mr-2"
@@ -27,7 +27,7 @@ const Poll = ({ poll, onVote }) => {
           </div>
         ))}
       </div>
-      <button 
+      <button
         onClick={handleVote}
         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
       >

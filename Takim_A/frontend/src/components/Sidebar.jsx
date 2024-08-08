@@ -14,10 +14,8 @@ const Sidebar = () => {
         <Chats />
         <Chats />
       </div>
-      
-      {/* <div className="bg-cyan-900 rounded mt-auto ">
-        deneme
-      </div> */}
+
+
     </div>
   );
 };
