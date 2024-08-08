@@ -6,6 +6,7 @@ import logo from "../image/logo.jpg";
 import { FaArrowDown, FaLinkedin, FaGithub } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillAliwangwang } from "react-icons/ai";
+import { BsChatLeftTextFill, BsFillChatRightTextFill } from "react-icons/bs";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,7 +53,6 @@ const Login = () => {
 
   return (
     <div className="h-screen overflow-auto snap-y snap-mandatory">
-      {/* Arka Plan ve Sayfa İçeriği */}
       <div
         className="section snap-start relative h-screen bg-cover bg-center flex flex-col justify-between"
         style={{
@@ -62,7 +62,6 @@ const Login = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        {/* WorkChat Başlığı ve Alt Çizgi */}
         <div className="absolute top-0 left-0 right-0 flex flex-col items-center pt-8">
           <div className="text-primary text-xl md:text-5xl font-bold text-center">
             <h1>WorkChat</h1>
@@ -70,7 +69,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Diğer İçerik */}
         <div className="flex flex-grow items-center justify-center pt-20">
           <div className="flex flex-col md:flex-row items-center justify-center w-full text-center">
             <div className="flex items-center justify-center md:w-1/2">
@@ -93,14 +91,14 @@ const Login = () => {
                 <p>Keşfet</p>
                 <FaArrowDown
                   onClick={scrollToSecondPage}
-                  className="text-white text-3xl cursor-pointer mt-4 transition-transform transform hover:scale-125 hover:bg-primary hover:p-2 rounded-full hover:text-white"
+                  className="text-white text-3xl cursor-pointer mt-4 transition-transform transform hover:scale-150 hover:translate-y-5 hover:text-quaternary"
+                  style={{ transition: 'transform 0.3s ease, color 0.3s ease' }}
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Saydam Footer */}
         <div className="absolute bottom-0 left-0 right-0 bg-primary bg-opacity-50 py-8 flex justify-between items-center px-8">
           <a
             href="/about"
@@ -137,10 +135,9 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Giriş Formu Bölümü */}
       <div
         ref={secondPageRef}
-        className="section snap-start flex items-center justify-center h-screen bg-secondary"
+        className="section snap-start flex items-center justify-center h-screen bg-secondary relative"
         style={{
           backgroundImage:
             "url(https://i.pinimg.com/originals/ef/37/81/ef37815019ae52354c7c5772f4e886d6.png)",
@@ -148,11 +145,28 @@ const Login = () => {
           backgroundAttachment: "fixed",
         }}
       >
+        {/* Sol üst köşedeki ikon */}
+        <div className="group absolute top-16 left-16 flex items-center">
+          <BsChatLeftTextFill
+            className="text-secondary text-4xl transition-transform transform hover:scale-150 hover:translate-x-2 hover:translate-y-2 hover:text-primary"
+            style={{ zIndex: 10 }} // Diğer içeriklerin üstünde olmasını sağlar
+          />
+          <span className="hidden group-hover:block text-primary text-lg ml-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">Heyy! Davet edilmediysen yanlış yerdesinnn...</span>
+        </div>
+        
+        {/* Sağ üst köşedeki ikon */}
+        <div className="group absolute top-16 right-16 flex items-center">
+          <span className="hidden group-hover:block text-primary text-lg mr-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">Şsss... Şirkete giriyorsun sessiz oll!!!</span>
+          <BsFillChatRightTextFill
+            className="text-secondary text-4xl transition-transform transform hover:scale-150 hover:translate-x-2 hover:translate-y-2 hover:text-primary"
+            style={{ zIndex: 10 }} // Diğer içeriklerin üstünde olmasını sağlar
+          />
+        </div>
+
         <div className="relative w-full max-w-4xl md:w-3/5 lg:w-3/5 h-[50vh] p-8 bg-primary bg-opacity-80 text-white shadow-lg rounded-lg flex flex-col">
           <div className="flex flex-col items-center flex-grow justify-center pt-16">
             <div className="w-full max-w-md text-center">
               <div className="text-5xl mb-2 flex justify-center relative">
-                {/* Giriş Yap İkonu */}
                 <AiFillAliwangwang className="text-white transition-transform duration-300 transform hover:scale-125 hover:translate-x-4 hover:translate-y-4" style={{ position: "absolute", top: "-5rem" }} />
               </div>
               <h2 className="text-lg md:text-2xl font-bold mb-4 text-center">
@@ -187,13 +201,13 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Şifrenizi girin"
+                  placeholder="Şifrenizi giriniz"
                 />
               </div>
               <div className="flex items-center justify-center">
                 <button
                   onClick={handleLogin}
-                  className="bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-white hover:text-primary hover:bg-opacity-70 transition-transform duration-300 transform hover:scale-105"
+                  className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
                   Giriş Yap
                 </button>
