@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 const GroupCreateModal = ({ isOpen, onClose }) => {
@@ -9,7 +9,7 @@ const GroupCreateModal = ({ isOpen, onClose }) => {
     const [isNameModalOpen, setIsNameModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         if (isOpen) {
