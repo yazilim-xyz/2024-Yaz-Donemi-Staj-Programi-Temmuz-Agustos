@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db, collection, getDocs } from '../service/firebase'; // Firebase importunuzu ayarlayın
-import { FaList } from 'react-icons/fa'; // FaList ikonunu import edin
+import { db, collection, getDocs } from '../service/firebase';
+import { FaList } from 'react-icons/fa';
 
 const StockTracking = () => {
     const [products, setProducts] = useState([]);
@@ -8,7 +8,7 @@ const StockTracking = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [menuOpen, setMenuOpen] = useState(false); // Menü açık/kapalı durumunu kontrol etmek için
+    const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -61,7 +61,7 @@ const StockTracking = () => {
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        setMenuOpen(false); // Seçim yapıldığında menüyü kapat
+        setMenuOpen(false);
     };
 
     if (loading) {
@@ -75,16 +75,13 @@ const StockTracking = () => {
     return (
         <div className="p-6 max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Stokta Olmayan Ürünler</h1>
-            {/* Kategori Seçim Butonu */}
             <div className="mb-6 flex justify-end relative">
-                <div className='fixed'>
-                    <button
-                        onClick={toggleMenu}
-                        className="bg-gray-200 p-2 rounded-lg hover:bg-gray-300 transition duration-300 flex items-center"
-                    >
-                        <FaList className="text-xl text-gray-700 mr-2" />
-                    </button>
-                </div>
+                <button
+                    onClick={toggleMenu}
+                    className="bg-gray-200 p-2 rounded-lg hover:bg-gray-300 transition duration-300 flex items-center"
+                >
+                    <FaList className="text-xl text-gray-700 mr-2" />
+                </button>
                 {menuOpen && (
                     <div className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-full z-10">
                         <ul className="p-2">
@@ -126,7 +123,6 @@ const StockTracking = () => {
                             <p className="text-md">Fiyat: {product.price}₺</p>
                             <p className="text-md">Stok: {product.quantity}</p>
                         </div>
-
                     ))}
                 </div>
             )}

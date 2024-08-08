@@ -53,6 +53,10 @@ const ProductList = ({ category, darkMode }) => {
   }, []);
 
   const handleProductClick = async (product) => {
+    if (product.quantity === 0) {
+      alert('Bu ürün tükendi ve sepete eklenemez.');
+      return;
+    }
     try {
       await addProductToCart(product);
       alert(`${product.productName} sepete eklendi!`);
@@ -98,7 +102,7 @@ const ProductList = ({ category, darkMode }) => {
           <div
             key={product.id}
             onClick={() => handleProductClick(product)}
-            className={`w-full h-full p-4 rounded-3xl shadow-sm transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'} ${product.quantity === 0 ? 'grayscale' : ''}`}
+            className={`w-full h-full p-4 rounded-3xl shadow-sm transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'} ${product.quantity === 0 ? 'grayscale cursor-not-allowed' : ''}`}
           >
             <div className="w-full h-40 bg-gray-200 rounded-2xl overflow-hidden">
               {product.image && <img src={product.image} alt={product.productName} className="w-full h-full object-cover rounded-2xl" />}
