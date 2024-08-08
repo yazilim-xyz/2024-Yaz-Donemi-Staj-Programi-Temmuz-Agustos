@@ -30,7 +30,7 @@ function MainAdmin() {
   
       // Başka sayfalar eklenebilir
       default:
-        return <div className="min-h-screen"><Dashboard></Dashboard></div>; // Varsayılan içerik
+        return <div className="w-full h-full flex justify-center"><Dashboard></Dashboard></div>; // Varsayılan içerik
     }
   };
 
