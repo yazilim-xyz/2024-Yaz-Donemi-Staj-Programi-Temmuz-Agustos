@@ -85,7 +85,7 @@ const ProductTable = ({darkMode}) => {
       return <Loading/>;
     }
   return (
-    <div className="mt-9 p-6 max-w-6xl mx-auto">
+    <div className="mt-12 p-6 max-w-6xl mx-auto">
       <h1 className={`text-3xl font-bold mb-6 text-center text-gray-800  ${darkMode ? 'text-white' : 'text-gray-800'}`}>Ürün Listeleme</h1>
       <div className="relative mb-4">
         <input
