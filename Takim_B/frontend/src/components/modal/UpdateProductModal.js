@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { updateProduct } from '../../service/productService'; // İlgili yolu kontrol edin
+import { updateProduct } from '../../service/productService'; // Ensure this path is correct
 
 const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onProductUpdate }) => {
   const [productName, setProductName] = useState(product?.productName || '');
@@ -9,8 +9,9 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
   const [category, setCategory] = useState(product?.category || '');
   const [quantity, setQuantity] = useState(product?.quantity || 1);
   const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(product?.image || ''); // Yeni state
+  const [imagePreview, setImagePreview] = useState(product?.image || ''); // Image preview state
   const [description, setDescription] = useState(product?.description || '');
+  const [successMessage, setSuccessMessage] = useState(''); // Success message state
 
   useEffect(() => {
     if (product) {
@@ -20,7 +21,7 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
       setCategory(product.category);
       setQuantity(product.quantity);
       setDescription(product.description || '');
-      setImagePreview(product.image || ''); // Mevcut resmi göster
+      setImagePreview(product.image || ''); // Show existing image
     }
   }, [product]);
 
@@ -51,7 +52,8 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
         // Image upload logic here if necessary
       }
       await updateProduct(product.id, updatedProduct);
-      onProductUpdate();
+      setSuccessMessage('Ürün başarıyla güncellendi!'); // Set success message
+      onProductUpdate(); // Notify parent component of update
     } catch (error) {
       console.error("Error updating product: ", error);
     }
@@ -67,6 +69,11 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
     >
       <div className="relative w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 overflow-y-auto scrollbar max-h-screen">
         <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Ürün Güncelle</h1>
+        {successMessage && (
+          <div className="mb-4 p-4 bg-green-100 border border-green-300 text-green-700 rounded-lg">
+            {successMessage}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -152,7 +159,7 @@ const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onPro
               </label>
               {imagePreview && (
                 <div className="mb-4">
-                  <img src={imagePreview} alt="Ürün Resmi" className="max-w-xs max-h-48 object-contain rounded-lg" /> {/* Resim boyutunu küçülttük */}
+                  <img src={imagePreview} alt="Ürün Resmi" className="max-w-xs max-h-48 object-contain rounded-lg" /> {/* Resize image */}
                 </div>
               )}
               <input

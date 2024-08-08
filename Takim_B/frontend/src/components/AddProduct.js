@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { db, collection, addDoc, getDocs } from '../service/firebase';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { generateUniqueBarcode } from '../service/productService'; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function AddProduct() {
   const [productName, setProductName] = useState("");
   const [barcodeId, setBarcodeId] = useState("");
@@ -12,7 +15,6 @@ function AddProduct() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'categories'));
@@ -44,17 +46,16 @@ function AddProduct() {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-
       await addDoc(collection(db, 'products'), {
         productName,
-        barcodeId: newBarcode, // Use the unique barcode,
+        barcodeId: newBarcode, // Use the unique barcode
         price,
         category,
         quantity,
         image: imageUrl || "",
       });
 
-      alert('Ürün başarıyla eklendi!');
+      toast.success('Ürün başarıyla eklendi!');
 
       setProductName('');
       setPrice('');
@@ -63,6 +64,7 @@ function AddProduct() {
       setImage(null);
     } catch (error) {
       console.error('Ürün eklenirken hata oluştu: ', error);
+      toast.error('Ürün eklenirken bir hata oluştu.');
     }
   };
 
@@ -124,12 +126,11 @@ function AddProduct() {
             <select
               id="category"
               value={category}
-              placeholder="Kategori"
               onChange={(e) => setCategory(e.target.value)}
               className="w-full p-3 border-b-2 border-gray-300"
               required
             >
-              <option value="" className="text-gray-500 rounded-2xl">Kategori Seçin</option>
+              <option value="" className="text-gray-500">Kategori Seçin</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.name}>{cat.name}</option>
               ))}
@@ -173,11 +174,20 @@ function AddProduct() {
             Ekle
           </button>
         </div>
-
       </form>
+      <ToastContainer
+        position="top-center" // Center the toast horizontally
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
 
 export default AddProduct;
-

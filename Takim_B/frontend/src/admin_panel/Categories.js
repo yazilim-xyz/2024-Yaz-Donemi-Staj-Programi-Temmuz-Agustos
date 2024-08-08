@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaTags } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../service/firebase'; // Adjust the import path as needed
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -40,7 +42,7 @@ const AdminCategoryPage = () => {
           ...prevCategories,
           { id: docRef.id, name: newCategory.trim() }
         ]);
-        alert('Kategori başarıyla eklendi!');
+        toast.success('Kategori başarıyla eklendi!');
         setNewCategory('');
       } catch (error) {
         console.error("Error adding category: ", error);
@@ -53,7 +55,7 @@ const AdminCategoryPage = () => {
       const categoryDoc = doc(db, 'categories', id);
       await deleteDoc(categoryDoc);
       setCategories(prevCategories => prevCategories.filter(category => category.id !== id));
-      alert('Kategori başarıyla silindi!');
+      toast.success('Kategori başarıyla silindi!');
     } catch (error) {
       console.error("Error deleting category: ", error);
     }
@@ -72,7 +74,7 @@ const AdminCategoryPage = () => {
         
         setEditCategoryId(null);
         setEditCategoryName('');
-        alert('Kategori başarıyla düzenlendi!');
+        toast.success('Kategori başarıyla düzenlendi!');
       } catch (error) {
         console.error("Error updating category: ", error);
       }
@@ -146,6 +148,17 @@ const AdminCategoryPage = () => {
           </div>
         ))}
       </div>
+      <ToastContainer
+        position="top-center" // Center the toast horizontally
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

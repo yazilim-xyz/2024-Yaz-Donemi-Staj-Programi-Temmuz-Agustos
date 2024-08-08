@@ -4,6 +4,8 @@ import { fetchProducts, deleteProduct } from '../service/productService';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../service/firebase';
 import UpdateProductModal from '../components/modal/UpdateProductModal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,12 +19,12 @@ const ProductTable = () => {
   const handleDelete = async (id) => {
     try {
       await deleteProduct(id);
-      alert('Ürün başarıyla silindi!');
+      toast.success('Ürün başarıyla silindi!');
       const updatedProducts = await fetchProducts();
       setProducts(updatedProducts);
     } catch (error) {
       console.error("Ürün silinirken bir hata oluştu:", error);
-      alert('Ürün silinirken bir hata oluştu.');
+      toast.error('Ürün silinirken bir hata oluştu.');
     }
   };
 
@@ -90,7 +92,7 @@ const ProductTable = () => {
         {currentProducts.length > 0 ? (
           currentProducts.map((product, index) => {
             const price = Number(product.price) || 0;
-            const quantity = product.quantity
+            const quantity = product.quantity;
             return (
               <div key={product.id} className="flex items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105">
                 <div className="w-1/4">
@@ -149,6 +151,17 @@ const ProductTable = () => {
           }}
         />
       )}
+      <ToastContainer
+        position="top-center" // Center the toast horizontally
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
