@@ -1,15 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../service/firebase";
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = ({ toggleDarkMode, darkMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleLogin = useCallback(
     (e) => {
@@ -35,11 +38,16 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
 
       setErrors({ email: '', password: '' });
       signInWithEmailAndPassword(auth, email, password)
-        .catch(() => {
-          console.log(e);
+        .then(() => {
+          toast.success('Giriş başarılı!');
+          navigate('/main');
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error('E-Posta veya Şifre yanlış!');
         });
     },
-    [email, password]
+    [email, password, navigate]
   );
 
   return (
@@ -105,6 +113,7 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
           Hesabın yok mu? Kayıt oluştur
         </Link>
       </form>
+      <ToastContainer />
     </div>
   );
 };
