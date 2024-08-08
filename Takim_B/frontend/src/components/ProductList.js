@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../service/firebase';
+import { FaSearch } from 'react-icons/fa';
 
 const ProductList = ({ category, darkMode }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,9 +35,14 @@ const ProductList = ({ category, darkMode }) => {
     fetchProducts();
   }, [category]);
 
+  // Arama terimine göre filtreleme
+  const filteredProducts = selectedProducts.filter(product => 
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = selectedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -45,6 +52,19 @@ const ProductList = ({ category, darkMode }) => {
 
   return (
     <div className="p-4 max-h-full overflow-auto scrollbar pb-24 lg:pb-4 transition-all duration-300 ease-in-out">
+      <div className="relative mb-4">
+        <input
+          type="text"
+          placeholder="Ürün adı ile ara..."
+          className="w-full p-2 border border-gray-300 rounded-lg"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <FaSearch
+          className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+          size={20}
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 transition-all duration-300 ease-in-out">
         {currentProducts.map(product => (
           <div
@@ -61,7 +81,7 @@ const ProductList = ({ category, darkMode }) => {
       </div>
       <Pagination
         productsPerPage={productsPerPage}
-        totalProducts={selectedProducts.length}
+        totalProducts={filteredProducts.length}
         paginate={paginate}
         currentPage={currentPage}
       />
