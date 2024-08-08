@@ -17,7 +17,7 @@ export const fetchProductByBarcode = async (barcode) => {
 };
 
 // Ürünü sepete ekleme işlevi
-export const addProductToCart = async (product, amount) => {
+export const addProductToCart = async (product, amount = 1) => {
   const cartRef = collection(db, 'cart');
   const productInCartRef = doc(cartRef, product.id);
   const productInCartDoc = await getDoc(productInCartRef);
@@ -31,7 +31,7 @@ export const addProductToCart = async (product, amount) => {
       product_id: product.id,
       amount: amount,
       price: product.price,
-      productName: product.productName, // İlgili ürün bilgilerini ekleyin
+      productName: product.productName,
     });
   }
 };
