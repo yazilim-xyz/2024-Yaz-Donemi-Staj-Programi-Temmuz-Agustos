@@ -29,6 +29,7 @@ import java.util.*
 
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 val db = FirebaseFirestore.getInstance()
 
 @SuppressLint("MutableCollectionMutableState", "UnusedMaterial3ScaffoldPaddingParameter")
@@ -91,7 +92,7 @@ fun TakvimSayfa(navController: NavController) {
                         onClick = {
                             selectedDate?.let { date ->
                                 val note = Pair(newNote, LocalDateTime.now())
-                                notesMap[date] = note
+                                notesMap = notesMap.toMutableMap().apply { this[date] = note }
                                 saveNoteToFirebase(date, note) // Notu Firestore'a kaydet
                                 newNote = ""
                             }
@@ -104,7 +105,6 @@ fun TakvimSayfa(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Display the note in a colored box if it exists
                     val note = notesMap[date]
                     note?.let {
                         Box(
@@ -300,7 +300,6 @@ private fun saveNoteToFirebase(date: LocalDate, note: Pair<String, LocalDateTime
         }
 }
 
-// Firestore'dan notları yükleme fonksiyonu
 @RequiresApi(Build.VERSION_CODES.O)
 private fun loadNotes(onNotesLoaded: (Map<LocalDate, Pair<String, LocalDateTime>>) -> Unit) {
     db.collection("notes")

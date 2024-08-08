@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     Pages()
                 }
             }
@@ -55,7 +54,8 @@ fun Pages() {
         }
 
         composable(route = "panel sayfa"){
-            PanelSayfa(navController)
+         //   PanelSayfa(navController)
+            PanelSayfa()
         }
         composable(route = "takvim sayfa"){
             TakvimSayfa(navController)

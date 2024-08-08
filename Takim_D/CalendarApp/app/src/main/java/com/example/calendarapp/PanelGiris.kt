@@ -23,12 +23,30 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
 fun PanelGiris(navController: NavController) {
+
+    fun saveUserToFirestore(user: FirebaseUser) {
+        val db = FirebaseFirestore.getInstance()
+        val userMap = hashMapOf(
+            "email" to user.email,
+            "name" to user.displayName
+        )
+
+        db.collection("Users").document(user.uid)
+            .set(userMap)
+            .addOnSuccessListener {
+                // Kullanıcı başarıyla kaydedildi
+            }
+            .addOnFailureListener { e ->
+                // Hata durumunda
+            }
+    }
 
         val image: Painter = painterResource(id = R.drawable.arkaplann)
         var posta by remember { mutableStateOf("") }
@@ -112,6 +130,7 @@ fun PanelGiris(navController: NavController) {
 
                 Button(
                     onClick = {
+
                         val db = FirebaseFirestore.getInstance()
                         val docRef = db.collection("Users").document("cBaD5nWrlBrHCs8itU7i") // replace with actual document ID
                         docRef.get()
