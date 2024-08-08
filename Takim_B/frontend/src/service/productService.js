@@ -1,4 +1,5 @@
 import { db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from './firebase';
+
 export const fetchProducts = async () => {
   const productsCollection = collection(db, 'products');
   const productsSnapshot = await getDocs(productsCollection);
