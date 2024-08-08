@@ -6,6 +6,7 @@ import { db } from '../service/firebase';
 import UpdateProductModal from '../components/modal/UpdateProductModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../components/Loading';
 
 const ProductTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,10 +15,12 @@ const ProductTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 5; // Sayfa başına ürün sayısı
 
   const handleDelete = async (id) => {
     try {
+      setLoading(true);
       await deleteProduct(id);
       toast.success('Ürün başarıyla silindi!');
       const updatedProducts = await fetchProducts();
@@ -25,6 +28,8 @@ const ProductTable = () => {
     } catch (error) {
       console.error("Ürün silinirken bir hata oluştu:", error);
       toast.error('Ürün silinirken bir hata oluştu.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,13 +45,17 @@ const ProductTable = () => {
     };
 
     const fetchCategories = async () => {
+      setLoading(true);
       try {
+
         const categoryCollection = collection(db, 'categories');
         const categorySnapshot = await getDocs(categoryCollection);
         const categoryList = categorySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setCategories(categoryList);
       } catch (error) {
         console.error("Error fetching categories: ", error);
+      } finally{
+        setLoading(false);
       }
     };
 
@@ -72,6 +81,9 @@ const ProductTable = () => {
   // Sayfa değiştirme işlevi
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    if(loading) {
+      return <Loading/>;
+    }
   return (
     <div className="mt-9 p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Listeleme</h1>

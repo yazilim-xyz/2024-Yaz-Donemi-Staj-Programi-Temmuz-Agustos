@@ -7,6 +7,7 @@ import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
 import person from '../assets/images/png/person.png';
 import { FaShoppingCart } from 'react-icons/fa';
+import Loading from './Loading';
 
 const Navbar = ({ toggleDarkMode, darkMode, toggleCartVisibility }) => {
   const [user, isLoading] = useAuthState(auth);
@@ -16,7 +17,7 @@ const Navbar = ({ toggleDarkMode, darkMode, toggleCartVisibility }) => {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading/>;
   }
 
   return (
@@ -31,20 +32,23 @@ const Navbar = ({ toggleDarkMode, darkMode, toggleCartVisibility }) => {
           <img src={darkMode ? darkModeIcon : lightModeIcon} alt="Toggle Dark Mode" className="object-cover h-full w-full" />
         </button>
 
-        <button onClick={toggleCartVisibility} className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50">
-          <FaShoppingCart className={`text-2xl ${darkMode ? 'text-white' : 'text-black'}`} />
-        </button>
-        <div className="relative group flex items-center space-x-2 transition-all duration-300 ease-in-out">
-          <p className="font-semibold">{user.displayName}</p>
-          <img
-            src={person}
-            alt="User Icon"
-            className={` w-8 h-8 object-cover cursor-pointer`}
-          />
-          <div className={`absolute top-full right-0 mt-2 w-48 p-4 rounded-lg shadow-md transform transition-all duration-300 ease-in-out scale-0 group-hover:scale-100 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-            <button onClick={handleLogout} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-700">Çıkış Yap</button>
+        <div className="hidden md:flex items-center space-x-4">
+          <div className="relative group flex items-center space-x-2 transition-all duration-300 ease-in-out">
+            <p className="font-semibold">{user.displayName}</p>
+            <img
+              src={person}
+              alt="User Icon"
+              className={` w-8 h-8 object-cover cursor-pointer`}
+            />
+            <div className={`absolute top-full right-0 mt-2 w-48 p-4 rounded-lg shadow-md transform transition-all duration-300 ease-in-out scale-0 group-hover:scale-100 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+              <button onClick={handleLogout} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-700">Çıkış Yap</button>
+            </div>
           </div>
         </div>
+
+        <button onClick={toggleCartVisibility} className="w-16 h-16 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50 md:hidden">
+          <FaShoppingCart className={`text-2xl ${darkMode ? 'text-white' : 'text-black'}`} />
+        </button>
       </div>
     </nav>
   );

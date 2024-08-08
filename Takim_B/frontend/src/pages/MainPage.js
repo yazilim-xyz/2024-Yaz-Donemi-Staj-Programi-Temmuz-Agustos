@@ -10,6 +10,7 @@ import { auth } from '../service/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts } from '../features/products/productSlice';
 import { calculateTotal, selectTotalAmount } from '../features/totalAmount/totalAmountSlice';
+import Loading from '../components/Loading';
 
 function MainPage({ toggleDarkMode, darkMode }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -32,7 +33,7 @@ function MainPage({ toggleDarkMode, darkMode }) {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading/>;
   }
 
   return (
@@ -59,12 +60,10 @@ function MainPage({ toggleDarkMode, darkMode }) {
           <h2 className={`sticky top-0 z-10 p-4 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Ürünler</h2>
           <ProductList category={selectedCategory} darkMode={darkMode} />
         </div>
-        {!isCartVisible && (
-          <div className="hidden lg:flex lg:col-span-3 flex-col h-full overflow-auto space-y-4">
-            <CardPage />
-            <BarcodeInput />
-          </div>
-        )}
+        <div className="hidden lg:flex lg:col-span-3 flex-col h-full overflow-auto space-y-4">
+          <CardPage />
+          <BarcodeInput />
+        </div>
       </div>
     </div>
   );

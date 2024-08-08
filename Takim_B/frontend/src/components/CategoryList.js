@@ -2,6 +2,7 @@ import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 import { db } from '../service/firebase';
+import Loading from './Loading';
 
 const ref = collection(db, 'categories');
 
@@ -9,7 +10,7 @@ const CategoryList = ({ setSelectedCategory, darkMode, isTabBar = false }) => {
   const [data, isLoading] = useCollectionData(ref);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading/>;
   }
 
   const categories = [{ id: 'all', name: 'Tüm Ürünler' }, ...data];

@@ -5,6 +5,7 @@ import { db } from '../service/firebase';
 import { addProductToCart, getCartItems } from '../service/cartService';
 import { FaSearch } from 'react-icons/fa';
 import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
+import Loading from './Loading';
 
 const ProductList = ({ category, darkMode }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -79,7 +80,7 @@ const ProductList = ({ category, darkMode }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <Loading/>;
   }
 
   return (

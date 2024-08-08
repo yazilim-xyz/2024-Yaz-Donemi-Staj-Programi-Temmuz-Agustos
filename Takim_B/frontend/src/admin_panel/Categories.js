@@ -3,15 +3,19 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../service/firebase'; // Adjust the import path as needed
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../components/Loading';
 
 const AdminCategoryPage = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [editCategoryId, setEditCategoryId] = useState(null);
   const [editCategoryName, setEditCategoryName] = useState('');
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
         const categoryCollection = collection(db, 'categories');
         const categorySnapshot = await getDocs(categoryCollection);
@@ -27,6 +31,8 @@ const AdminCategoryPage = () => {
         });
       } catch (error) {
         console.error("Error fetching categories: ", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -82,6 +88,10 @@ const AdminCategoryPage = () => {
       console.error("Invalid category ID or name.");
     }
   };
+
+  if (loading) {
+    return <Loading/>;
+  }
 
   return (
     <div className="mt-20 p-6 max-w-6xl mx-auto">

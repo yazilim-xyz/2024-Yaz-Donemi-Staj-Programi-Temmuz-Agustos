@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db, collection, getDocs } from '../service/firebase';
 import { FaList } from 'react-icons/fa';
+import Loading from '../components/Loading';
 
 const StockTracking = () => {
     const [products, setProducts] = useState([]);
@@ -65,7 +66,7 @@ const StockTracking = () => {
     };
 
     if (loading) {
-        return <div className="text-center p-6">Yükleniyor...</div>;
+        return <Loading/>;
     }
 
     if (error) {
