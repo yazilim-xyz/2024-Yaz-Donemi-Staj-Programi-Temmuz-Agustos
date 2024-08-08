@@ -6,13 +6,13 @@ import Chatting from '../components/Chatting';
 const GroupChat = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url(https://i.pinimg.com/originals/ef/37/81/ef37815019ae52354c7c5772f4e886d6.png)' }}>
-       <div className="border-2 border-white  w-[65%] h-[80%] bg-[#A7BCFE] rounded-xl flex overflow-hidden">
-        
-         <Sidebar />
-        <Chatting/> 
-        
-        
-       </div>
+      <div className="border-2 border-white  w-[65%] h-[80%] bg-[#A7BCFE] rounded-xl flex overflow-hidden">
+
+        <Sidebar />
+        <Chatting />
+
+
+      </div>
     </div>
   )
 }

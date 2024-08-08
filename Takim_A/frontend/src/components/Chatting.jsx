@@ -4,7 +4,7 @@ import Input from './Input';
 
 const Chatting = () => {
   const [messages, setMessages] = useState([]);
-  const [polls, setPolls] = useState([]); 
+  const [polls, setPolls] = useState([]);
   // Mesaj gönderme işlevi
   const handleSendMessage = ({ text, image }) => {
     setMessages([
@@ -21,17 +21,17 @@ const Chatting = () => {
     ]);
   };
 
-  
+
   return (
     <div className="flex-[2] flex flex-col">
-      <div className='chatInfo h-12 flex items-center bg-[#19376D] p-2.5 text-slate-100 justify-between'>
-        <span>Jane</span>
-        <div className="chatIcons flex items-center gap-2">
-          {/* İkonlar */}
+      <div className='h-12 flex items-center bg-[#19376D] p-2.5 text-slate-100 justify-between'>
+        <span>Ayşe</span>
+        <div className="flex items-center gap-2">
+
         </div>
       </div>
       <Messages messages={messages} />
-      <Input onSend={handleSendMessage}  polls={polls} setPolls={setPolls}/>
+      <Input onSend={handleSendMessage} polls={polls} setPolls={setPolls} />
     </div>
   );
 }

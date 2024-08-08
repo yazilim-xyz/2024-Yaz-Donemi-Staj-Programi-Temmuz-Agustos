@@ -15,7 +15,7 @@ const GroupsPage = () => {
     <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: backgroundImageUrl }}>
       <div className={`border-2 ${settings.theme === 'light' ? 'border-primary' : 'border-white'} w-[65%] h-[80%] ${settings.theme === 'light' ? 'bg-[#007EA7]' : 'bg-[#2C3E50]'} rounded-xl flex overflow-hidden`}>
         <div className={`text-3xl font-bold ${settings.theme === 'light' ? 'text-black' : 'text-white'} m-auto`}>
-          {translate('GroupsPage', currentLanguage)}
+          {translate('Groups Page', currentLanguage)}
         </div>
       </div>
     </div>

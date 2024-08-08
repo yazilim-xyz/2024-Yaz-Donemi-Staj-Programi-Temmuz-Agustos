@@ -168,12 +168,6 @@ const Input = ({ onSend, polls, setPolls }) => {
             style={{ display: 'none' }}
             onChange={handleImageChange}
           />
-
-          {/* <label htmlFor="file">
-            <FaFileImage
-              className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl'
-            />
-          </label> */}
           <button
             onClick={handleSend}
             className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'
@@ -225,8 +219,8 @@ const Input = ({ onSend, polls, setPolls }) => {
               Add Option
             </button>
             <div className='flex justify-end gap-2'>
-              <button 
-                             
+              <button
+
                 onClick={() => setShowPollModal(false)}
                 className='bg-red-500 text-white px-4 py-2 rounded'
               >
@@ -256,13 +250,13 @@ const Input = ({ onSend, polls, setPolls }) => {
             <div className='flex justify-end gap-2 mt-4'>
               <button
                 onClick={() => setShowWebcam(false)}
-                className='bg-red-500 text-white px-4 py-2 rounded cursor-pointer'
+                className='bg-[#800000] text-white px-4 py-2 rounded cursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform'
               >
                 Cancel
               </button>
               <button
                 onClick={handleWebcamCapture}
-                className='bg-blue-500 text-white px-4 py-2 rounded'
+                className='bg-blue-500 text-white px-4 py-2 rounded ursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform '
               >
                 Capture
               </button>
