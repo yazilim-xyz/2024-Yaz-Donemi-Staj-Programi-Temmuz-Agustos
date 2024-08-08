@@ -10,10 +10,11 @@ import GroupsPage from './components/GroupsPage'
 import GroupChat from './pages/GroupChat';
 import Settings from './components/Settings';
 import Admin from './components/Admin';
-
+import { SettingsProvider } from './context/SettingsContext';
 
 function App() {
   return (
+    <SettingsProvider>
     <Router>
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
+    </SettingsProvider>
   );
 }
 

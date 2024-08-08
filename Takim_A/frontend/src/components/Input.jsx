@@ -5,6 +5,8 @@ import { MdEmojiEmotions } from "react-icons/md";
 import { RiCloseCircleLine } from "react-icons/ri"; // X simgesi için
 import Picker from 'emoji-picker-react';
 
+
+
 const Input = ({ onSend, polls, setPolls }) => {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
@@ -153,8 +155,11 @@ const Input = ({ onSend, polls, setPolls }) => {
             style={{ display: 'none' }} 
             onChange={handleImageChange}
           />
+          
           <label htmlFor="file">
-            <FaFileImage className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl' />
+            <FaFileImage className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl'/> 
+
+            
           </label>
           <button 
             onClick={handleSend}
@@ -175,7 +180,7 @@ const Input = ({ onSend, polls, setPolls }) => {
             onClick={handleImageRemove}
             className='absolute top-1 right-1 p-1 bg-white border border-gray-300 rounded-full text-red-500 shadow-md'
           >
-            <RiCloseCircleLine className='text-lg'/>
+            <RiCloseCircleLine className='text-lg object-center'/>
           </button>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, collection, addDoc, getDocs } from '../service/firebase';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { generateUniqueBarcode } from '../service/productService'; 
 function AddProduct() {
   const [productName, setProductName] = useState("");
   const [barcodeId, setBarcodeId] = useState("");
@@ -12,7 +12,7 @@ function AddProduct() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-  
+
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'categories'));
@@ -33,6 +33,8 @@ function AddProduct() {
     e.preventDefault();
 
     try {
+      const newBarcode = await generateUniqueBarcode(); // Generate a unique barcode
+
       let imageUrl = null;
 
       if (image) {
@@ -42,20 +44,19 @@ function AddProduct() {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      
+
       await addDoc(collection(db, 'products'), {
         productName,
-        barcodeId,
+        barcodeId: newBarcode, // Use the unique barcode,
         price,
         category,
         quantity,
-        image: imageUrl || "", 
+        image: imageUrl || "",
       });
-      
+
       alert('Ürün başarıyla eklendi!');
-      
+
       setProductName('');
-      setBarcodeId('');
       setPrice('');
       setCategory('');
       setQuantity(1);
@@ -66,9 +67,10 @@ function AddProduct() {
   };
 
   return (
-    <div className="mt-20 p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Ürün Ekle</h1>
+    <div className="mt-20 p-6 max-w-6xl mx-auto">
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-lg">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 mb-16">Ürün Ekle</h1>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
             <label htmlFor="productName" className="block text-gray-800 text-sm font-medium mb-2">
@@ -78,8 +80,9 @@ function AddProduct() {
               type="text"
               id="productName"
               value={productName}
+              placeholder="Ürün Adı"
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               required
             />
           </div>
@@ -92,8 +95,9 @@ function AddProduct() {
               type="number"
               id="barcodeId"
               value={barcodeId}
+              placeholder="Ürün Barkod No"
               onChange={(e) => setBarcodeId(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               required
             />
           </div>
@@ -106,8 +110,9 @@ function AddProduct() {
               type="number"
               id="price"
               value={price}
+              placeholder="Fiyat"
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               required
             />
           </div>
@@ -119,11 +124,12 @@ function AddProduct() {
             <select
               id="category"
               value={category}
+              placeholder="Kategori"
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               required
             >
-              <option value="">Kategori Seçin</option>
+              <option value="" className="text-gray-500 rounded-2xl">Kategori Seçin</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.name}>{cat.name}</option>
               ))}
@@ -138,8 +144,9 @@ function AddProduct() {
               type="number"
               id="quantity"
               value={quantity}
+              placeholder="Ürün Adet"
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               min="1"
               required
             />
@@ -153,23 +160,24 @@ function AddProduct() {
               type="file"
               id="image"
               onChange={(e) => setImage(e.target.files[0])}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full p-3 border-b-2 border-gray-300"
               accept="image/*"
             />
           </div>
         </div>
-
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300"
+            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
             Ekle
           </button>
         </div>
+
       </form>
     </div>
   );
 }
 
 export default AddProduct;
+

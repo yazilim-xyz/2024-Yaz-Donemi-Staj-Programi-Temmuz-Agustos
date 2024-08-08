@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaTags } from "react-icons/fa";
 import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../service/firebase'; // Adjust the import path as needed
 
 const AdminCategoryPage = () => {
@@ -18,7 +18,6 @@ const AdminCategoryPage = () => {
         console.log('Fetched categories:', categoryList); // Debugging line
         
         setCategories(prevCategories => {
-         
           if (JSON.stringify(prevCategories) !== JSON.stringify(categoryList)) {
             return categoryList;
           }
@@ -32,7 +31,6 @@ const AdminCategoryPage = () => {
     fetchCategories();
   }, []); 
 
-  
   const handleAddCategory = async () => {
     if (newCategory.trim()) {
       try {
@@ -42,6 +40,7 @@ const AdminCategoryPage = () => {
           ...prevCategories,
           { id: docRef.id, name: newCategory.trim() }
         ]);
+        alert('Kategori başarıyla eklendi!');
         setNewCategory('');
       } catch (error) {
         console.error("Error adding category: ", error);
@@ -54,12 +53,12 @@ const AdminCategoryPage = () => {
       const categoryDoc = doc(db, 'categories', id);
       await deleteDoc(categoryDoc);
       setCategories(prevCategories => prevCategories.filter(category => category.id !== id));
+      alert('Kategori başarıyla silindi!');
     } catch (error) {
       console.error("Error deleting category: ", error);
     }
   };
 
- 
   const handleEditCategory = async () => {
     if (editCategoryId && editCategoryName.trim()) {
       try {
@@ -70,8 +69,10 @@ const AdminCategoryPage = () => {
             category.id === editCategoryId ? { ...category, name: editCategoryName.trim() } : category
           )
         );
+        
         setEditCategoryId(null);
         setEditCategoryName('');
+        alert('Kategori başarıyla düzenlendi!');
       } catch (error) {
         console.error("Error updating category: ", error);
       }
@@ -81,9 +82,9 @@ const AdminCategoryPage = () => {
   };
 
   return (
-    <div className="mt-20 p-6 max-w-6xl mx-auto bg-gray-50 text-gray-900 rounded-lg shadow-md">
+    <div className="mt-20 p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Kategori Yönetimi</h1>
-      <div className="mb-6 flex items-center">
+      <div className="mb-6 flex justify-center items-center">
         <input
           type="text"
           value={newCategory}
@@ -93,14 +94,13 @@ const AdminCategoryPage = () => {
         />
         <button
           onClick={handleAddCategory}
-          className="bg-green_a text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+          className="bg-green_a text-white px-4 py-2 rounded-lg hover:bg-blue-600 transform transition-transform duration-300 ease-in-out hover:scale-105"
         >
           EKLE
         </button>
       </div>
-
       {editCategoryId && (
-        <div className="mb-6 flex items-center">
+        <div className="mb-6 flex justify-center items-center">
           <input
             type="text"
             value={editCategoryName}
@@ -110,44 +110,41 @@ const AdminCategoryPage = () => {
           />
           <button
             onClick={handleEditCategory}
-            className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transform transition-transform duration-300 ease-in-out hover:scale-105"
           >
             GÜNCELLE
           </button>
         </div>
       )}
 
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {categories.map((category, index) => (
-            <div
-              key={category.id}
-              className={`border border-gray-300 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'} hover:bg-gray-300 transition duration-300 p-4 rounded-lg`}
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-bold">{index + 1}</span>
-                <span className="flex-1 text-center">{category.name}</span>
-                <div className="flex space-x-4">
-                  <button
-                    onClick={() => {
-                      setEditCategoryId(category.id);
-                      setEditCategoryName(category.name);
-                    }}
-                    className="text-blue-500 hover:text-blue-700 transition duration-300"
-                  >
-                    <FaEdit className="inline-block" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteCategory(category.id)}
-                    className="text-red-500 hover:text-red-700 transition duration-300"
-                  >
-                    <FaTrash className="inline-block" />
-                  </button>
-                </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+        {categories.map((category) => (
+          <div
+            key={category.id}
+            className="bg-white p-4 border border-gray-300 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 ease-in-out hover:scale-105"
+          >
+            <div className="flex flex-col items-center">
+              <span className="font-bold text-lg mb-2">{category.name}</span>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => {
+                    setEditCategoryId(category.id);
+                    setEditCategoryName(category.name);
+                  }}
+                  className="text-blue-500 hover:text-blue-700 transition duration-300"
+                >
+                  <FaEdit className="inline-block" />
+                </button>
+                <button
+                  onClick={() => handleDeleteCategory(category.id)}
+                  className="text-red-500 hover:text-red-700 transition duration-300"
+                >
+                  <FaTrash className="inline-block" />
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

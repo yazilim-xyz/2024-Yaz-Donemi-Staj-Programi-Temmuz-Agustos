@@ -6,6 +6,7 @@ import UpdateProduct from "../components/modal/UpdateProductModal";
 import AdminCategoryPage from "./Categories";
 import ProductTable from "./ProductTable";
 import Dashboard from "./Dashboard";
+import StockTrackink from "./StockTracking";
 function MainAdmin() {
   const [activePage, setActivePage] = useState('dashboard'); 
   const [darkMode, setDarkMode] = useState(false);
@@ -23,11 +24,13 @@ function MainAdmin() {
           return <AdminCategoryPage />;
         case 'productTable':
           return <ProductTable />;
+          case 'stock-tracking':
+            return <StockTrackink/>
           
   
       // Başka sayfalar eklenebilir
       default:
-        return <div className="min-h-screen"><Dashboard></Dashboard></div>; // Varsayılan içerik
+        return <div className="w-full h-full flex justify-center"><Dashboard></Dashboard></div>; // Varsayılan içerik
     }
   };
 

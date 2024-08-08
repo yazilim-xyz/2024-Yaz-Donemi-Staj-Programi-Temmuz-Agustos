@@ -1,4 +1,5 @@
-import { db, collection, getDocs, addDoc, updateDoc, deleteDoc, getDoc, doc } from './firebase';
+import { db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from './firebase';
+
 export const fetchProducts = async () => {
   const productsCollection = collection(db, 'products');
   const productsSnapshot = await getDocs(productsCollection);
@@ -30,4 +31,23 @@ export const updateProduct = async (id, updatedProduct) => {
 export const deleteProduct = async (id) => {
   const productDoc = doc(db, 'products', id);
   await deleteDoc(productDoc);
+};
+
+export const generateUniqueBarcode = async () => {
+  let unique = false;
+  let barcode = '';
+
+  while (!unique) {
+    barcode = Math.floor(1000000 + Math.random() * 9000000).toString(); // 7 haneli rastgele sayı
+
+    const productsRef = collection(db, 'products');
+    const q = query(productsRef, where('barcodeId', '==', barcode));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      unique = true;
+    }
+  }
+
+  return barcode;
 };
