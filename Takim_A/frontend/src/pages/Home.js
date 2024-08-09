@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BsFillChatSquareTextFill } from "react-icons/bs";
 import { MdGroups, MdAdminPanelSettings } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
-import { IoLogOutOutline } from "react-icons/io5"; // Import IoLogOutOutline from io5
-import { SettingsContext } from '../context/SettingsContext'; // Import the context
-import { translate } from '../translate'; // Import the translate function
+import { IoLogOutOutline } from "react-icons/io5";
+import { SettingsContext } from '../context/SettingsContext';
+import { translate } from '../translate';
 
 const Home = () => {
-  const { settings, changeLanguage } = useContext(SettingsContext); // Access settings from context
-  const navigate = useNavigate(); 
-  const currentLanguage = settings.language || 'en'; // Kullanıcı dilini ayarla
+  const { settings, changeLanguage } = useContext(SettingsContext);
+  const navigate = useNavigate();
+  const currentLanguage = settings.language || 'en';
 
   const handleLogoutClick = () => {
     navigate('/'); // 'login' sayfasına yönlendirme
@@ -24,8 +24,8 @@ const Home = () => {
 
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <Link to="/messages" className="hover:scale-105 transition-transform duration-300">
-            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300 ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}>
+          <Link to="/messages" className="group hover:scale-105 transition-transform duration-300">
+            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 group-hover:bg-primary group-hover:bg-opacity-80 transition-all duration-700 ${settings.theme === 'light' ? 'bg-secondary' : 'bg-secondary'} group-hover:rounded-full`}>
               <div className="text-7xl mt-12 text-white">
                 <BsFillChatSquareTextFill />
               </div>
@@ -33,8 +33,8 @@ const Home = () => {
             </div>
           </Link>
 
-          <Link to="/groups" className="hover:scale-105 transition-transform duration-300">
-            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300 ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}>
+          <Link to="/groups" className="group hover:scale-105 transition-transform duration-300">
+            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 group-hover:bg-primary group-hover:bg-opacity-80 transition-all duration-700 ${settings.theme === 'light' ? 'bg-secondary' : 'bg-secondary'} group-hover:rounded-full`}>
               <div className="text-8xl mt-7 text-white">
                 <MdGroups />
               </div>
@@ -42,8 +42,8 @@ const Home = () => {
             </div>
           </Link>
 
-          <Link to="/settings" className="hover:scale-105 transition-transform duration-300">
-            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300 ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}>
+          <Link to="/settings" className="group hover:scale-105 transition-transform duration-300">
+            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 group-hover:bg-primary group-hover:bg-opacity-80 transition-all duration-700 ${settings.theme === 'light' ? 'bg-secondary' : 'bg-secondary'} group-hover:rounded-full`}>
               <div className="text-8xl mt-7 text-white">
                 <IoMdSettings />
               </div>
@@ -51,8 +51,8 @@ const Home = () => {
             </div>
           </Link>
 
-          <Link to="/admin" className="hover:scale-105 transition-transform duration-300">
-            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 hover:bg-secondary hover:scale-102 transition-transform duration-300 ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}>
+          <Link to="/admin" className="group hover:scale-105 transition-transform duration-300">
+            <div className={`bg-secondary bg-opacity-60 mt-20 p-6 rounded-lg shadow-lg flex items-center justify-center flex-col h-80 group-hover:bg-primary group-hover:bg-opacity-80 transition-all duration-700 ${settings.theme === 'light' ? 'bg-secondary' : 'bg-secondary'} group-hover:rounded-full`}>
               <div className="text-8xl mt-7 text-white">
                 <MdAdminPanelSettings />
               </div>
@@ -62,8 +62,14 @@ const Home = () => {
         </div>
 
         <div 
-          className={`items-center flex justify-around bg-secondary bg-opacity-60 p-6 rounded-lg shadow-lg mx-auto mt-20 max-w-lg hover:bg-bordo hover:scale-105 transition-transform duration-300 cursor-pointer ${settings.theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
-          onClick={handleLogoutClick} 
+          className={`flex items-center justify-around bg-secondary bg-opacity-60 p-6 rounded-lg shadow-lg mx-auto mt-20 max-w-lg transition-all duration-500 cursor-pointer 
+            ${settings.theme === 'light' ? 'bg-secondary' : 'bg-secondary'} 
+            hover:bg-primary 
+            hover:bg-opacity-80 
+            hover:scale-105 
+            hover:rounded-xl
+          `}
+          onClick={handleLogoutClick}
         >
           <h2 className="text-xl font-semibold mb-4 text-white">{translate('Logout', currentLanguage)}</h2>
           <div className="text-8xl text-white">
@@ -71,13 +77,15 @@ const Home = () => {
           </div>
         </div>
 
+
         <div className="flex justify-center mt-8">
-          <button 
+        <button 
             onClick={() => changeLanguage(currentLanguage === 'en' ? 'tr' : 'en')} 
-            className={`px-4 py-2 rounded-lg text-white ${settings.theme === 'light' ? 'bg-blue-500 hover:bg-blue-600' : 'bg-green-500 hover:bg-green-600'}`}
+            className={`px-4 py-2 rounded-lg text-white transition-transform duration-300 ${settings.theme === 'light' ? 'bg-secondary hover:bg-red-800 hover:scale-105' : 'bg-green-500 hover:bg-red-800 hover:scale-105'}`}
           >
             {currentLanguage === 'en' ? translate('Switch to Turkish', currentLanguage) : translate('Switch to English', currentLanguage)}
           </button>
+
         </div>
       </div>
     </div>
