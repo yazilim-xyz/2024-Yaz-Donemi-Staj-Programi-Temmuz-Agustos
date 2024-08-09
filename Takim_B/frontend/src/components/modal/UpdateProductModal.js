@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { updateProduct } from '../../service/productService'; // Ensure this path is correct
+import { updateProduct } from '../../../../backend/service/productService'; // Ensure this path is correct
 
 const UpdateProductModal = ({ product, categories, isOpen, onRequestClose, onProductUpdate }) => {
   const [productName, setProductName] = useState(product?.productName || '');

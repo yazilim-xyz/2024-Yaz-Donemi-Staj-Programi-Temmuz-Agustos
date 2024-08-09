@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from "react-router-dom";
-import { resetPassword } from '../service/authService';
+import { resetPassword } from '../../../backend/service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 

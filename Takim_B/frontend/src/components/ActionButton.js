@@ -1,7 +1,5 @@
 import React from 'react';
 import { updateStockOnPayment } from '../service/dashboardService';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const ActionButtons = () => {
   const handlePayment = async () => {
