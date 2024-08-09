@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import CartModal from '../components/modal/CartModal';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../backend/service/firebase';
+import { auth } from '../service/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts } from '../features/products/productSlice';
 import { calculateTotal, selectTotalAmount } from '../features/totalAmount/totalAmountSlice';

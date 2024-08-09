@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../backend/service/firebase';
+import { auth } from '../service/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import person from '../assets/images/png/person.png';
 import { useNavigate } from "react-router-dom";

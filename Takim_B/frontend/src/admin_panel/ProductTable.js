@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
-import { fetchProducts, deleteProduct } from '../../../backend/service/productService';
+import { fetchProducts, deleteProduct } from '../service/productService';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../backend/service/firebase';
+import { db } from '../service/firebase';
 import UpdateProductModal from '../components/modal/UpdateProductModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

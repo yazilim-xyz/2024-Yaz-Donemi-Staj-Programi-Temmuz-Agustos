@@ -19,7 +19,7 @@ const FirstPage = ({ toggleDarkMode, darkMode }) => {
     <div className={`flex flex-col items-center justify-center absolute w-full h-screen bg-gradient-to-r from-darkBackground to-primary p-4 ${darkMode ? 'dark-gradient' : 'light-gradient'}`}>
       <button
         onClick={toggleDarkMode}
-        className="fixed top-4 right-4 w-20 h-20 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50"
+        className="fixed top-4 right-4 w-20 h-20 rounded-full bg-transparent flex items-center justify-center overflow-hidden z-50 "
       >
         <img
           src={darkMode ? darkModeIcon : lightModeIcon}
@@ -35,13 +35,13 @@ const FirstPage = ({ toggleDarkMode, darkMode }) => {
       <div className="flex space-x-4">
         <button
           onClick={handleAdminLogin}
-          className="px-8 py-4 bg-orange-500 text-white rounded hover:bg-orange-700"
+          className="px-8 py-4 bg-orange-500 text-white rounded hover:bg-orange-700 hover:scale-105"
         >
           Yönetici Giriş
         </button>
         <button
           onClick={handlePersonnelLogin}
-          className="px-8 py-4 bg-orange-500 text-white rounded hover:bg-orange-700"
+          className="px-8 py-4 bg-orange-500 text-white rounded hover:bg-orange-700 hover:scale-105"
         >
           Personel Giriş
         </button>

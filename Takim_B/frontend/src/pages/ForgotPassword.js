@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from "react-router-dom";
-import { resetPassword } from '../../../backend/service/authService';
+import { resetPassword } from '../service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 
@@ -48,7 +48,7 @@ const ForgotPassword = ({ toggleDarkMode, darkMode }) => {
         <div className="flex justify-center w-full p-8">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base">
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base hover:scale-105">
             Gönder
           </button>
         </div>

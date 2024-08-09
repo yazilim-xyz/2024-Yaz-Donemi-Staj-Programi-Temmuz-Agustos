@@ -38,6 +38,11 @@ export const updateStockOnPayment = async () => {
   const cartRef = collection(db, 'cart');
   const cartSnapshot = await getDocs(cartRef);
   
+  // Eğer sepet boşsa, bir hata fırlat
+  if (cartSnapshot.empty) {
+    throw new Error('Sepet boş');
+  }
+
   const productUpdates = cartSnapshot.docs.map(async (cartDoc) => {
     const cartData = cartDoc.data();
     const productRef = doc(db, 'products', cartData.product_id);
