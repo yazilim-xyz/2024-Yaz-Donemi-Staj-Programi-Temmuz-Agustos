@@ -7,6 +7,7 @@ import TotalAmount from './TotalAmount';
 import ActionButton from './ActionButton';
 import emptyCartImage from '../assets/images/png/empty-card.png';
 import { collection, onSnapshot, doc, db, deleteDoc, updateDoc } from '../service/firebase';
+import { toast } from 'react-toastify';
 
 const CardPage = () => {
   const [products, setProducts] = useState([]);
@@ -28,20 +29,27 @@ const CardPage = () => {
 
   const handleReturn = async (id) => {
     const product = products.find(product => product.id === id);
-
+  
     if (product) {
-      if (product.amount > 1) {
-        // Ürün miktarını azalt
-        const newQuantity = product.amount - 1;
-        const productDocRef = doc(db, 'cart', id);
-        const updatedData = {
-          amount: newQuantity,
-        };
-        await updateDoc(productDocRef, updatedData);
-      } else {
-        // Ürünü kaldır
-        const cartRef = doc(db, 'cart', id);
-        await deleteDoc(cartRef);
+      try {
+        if (product.amount > 1) {
+          // Reduce product quantity
+          const newQuantity = product.amount - 1;
+          const productDocRef = doc(db, 'cart', id);
+          const updatedData = {
+            amount: newQuantity,
+          };
+          await updateDoc(productDocRef, updatedData);
+          toast.info(`Ürün miktarı azaltıldı. Kalan miktar: ${newQuantity}`);
+        } else {
+          // Remove product from cart
+          const cartRef = doc(db, 'cart', id);
+          await deleteDoc(cartRef);
+          toast.success('Ürün sepetten çıkarıldı.');
+        }
+      } catch (error) {
+        console.error("Hata oluştu: ", error);
+        toast.error('Ürün sepetten çıkarılırken bir hata oluştu.');
       }
     }
   };

@@ -1,16 +1,16 @@
-// File: /components/ActionButtons.js
-
 import React from 'react';
 import { updateStockOnPayment } from '../service/dashboardService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActionButtons = () => {
   const handlePayment = async () => {
     try {
       await updateStockOnPayment();
-      alert('Ödeme başarılı ve stok güncellendi. Sepet boşaltıldı.');
+      toast.success('Ödeme başarılı ve stok güncellendi. Sepet boşaltıldı.');
     } catch (error) {
       console.error('Stok güncellenirken hata:', error);
-      alert('Ödeme işlemi sırasında bir hata oluştu');
+      toast.error('Ödeme işlemi sırasında bir hata oluştu');
     }
   };
 
@@ -22,6 +22,7 @@ const ActionButtons = () => {
       >
         Ödeme Al
       </button>
+      <ToastContainer />
     </div>
   );
 };
