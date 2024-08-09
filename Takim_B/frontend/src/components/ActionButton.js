@@ -1,5 +1,6 @@
 import React from 'react';
 import { updateStockOnPayment } from '../service/dashboardService';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ActionButtons = () => {
   const handlePayment = async () => {
@@ -20,7 +21,18 @@ const ActionButtons = () => {
       >
         Ödeme Al
       </button>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"  // Ekranın üst ortasına yerleştirildi
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ zIndex: 9999, marginTop: '60px' }}  // z-index artırıldı, margin üst eklendi
+      />
     </div>
   );
 };

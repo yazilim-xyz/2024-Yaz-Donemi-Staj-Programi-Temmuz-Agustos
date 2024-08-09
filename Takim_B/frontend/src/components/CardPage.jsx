@@ -5,12 +5,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import TotalAmount from './TotalAmount';
 import ActionButton from './ActionButton';
 import emptyCartImage from '../assets/images/png/empty-card.png';
-<<<<<<< HEAD
 import { collection, onSnapshot, doc, db, deleteDoc, updateDoc } from '../service/firebase';
-=======
-import { collection, onSnapshot, doc, db, deleteDoc, updateDoc } from '../../../backend/service/firebase';
 import { toast } from 'react-toastify';
->>>>>>> 269fb277ab3bb578adc61d1d2266d0b328775cde
 
 const CardPage = () => {
   const [products, setProducts] = useState([]);

@@ -20,7 +20,7 @@ const Navbar = ({ toggleDarkMode, darkMode, toggleCartVisibility }) => {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 w-full flex justify-between items-center p-1 ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} z-50 transition-all duration-300 ease-in-out`}>
+    <nav className={`fixed top-0 left-0 w-full flex justify-between items-center p-1 ${darkMode ? 'dark-mode dark-gradient' : 'light-gradient'} z-10 transition-all duration-300 ease-in-out`}>
       <div className="flex items-center transition-all duration-300 ease-in-out">
         <div className="flex items-center justify-center w-36 h-14 bg-white rounded-full shadow-md transition-all duration-300 ease-in-out">
           <img src={xyzLogo} alt="Mutlu Marketi Logo" className="w-32 h-12 object-contain" />
