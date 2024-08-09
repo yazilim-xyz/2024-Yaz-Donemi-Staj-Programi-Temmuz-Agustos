@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserViewModel  : ViewModel(){
+
     private val _userList = MutableLiveData<List<User>>()
     val userList: LiveData<List<User>> get() = _userList
 
@@ -16,6 +17,7 @@ class UserViewModel  : ViewModel(){
     private fun fetchUsers() {
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").get()
+            //bu kısım test edilecek
             .addOnSuccessListener { result ->
                 val users = result.map { document ->
                     User(
@@ -30,7 +32,7 @@ class UserViewModel  : ViewModel(){
             }
     }
 }
-
+//Model
 data class User(
     val email: String,
     val name: String

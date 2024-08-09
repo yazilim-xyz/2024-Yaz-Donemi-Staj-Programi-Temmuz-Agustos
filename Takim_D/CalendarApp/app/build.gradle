@@ -72,4 +72,5 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.6.0-rc01") // sayfa geçişleri için
 
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'//firebase için
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.0"
 }

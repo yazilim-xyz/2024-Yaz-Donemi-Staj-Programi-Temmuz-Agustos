@@ -23,6 +23,20 @@
     "German": "German",
     "Chinese": "Chinese",
     "Switch to Dark Mode": "Switch to Dark Mode",
-    "Switch to Light Mode": "Switch to Light Mode"
+    "Switch to Light Mode": "Switch to Light Mode",
+    
+    "backButton": "Back",
+    "createGroupButton": "Create A New Group",
+    "usersTitle": "Users",
+    "lastLogOut": "Last Log Out",
+    "groupsTitle": "Groups",
+    "addUserToGroup": "Add user to group:",
+    "selectUser": "Select a user:",
+    "addUserButton": "Add user",
+    "createUserTitle": "Create New User",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "createUserButton": "Create User"
+    
   }
   

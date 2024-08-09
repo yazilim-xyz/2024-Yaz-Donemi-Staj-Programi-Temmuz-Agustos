@@ -1,19 +1,17 @@
 import React, { useState, useRef } from 'react';
+import { FaFileImage } from "react-icons/fa";
 import { IoMdAttach } from "react-icons/io";
 import { MdEmojiEmotions } from "react-icons/md";
-import { RiCloseCircleLine } from "react-icons/ri";
+import { RiCloseCircleLine } from "react-icons/ri"; // X simgesi için
 import Picker from 'emoji-picker-react';
-import Webcam from 'react-webcam';
 
 const Input = ({ onSend, polls, setPolls }) => {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
-  const [showPollModal, setShowPollModal] = useState(false);
-  const [showWebcam, setShowWebcam] = useState(false);
+  const [showPollModal, setShowPollModal] = useState(false); // Burada ekleniyor
   const fileInputRef = useRef(null);
-  const webcamRef = useRef(null);
   const [pollQuestion, setPollQuestion] = useState('');
   const [pollOptions, setPollOptions] = useState(['', '']);
 
@@ -93,18 +91,11 @@ const Input = ({ onSend, polls, setPolls }) => {
     setPollOptions(newOptions);
   };
 
-  const handleWebcamCapture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setSelectedImage(imageSrc);
-    setShowWebcam(false);
-    setShowAttachMenu(false);
-  };
-
   return (
     <div className='bg-white p-2.5 flex flex-col gap-2 rounded-sm shadow-md'>
       <div className='flex items-center gap-2'>
-        <input
-          type="text"
+        <input 
+          type="text" 
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder='Mesajınızı buraya yazınız.'
@@ -112,13 +103,13 @@ const Input = ({ onSend, polls, setPolls }) => {
         />
         <div className='relative flex items-center gap-2'>
           <div className='relative'>
-            <MdEmojiEmotions
+            <MdEmojiEmotions 
               className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl w-6 h-6'
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
             />
             {showEmojiPicker && (
               <div className='absolute bottom-12 left-0 z-10 w-full'>
-                <Picker
+                <Picker 
                   onEmojiClick={(emojiObject) => setMessage((prevMsg) => prevMsg + emojiObject.emoji)}
                   pickerStyle={{ width: '100%', maxWidth: '400px' }}
                 />
@@ -126,34 +117,28 @@ const Input = ({ onSend, polls, setPolls }) => {
             )}
           </div>
           <div className='relative'>
-            <IoMdAttach
+            <IoMdAttach 
               className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl'
               onClick={handleAttachClick}
             />
             {showAttachMenu && (
-              <div
+              <div 
                 className='absolute bottom-full right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg z-20'
                 style={{ width: '150px' }}
               >
-                <button
+                <button 
                   className='block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left'
                   onClick={handleFileClick}
                 >
                   File
                 </button>
-                <button
+                <button 
                   className='block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left'
                   onClick={handleLocationClick}
                 >
                   Location
                 </button>
-                <button
-                  className='block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left'
-                  onClick={() => setShowWebcam(true)}
-                >
-                  Webcam
-                </button>
-                <button
+                <button 
                   className='block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left'
                   onClick={handlePollClick}
                 >
@@ -162,13 +147,16 @@ const Input = ({ onSend, polls, setPolls }) => {
               </div>
             )}
           </div>
-          <input
-            type="file"
+          <input 
+            type="file" 
             ref={fileInputRef}
-            style={{ display: 'none' }}
+            style={{ display: 'none' }} 
             onChange={handleImageChange}
           />
-          <button
+          <label htmlFor="file">
+            <FaFileImage className='text-gray-500 cursor-pointer hover:text-gray-700 transition duration-300 text-xl' />
+          </label>
+          <button 
             onClick={handleSend}
             className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'
           >
@@ -178,16 +166,16 @@ const Input = ({ onSend, polls, setPolls }) => {
       </div>
       {selectedImage && (
         <div className='relative'>
-          <img
-            src={selectedImage}
-            alt="Selected Preview"
+          <img 
+            src={selectedImage} 
+            alt="Selected Preview" 
             className='w-32 h-32 object-cover rounded-lg shadow-lg border border-gray-300'
           />
-          <button
+          <button 
             onClick={handleImageRemove}
             className='absolute top-1 right-1 p-1 bg-white border border-gray-300 rounded-full text-red-500 shadow-md'
           >
-            <RiCloseCircleLine className='text-lg object-center' />
+            <RiCloseCircleLine className='text-lg'/>
           </button>
         </div>
       )}
@@ -195,70 +183,41 @@ const Input = ({ onSend, polls, setPolls }) => {
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
           <div className='bg-white p-4 rounded shadow-lg'>
             <h2 className='text-xl mb-4'>Create Poll</h2>
-            <input
-              type='text'
-              value={pollQuestion}
-              onChange={(e) => setPollQuestion(e.target.value)}
-              placeholder='Poll Question'
+            <input 
+              type='text' 
+              value={pollQuestion} 
+              onChange={(e) => setPollQuestion(e.target.value)} 
+              placeholder='Poll Question' 
               className='w-full mb-2 p-2 border border-gray-300 rounded'
             />
             {pollOptions.map((option, index) => (
-              <input
-                key={index}
-                type='text'
-                value={option}
-                onChange={(e) => handlePollOptionChange(index, e.target.value)}
-                placeholder={`Option ${index + 1}`}
+              <input 
+                key={index} 
+                type='text' 
+                value={option} 
+                onChange={(e) => handlePollOptionChange(index, e.target.value)} 
+                placeholder={`Option ${index + 1}`} 
                 className='w-full mb-2 p-2 border border-gray-300 rounded'
               />
             ))}
-            <button
+            <button 
               onClick={() => setPollOptions([...pollOptions, ''])}
               className='text-blue-500 mb-2'
             >
               Add Option
             </button>
             <div className='flex justify-end gap-2'>
-              <button
-
+              <button 
                 onClick={() => setShowPollModal(false)}
                 className='bg-red-500 text-white px-4 py-2 rounded'
               >
                 Cancel
               </button>
-              <button
+              <button 
                 onClick={handlePollCreation}
                 className='bg-blue-500 text-white px-4 py-2 rounded'
               >
                 Create
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showWebcam && (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
-          <div className='bg-white p-4 rounded shadow-lg'>
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              mirrored={true} // Aynaya göre ters olmaması için
-              className='w-full h-full rounded-lg'
-            />
-            <div className='flex justify-end gap-2 mt-4'>
-              <button
-                onClick={() => setShowWebcam(false)}
-                className='bg-[#800000] text-white px-4 py-2 rounded cursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform'
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleWebcamCapture}
-                className='bg-blue-500 text-white px-4 py-2 rounded ursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform '
-              >
-                Capture
               </button>
             </div>
           </div>
@@ -269,4 +228,3 @@ const Input = ({ onSend, polls, setPolls }) => {
 };
 
 export default Input;
-
