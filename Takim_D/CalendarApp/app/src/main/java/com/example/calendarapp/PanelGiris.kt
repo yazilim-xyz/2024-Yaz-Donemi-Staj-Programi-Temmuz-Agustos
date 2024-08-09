@@ -31,22 +31,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 fun PanelGiris(navController: NavController) {
 
-    fun saveUserToFirestore(user: FirebaseUser) {
-        val db = FirebaseFirestore.getInstance()
-        val userMap = hashMapOf(
-            "email" to user.email,
-            "name" to user.displayName
-        )
-
-        db.collection("Users").document(user.uid)
-            .set(userMap)
-            .addOnSuccessListener {
-                // Kullanıcı başarıyla kaydedildi
-            }
-            .addOnFailureListener { e ->
-                // Hata durumunda
-            }
-    }
 
         val image: Painter = painterResource(id = R.drawable.arkaplann)
         var posta by remember { mutableStateOf("") }
