@@ -6,6 +6,7 @@ import { addProductToCart, getCartItems } from '../service/cartService';
 import { FaSearch } from 'react-icons/fa';
 import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import Loading from './Loading';
+import { toast } from 'react-toastify';
 
 const ProductList = ({ category, darkMode }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -55,17 +56,17 @@ const ProductList = ({ category, darkMode }) => {
 
   const handleProductClick = async (product) => {
     if (product.quantity === 0) {
-      alert('Bu ürün tükendi ve sepete eklenemez.');
+      toast('Bu ürün tükendi ve sepete eklenemez.');
       return;
     }
     try {
       await addProductToCart(product);
-      alert(`${product.productName} sepete eklendi!`);
+      toast(`${product.productName} sepete eklendi!`);
       const cartItems = await getCartItems();
       dispatch(calculateTotal(cartItems));
     } catch (error) {
       console.error("Ürün sepete eklenirken hata oluştu: ", error);
-      alert('Ürün sepete eklenirken bir hata oluştu.');
+      toast('Ürün sepete eklenirken bir hata oluştu.');
     }
   };
 
