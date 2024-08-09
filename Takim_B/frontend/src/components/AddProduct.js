@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db, collection, addDoc, getDocs } from '../service/firebase';
+import { db, collection, addDoc, getDocs } from '../../../backend/service/firebase';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { generateUniqueBarcode } from '../service/productService'; 
+import { generateUniqueBarcode } from '../../../backend/service/productService'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './Loading';

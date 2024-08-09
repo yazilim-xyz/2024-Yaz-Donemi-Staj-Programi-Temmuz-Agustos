@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchOutOfStockProducts } from '../service/productService';
-import {fetchCategories} from '../service/categoryService';
+import { fetchOutOfStockProducts } from '../../../backend/service/productService';
+import {fetchCategories} from '../../../backend/service/categoryService';
 import Loading from '../components/Loading';
 import { FaTimes } from 'react-icons/fa';
 

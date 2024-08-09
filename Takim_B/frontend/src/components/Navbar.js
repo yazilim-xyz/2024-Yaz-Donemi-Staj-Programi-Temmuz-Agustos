@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
-import { auth } from '../service/firebase';
+import { auth } from '../../../backend/service/firebase';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';

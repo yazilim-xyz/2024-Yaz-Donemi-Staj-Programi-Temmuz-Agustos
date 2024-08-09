@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginWithEmail } from '../service/authService';
+import { loginWithEmail } from '../../../backend/service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';

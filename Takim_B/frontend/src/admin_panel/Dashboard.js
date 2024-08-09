@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductTable from './ProductTable';
 import Categories from './Categories';
-import { getTotalProducts, getTotalCategories, getTotalStock } from '../service/dashboardService';
+import { getTotalProducts, getTotalCategories, getTotalStock } from '../../../backend/service/dashboardService';
 import productIcon from '../assets/images/png/product-icon.png';
 import stockIcon from '../assets/images/png/stock-icon.png';
 import categoryIcon from '../assets/images/png/category-icon.png';

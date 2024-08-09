@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
-import { db } from '../service/firebase';
-import { addProductToCart, getCartItems } from '../service/cartService';
+import { db } from '../../../backend/service/firebase';
+import { addProductToCart, getCartItems } from '../../../backend/service/cartService';
 import { FaSearch } from 'react-icons/fa';
 import { calculateTotal } from '../features/totalAmount/totalAmountSlice';
 import Loading from './Loading';

@@ -1,7 +1,7 @@
 // File: /components/ActionButtons.js
 
 import React from 'react';
-import { updateStockOnPayment } from '../service/dashboardService';
+import { updateStockOnPayment } from '../../../backend/service/dashboardService';
 
 const ActionButtons = () => {
   const handlePayment = async () => {
