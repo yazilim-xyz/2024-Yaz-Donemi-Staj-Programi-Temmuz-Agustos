@@ -1,16 +1,15 @@
-// File: /components/ActionButtons.js
-
 import React from 'react';
 import { updateStockOnPayment } from '../service/dashboardService';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ActionButtons = () => {
   const handlePayment = async () => {
     try {
       await updateStockOnPayment();
-      alert('Ödeme başarılı ve stok güncellendi. Sepet boşaltıldı.');
+      toast.success('Ödeme başarılı ve stok güncellendi. Sepet boşaltıldı.');
     } catch (error) {
       console.error('Stok güncellenirken hata:', error);
-      alert('Ödeme işlemi sırasında bir hata oluştu');
+      toast.error('Ödeme işlemi sırasında bir hata oluştu');
     }
   };
 
@@ -22,6 +21,18 @@ const ActionButtons = () => {
       >
         Ödeme Al
       </button>
+      <ToastContainer
+        position="top-center"  // Ekranın üst ortasına yerleştirildi
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ zIndex: 9999, marginTop: '60px' }}  // z-index artırıldı, margin üst eklendi
+      />
     </div>
   );
 };

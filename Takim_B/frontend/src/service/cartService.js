@@ -1,5 +1,3 @@
-// File: /service/cartService.js
-
 import { db, onSnapshot } from './firebase';
 import { collection, doc, getDoc, setDoc, updateDoc, getDocs, query, where } from 'firebase/firestore';
 

@@ -7,12 +7,12 @@ const CartModal = ({ isVisible, toggleVisibility }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Sepet</h2>
-          <button onClick={toggleVisibility} className="text-xl font-bold">&times;</button>
+      <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-sm">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg font-bold">Sepet</h2>
+          <button onClick={toggleVisibility} className="text-lg font-bold">&times;</button>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3">
           <CardPage />
           <BarcodeInput />
         </div>

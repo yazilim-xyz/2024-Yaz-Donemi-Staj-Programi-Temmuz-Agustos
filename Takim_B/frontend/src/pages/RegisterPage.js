@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../service/firebase";
+import { registerWithEmail } from '../service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -53,9 +52,8 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
       }
 
       setErrors({ username: '', email: '', password: '', confirmPassword: '' });
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((auth) => {
-          updateProfile(auth.user, { displayName: username });
+      registerWithEmail(email, password, username)
+        .then(() => {
           navigate('/login');
         })
         .catch(e => {
@@ -63,7 +61,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
           setErrors({ ...errors, email: 'Kayıt oluşturulurken bir hata oluştu.' });
         });
     },
-    [username, email, password, confirmPassword, navigate]
+    [username, email, password, confirmPassword, navigate, errors]
   );
 
   return (
@@ -147,7 +145,7 @@ const RegisterPage = ({ toggleDarkMode, darkMode }) => {
         <div className="flex justify-center w-full">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base hover:scale-105"
           >
             Kayıt Oluştur
           </button>

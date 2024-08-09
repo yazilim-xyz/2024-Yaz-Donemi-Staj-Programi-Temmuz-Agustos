@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../service/firebase";
+import { loginWithEmail } from '../service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -37,7 +36,7 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
       }
 
       setErrors({ email: '', password: '' });
-      signInWithEmailAndPassword(auth, email, password)
+      loginWithEmail(email, password)
         .then(() => {
           toast.success('Giriş başarılı!');
           navigate('/main');
@@ -104,7 +103,7 @@ const LoginPage = ({ toggleDarkMode, darkMode }) => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base hover:scale-105"
           >
             Giriş Yap
           </button>

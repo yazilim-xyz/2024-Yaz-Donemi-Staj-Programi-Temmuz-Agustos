@@ -1,34 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../service/firebase'; // Adjust the import path as needed
+import { fetchCategories, addCategory, updateCategory, deleteCategory } from '../service/categoryService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 
-const AdminCategoryPage = ({darkMode}) => {
+const AdminCategoryPage = ({ darkMode }) => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [editCategoryId, setEditCategoryId] = useState(null);
   const [editCategoryName, setEditCategoryName] = useState('');
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-    const fetchCategories = async () => {
+    const loadCategories = async () => {
       setLoading(true);
       try {
-        const categoryCollection = collection(db, 'categories');
-        const categorySnapshot = await getDocs(categoryCollection);
-        const categoryList = categorySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        
-        console.log('Fetched categories:', categoryList); // Debugging line
-        
-        setCategories(prevCategories => {
-          if (JSON.stringify(prevCategories) !== JSON.stringify(categoryList)) {
-            return categoryList;
-          }
-          return prevCategories;
-        });
+        const categoryList = await fetchCategories();
+        setCategories(categoryList);
       } catch (error) {
         console.error("Error fetching categories: ", error);
       } finally {
@@ -36,18 +25,14 @@ const AdminCategoryPage = ({darkMode}) => {
       }
     };
 
-    fetchCategories();
-  }, []); 
+    loadCategories();
+  }, []);
 
   const handleAddCategory = async () => {
     if (newCategory.trim()) {
       try {
-        const categoryCollection = collection(db, 'categories');
-        const docRef = await addDoc(categoryCollection, { name: newCategory.trim() });
-        setCategories(prevCategories => [
-          ...prevCategories,
-          { id: docRef.id, name: newCategory.trim() }
-        ]);
+        const newCat = await addCategory(newCategory.trim());
+        setCategories([...categories, newCat]);
         toast.success('Kategori başarıyla eklendi!');
         setNewCategory('');
       } catch (error) {
@@ -58,9 +43,8 @@ const AdminCategoryPage = ({darkMode}) => {
 
   const handleDeleteCategory = async (id) => {
     try {
-      const categoryDoc = doc(db, 'categories', id);
-      await deleteDoc(categoryDoc);
-      setCategories(prevCategories => prevCategories.filter(category => category.id !== id));
+      await deleteCategory(id);
+      setCategories(categories.filter(category => category.id !== id));
       toast.success('Kategori başarıyla silindi!');
     } catch (error) {
       console.error("Error deleting category: ", error);
@@ -70,27 +54,21 @@ const AdminCategoryPage = ({darkMode}) => {
   const handleEditCategory = async () => {
     if (editCategoryId && editCategoryName.trim()) {
       try {
-        const categoryDoc = doc(db, 'categories', editCategoryId);
-        await updateDoc(categoryDoc, { name: editCategoryName.trim() });
-        setCategories(prevCategories =>
-          prevCategories.map(category =>
-            category.id === editCategoryId ? { ...category, name: editCategoryName.trim() } : category
-          )
-        );
-        
+        await updateCategory(editCategoryId, editCategoryName.trim());
+        setCategories(categories.map(category =>
+          category.id === editCategoryId ? { ...category, name: editCategoryName.trim() } : category
+        ));
         setEditCategoryId(null);
         setEditCategoryName('');
         toast.success('Kategori başarıyla düzenlendi!');
       } catch (error) {
         console.error("Error updating category: ", error);
       }
-    } else {
-      console.error("Invalid category ID or name.");
     }
   };
 
   if (loading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   return (
@@ -106,7 +84,7 @@ const AdminCategoryPage = ({darkMode}) => {
         />
         <button
           onClick={handleAddCategory}
-          className="bg-green_a text-white px-4 py-2 rounded-lg hover:bg-blue-600 transform transition-transform duration-300 ease-in-out hover:scale-105"
+          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transform transition-transform duration-300 ease-in-out hover:scale-105"
         >
           EKLE
         </button>
@@ -118,11 +96,11 @@ const AdminCategoryPage = ({darkMode}) => {
             value={editCategoryName}
             onChange={(e) => setEditCategoryName(e.target.value)}
             className="border border-gray-300 p-2 rounded-lg mr-4 w-full max-w-md"
-            placeholder="Yeni kategori adı"
+            placeholder="Kategori adı"
           />
           <button
             onClick={handleEditCategory}
-            className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transform transition-transform duration-300 ease-in-out hover:scale-105"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transform transition-transform duration-300 ease-in-out hover:scale-105"
           >
             GÜNCELLE
           </button>
@@ -133,7 +111,7 @@ const AdminCategoryPage = ({darkMode}) => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className={`p-4 border border-gray-300 rounded-lg shadow-md transition duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-darkBackground text-white' : 'bg-lightBackground text-black'}`}
+            className={`p-4 border border-gray-300 rounded-lg shadow-md transition duration-300 ease-in-out hover:scale-105 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
           >
             <div className="flex flex-col items-center">
               <span className="font-bold text-lg mb-2">{category.name}</span>
@@ -159,7 +137,7 @@ const AdminCategoryPage = ({darkMode}) => {
         ))}
       </div>
       <ToastContainer
-        position="top-center" // Center the toast horizontally
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

@@ -121,7 +121,7 @@ const ProductTable = ({darkMode}) => {
                   <p className={`${darkMode ? 'text-white' : 'text-black'}`}>Stok: <span className={`${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>{product.quantity}</span></p>
                 </div>
                 <div className="w-1/4 text-right">
-                  <p className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>${price.toFixed(2)}</p>
+                  <p className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>₺{price.toFixed(2)}</p>
                   <div className="mt-2 flex justify-end space-x-4">
                     <button
                       onClick={() => handleEdit(product)}

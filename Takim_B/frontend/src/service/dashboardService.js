@@ -1,15 +1,13 @@
-// File: /service/dashboardService.js
-
-import { db, collection, getDocs, deleteDoc, doc, updateDoc, runTransaction, onSnapshot } from './firebase';
+import { db, collection, getDocs, deleteDoc, doc, runTransaction, onSnapshot } from './firebase';
 
 export const getTotalProducts = (callback) => {
   const unsubscribe = onSnapshot(collection(db, 'products'), (snapshot) => {
-    callback(snapshot.size); // Number of documents
+    callback(snapshot.size); 
   }, (error) => {
     console.error("Error getting total products: ", error);
   });
 
-  return unsubscribe; // Return unsubscribe function to stop listening
+  return unsubscribe; 
 };
 
 export const getTotalCategories = (callback) => {
@@ -19,7 +17,7 @@ export const getTotalCategories = (callback) => {
     console.error("Error getting total categories: ", error);
   });
 
-  return unsubscribe; // Return unsubscribe function to stop listening
+  return unsubscribe; 
 };
 
 // Toplam stok miktarını çekme işlevi
@@ -40,6 +38,11 @@ export const updateStockOnPayment = async () => {
   const cartRef = collection(db, 'cart');
   const cartSnapshot = await getDocs(cartRef);
   
+  // Eğer sepet boşsa, bir hata fırlat
+  if (cartSnapshot.empty) {
+    throw new Error('Sepet boş');
+  }
+
   const productUpdates = cartSnapshot.docs.map(async (cartDoc) => {
     const cartData = cartDoc.data();
     const productRef = doc(db, 'products', cartData.product_id);

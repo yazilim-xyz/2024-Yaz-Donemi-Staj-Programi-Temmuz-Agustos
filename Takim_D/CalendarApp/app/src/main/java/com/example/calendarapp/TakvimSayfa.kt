@@ -41,6 +41,7 @@ fun TakvimSayfa(navController: NavController) {
     var notesMap by remember { mutableStateOf(mutableMapOf<LocalDate, Pair<String, LocalDateTime>>()) }
     var newNote by remember { mutableStateOf("") }
 
+
     // Uygulama açıldığında notları yükleyin
     LaunchedEffect(Unit) {
         loadNotes { notes ->
@@ -68,21 +69,22 @@ fun TakvimSayfa(navController: NavController) {
 
                 selectedDate?.let { date ->
                     Text(
-                        text = "Add Note for ${date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"))}",
+                        text = "${date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"))} günü için not ekleyin.",
+                        textAlign = TextAlign.Center,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF6200EE)
+                        color = Color(0xFF6200EE),
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     TextField(
                         value = newNote,
                         onValueChange = { newNote = it },
-                        placeholder = { Text("Enter your note here") },
+                        placeholder = { Text("Not ekleyin.") },
                         modifier = Modifier.fillMaxWidth(),
                         colors = TextFieldDefaults.textFieldColors(
                             containerColor = Color.White,
                             focusedIndicatorColor = Color(0xFF6200EE),
-                            unfocusedIndicatorColor = Color.Gray
+                            unfocusedIndicatorColor = Color.White
                         )
                     )
 
@@ -98,9 +100,8 @@ fun TakvimSayfa(navController: NavController) {
                             }
                         },
                         modifier = Modifier.align(Alignment.End),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE))
-                    ) {
-                        Text("Save Note", color = Color.White)
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6771E0))) {
+                        Text("Notu Kaydet", color = Color.White)
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -111,7 +112,7 @@ fun TakvimSayfa(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(Color(0xFFBBDEFB))
+                                .background(Color(0xFF6771E0))
                                 .padding(16.dp)
                         ) {
                             Column {
@@ -124,7 +125,7 @@ fun TakvimSayfa(navController: NavController) {
                                 ) {
                                     Text(
                                         text = it.first,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.Normal
                                     )
@@ -145,7 +146,7 @@ fun TakvimSayfa(navController: NavController) {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
                                     text = "Saved at: ${it.second.format(DateTimeFormatter.ofPattern("HH:mm:ss"))}",
-                                    color = Color.Gray,
+                                    color = Color.White,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Light
                                 )
@@ -181,7 +182,8 @@ fun CalendarView(
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF6200EE),
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
+            textAlign = TextAlign.Center
         )
 
         // Days of week header
@@ -254,9 +256,9 @@ fun CalendarGrid(
 @Composable
 fun DayCell(dayOfMonth: Int, isToday: Boolean, isSelected: Boolean, hasNote: Boolean, onClick: () -> Unit) {
     val backgroundColor = when {
-        isToday -> Color(0xFF03DAC6)
-        hasNote -> Color(0xFFFFD600)
-        isSelected -> Color(0xFF6200EE)
+        isToday -> Color(0xFF6771E0)
+        hasNote -> Color(0xFFCC0052)
+        isSelected -> Color(0xFFF5C9D9)
         else -> Color.Transparent
     }
 

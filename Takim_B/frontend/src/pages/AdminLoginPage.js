@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../service/firebase";
+import { useNavigate } from 'react-router-dom';
+import { loginWithEmail, checkAdmin } from '../service/authService';
 import lightModeIcon from '../assets/images/png/light.png';
 import darkModeIcon from '../assets/images/png/dark.png';
 import xyzLogo from '../assets/images/png/xyz-logo.png';
@@ -15,7 +14,7 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
   const navigate = useNavigate();
 
   const handleLogin = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
 
       let hasError = false;
@@ -37,15 +36,21 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
       }
 
       setErrors({ email: '', password: '' });
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          toast.success('Giriş başarılı!');
-          navigate('/admin');
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error('E-Posta veya Şifre yanlış!');
-        });
+
+      try {
+        const isAdmin = await checkAdmin(email);
+        if (!isAdmin) {
+          toast.error('Bu hesaba yalnızca adminler giriş yapabilir.');
+          return;
+        }
+
+        await loginWithEmail(email, password);
+        toast.success('Giriş başarılı!');
+        navigate('/admin'); // Admin paneline yönlendirme
+      } catch (error) {
+        console.error(error);
+        toast.error('E-Posta veya Şifre yanlış!');
+      }
     },
     [email, password, navigate]
   );
@@ -98,13 +103,10 @@ const AdminLoginPage = ({ toggleDarkMode, darkMode }) => {
             </div>
           )}
         </div>
-        <Link to="/forgot-password" className={`block mb-8 text-sm md:text-base hover:underline ${darkMode ? 'text-white' : 'text-black'}`}>
-          Şifremi Unuttum
-        </Link>
         <div className="flex justify-center">
           <button
             type="submit"
-            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base"
+            className="mb-4 bg-button text-lightBackground p-3 rounded w-32 hover:bg-buttonHover text-sm md:text-base hover:scale-105"
           >
             Giriş Yap
           </button>
