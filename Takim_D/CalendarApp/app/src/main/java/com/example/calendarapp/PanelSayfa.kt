@@ -44,44 +44,25 @@ import java.util.Locale
 @Composable
 fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
     val userList by viewModel.userList.observeAsState(emptyList())
-
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(userList) { user ->
-            Text(text = "${user.name} (${user.email})",)
-        }
-    }
-}
-
-
-/*
-    val customColor = Color(android.graphics.Color.parseColor("#6771E0"))
-    val names = listOf("Sinem Ertural", "Batuhan Mercan","Şeyma Kayacık" ,"Ayşe Demir", "Mehmet Kaya", "Elif Çelik", "Fatma Koç", "Ali Yıldız",
-        "Zeynep Şahin", "Canan Öztürk", "Hüseyin Çınar", "Emre Sarı", "Gizem Toprak", "Kadir Kara", "Merve Güneş",
-        "Cemal Dağ", "Özlem Acar", "Rıza Kurt")
-
-
     val image: Painter = painterResource(id = R.drawable.arkaplan)
+    val customColor = Color(android.graphics.Color.parseColor("#6771E0"))
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-    ) {
+    ){
         Image(
             painter = image,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             item {
                 Text(
                     modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp),
+                        .fillMaxWidth()
+                        .padding(15.dp),
                     text = "Kişiler",
                     fontSize = 50.sp,
                     color = Color.White,
@@ -90,8 +71,7 @@ fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
-
-            items(names) { name ->
+            items(userList) { user ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -102,42 +82,52 @@ fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = name,
-                            fontSize = 20.sp,
-                            color = Color.Black
-                        )
+                        Text(text = "${user.name}", fontSize = 16.sp, color = Color.Black)
                     }
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_check_24),
-                            contentDescription = "Check",
-                            tint = Color.Green,
+
+                        IconButton(
+                            onClick = {
+                                // Buraya tıklama işlemi için kod ekleyebilirsiniz
+                            },
                             modifier = Modifier.size(24.dp)
-                        )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.baseline_check_24),
+                                contentDescription = "Check",
+                                tint = Color.Green
+                            )
+                        }
 
                         Spacer(modifier = Modifier.width(8.dp))
 
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_close_24),
-                            contentDescription = "Close",
-                            tint = Color.Red,
+                        IconButton(
+                            onClick = {
+                                // Buraya tıklama işlemi için kod ekleyebilirsiniz
+                            },
                             modifier = Modifier.size(24.dp)
-                        )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.baseline_close_24),
+                                contentDescription = "Close",
+                                tint = Color.Red
+                            )
+                        }
                     }
                 }
             }
         }
-
     }
 }
 
+
+
+
+/*${user.email}
+
  */
-
-
-
 
 
 
