@@ -108,7 +108,7 @@ const Login = () => {
           </a>
           <div className="flex space-x-4">
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/company/yazilim-xyz/mycompany/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-125"
@@ -116,7 +116,7 @@ const Login = () => {
               <FaLinkedin />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/yazilim_xyz/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-125"
@@ -124,7 +124,7 @@ const Login = () => {
               <RiInstagramFill />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/yazilim-xyz"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-125"
@@ -145,21 +145,20 @@ const Login = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        {/* Sol üst köşedeki ikon */}
+      
         <div className="group absolute top-16 left-16 flex items-center">
           <BsChatLeftTextFill
             className="text-secondary text-4xl transition-transform transform hover:scale-150 hover:translate-x-2 hover:translate-y-2 hover:text-primary"
-            style={{ zIndex: 10 }} // Diğer içeriklerin üstünde olmasını sağlar
+            style={{ zIndex: 10 }} 
           />
-          <span className="hidden group-hover:block text-primary text-lg ml-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">Heyy! Davet edilmediysen yanlış yerdesinnn...</span>
+          <span className="hidden group-hover:block text-primary text-lg ml-6 transition-opacity duration-300 opacity-0 group-hover:opacity-100">Heyy! Davet edilmediysen yanlış yerdesinnn...</span>
         </div>
         
-        {/* Sağ üst köşedeki ikon */}
         <div className="group absolute top-16 right-16 flex items-center">
           <span className="hidden group-hover:block text-primary text-lg mr-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">Şsss... Şirkete giriyorsun sessiz oll!!!</span>
           <BsFillChatRightTextFill
             className="text-secondary text-4xl transition-transform transform hover:scale-150 hover:translate-x-2 hover:translate-y-2 hover:text-primary"
-            style={{ zIndex: 10 }} // Diğer içeriklerin üstünde olmasını sağlar
+            style={{ zIndex: 10 }} 
           />
         </div>
 

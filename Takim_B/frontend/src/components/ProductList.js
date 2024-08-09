@@ -112,7 +112,7 @@ const ProductList = ({ category, darkMode }) => {
             </div>
             <h3 className="font-semibold mt-2">{product.productName}</h3>
             <div className='flex justify-between'>
-              <p>${product.price}</p>
+              <p>₺{product.price}</p>
               <p>{product.quantity === 0 ? 'Tükendi' : `Stok: ${product.quantity}`}</p>
             </div>
           </div>

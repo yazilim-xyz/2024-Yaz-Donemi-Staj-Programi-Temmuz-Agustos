@@ -1,14 +1,16 @@
 import { db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from './firebase';
 
+const productCollection = collection(db, 'products');
+
 export const fetchProducts = async () => {
-  const productsCollection = collection(db, 'products');
+  const productsCollection = productCollection;
   const productsSnapshot = await getDocs(productsCollection);
   const productsList = productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   return productsList;
 };
 
 export const fetchProductById = async (id) => {
-  const productsCollection = collection(db, 'products');
+  const productsCollection = productCollection;
   const productsSnapshot = await getDocs(productsCollection);
   const productsList = productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   const product = productsList.find(p => p.id === id);
@@ -20,7 +22,7 @@ export const fetchProductById = async (id) => {
 };
 
 export const addProduct = async (product) => {
-  await addDoc(collection(db, 'products'), product);
+  await addDoc(productCollection, product);
 };
 
 export const updateProduct = async (id, updatedProduct) => {
@@ -31,6 +33,13 @@ export const updateProduct = async (id, updatedProduct) => {
 export const deleteProduct = async (id) => {
   const productDoc = doc(db, 'products', id);
   await deleteDoc(productDoc);
+};
+
+export const fetchOutOfStockProducts = async () => {
+  const productsSnapshot = await getDocs(productCollection);
+  return productsSnapshot.docs
+    .map(doc => ({ id: doc.id, ...doc.data() }))
+    .filter(product => product.quantity === 0);
 };
 
 export const generateUniqueBarcode = async () => {
