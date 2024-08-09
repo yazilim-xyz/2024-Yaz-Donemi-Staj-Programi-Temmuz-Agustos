@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -57,7 +58,9 @@ fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)) {
             item {
                 Text(
                     modifier = Modifier
@@ -90,7 +93,7 @@ fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
 
                         IconButton(
                             onClick = {
-                                // Buraya tıklama işlemi için kod ekleyebilirsiniz
+
                             },
                             modifier = Modifier.size(24.dp)
                         ) {
@@ -122,12 +125,6 @@ fun PanelSayfa(viewModel: UserViewModel = viewModel()) {
     }
 }
 
-
-
-
-/*${user.email}
-
- */
 
 
 
