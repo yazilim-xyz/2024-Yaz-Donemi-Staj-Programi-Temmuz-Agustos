@@ -1,14 +1,20 @@
-import { db, collection, addDoc, updateDoc, deleteDoc, doc } from './firebase';
+import { db, collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from './firebase';
 
 const categoryCollection = collection(db, 'categories');
 
-export const addCategory = async (category) => {
-  await addDoc(categoryCollection, category);
+export const fetchCategories = async () => {
+  const categorySnapshot = await getDocs(categoryCollection);
+  return categorySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-export const updateCategory = async (id, updatedCategory) => {
+export const addCategory = async (name) => {
+  const docRef = await addDoc(categoryCollection, { name });
+  return { id: docRef.id, name };
+};
+
+export const updateCategory = async (id, name) => {
   const categoryDoc = doc(db, 'categories', id);
-  await updateDoc(categoryDoc, updatedCategory);
+  await updateDoc(categoryDoc, { name });
 };
 
 export const deleteCategory = async (id) => {

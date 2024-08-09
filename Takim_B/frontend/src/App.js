@@ -38,11 +38,11 @@ function App() {
         <Route path="/categories" element={<CategoryList darkMode={darkMode} />} />
         <Route path="/categories/:categoryName" element={<ProductList darkMode={darkMode} />} />
         <Route path="/admin" element={<MainAdmin darkMode={darkMode}/>} />
-      <Route path="/add-product" element={<AddProduct darkMode={darkMode}/>} />
-      <Route path="/update-product" element={<UpdateProduct darkMode={darkMode}/>} />
-      <Route  path="/categories-admin" element={<AdminCategoryPage darkMode={darkMode}/>} />
-      <Route  path="/productTable" element={<ProductTable darkMode={darkMode}/>} />
-      <Route  path="/stock-tracking" element={<StockTracking darkMode={darkMode}/>} />
+        <Route path="/add-product" element={<AddProduct darkMode={darkMode}/>} />
+        <Route path="/update-product" element={<UpdateProduct darkMode={darkMode}/>} />
+        <Route  path="/categories-admin" element={<AdminCategoryPage darkMode={darkMode}/>} />
+        <Route  path="/productTable" element={<ProductTable darkMode={darkMode}/>} />
+        <Route  path="/stock-tracking" element={<StockTracking darkMode={darkMode}/>} />
       </Route>
 
 
