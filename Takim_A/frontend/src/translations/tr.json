@@ -23,7 +23,22 @@
     "German": "Almanca",
     "Chinese": "Çince",
     "Switch to Dark Mode": "Karanlık Mod",
-    "Switch to Light Mode": "Aydınlık Mod"
-  
+    "Switch to Light Mode": "Aydınlık Mod",    
+       
+        "Back": "Geri",
+        "createGroupButton": "Yeni Grup Oluştur",
+        "usersTitle": "Kullanıcılar",
+        "lastLogOut": "Son Çıkış",
+        "groupsTitle": "Gruplar",
+        "addUserToGroup": "Gruba kullanıcı ekle:",
+        "selectUser": "Kullanıcı seç:",
+        "addUserButton": "Kullanıcıyı ekle",
+        "createUserTitle": "Yeni Kullanıcı Oluştur",
+        "usernameLabel": "Kullanıcı Adı",
+        "passwordLabel": "Şifre",
+        "createUserButton": "Kullanıcıyı Oluştur"
+      
+    
+    
   }
   
