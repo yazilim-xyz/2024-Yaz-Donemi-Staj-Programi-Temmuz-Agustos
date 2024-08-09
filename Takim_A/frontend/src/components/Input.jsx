@@ -250,7 +250,7 @@ const Input = ({ onSend, polls, setPolls }) => {
             <div className='flex justify-end gap-2 mt-4'>
               <button
                 onClick={() => setShowWebcam(false)}
-                className='bg-[#800000] text-white px-4 py-2 rounded cursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform'
+                className='bg-red-500 text-white px-4 py-2 rounded cursor-pointer sm:text-sm sm:px-4 sm:py-2 shadow-md hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out transform'
               >
                 Cancel
               </button>
